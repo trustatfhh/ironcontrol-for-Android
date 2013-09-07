@@ -129,12 +129,51 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 	public void newSubscribeNotify(String subscribeName){
 		if(prefData.getBoolean(r.getString(R.string.activeSubscriptions), false)){
-			// gelöscht wegen maven support dependency
+			NotificationCompat.Builder mBuilder =new NotificationCompat.Builder(context)
+			.setSmallIcon(R.drawable.ic_rss_feeds)
+			.setContentTitle(r.getString(R.string.subscription))
+			.setAutoCancel(false)
+			.setOngoing(true)
+			.setTicker(r.getString(R.string.newSubscription) + " " +subscribeName);
+
+			Intent resultIntent = new Intent(context, ListOverviewActivity.class);
+			resultIntent.setAction(r.getString(R.string.ACTION_SAVED_SUBSCRIPTIONS));
+
+			PendingIntent contentIntent = PendingIntent.getActivity(
+					context, 0,
+					resultIntent,
+					PendingIntent.FLAG_UPDATE_CURRENT);
+
+			mBuilder.setContentIntent(contentIntent);
+
+			mNotificationManager.notify(SUBSCRIBE_NOTIFY_ID, mBuilder.getNotification());
 		}
 	}
 
 	private void resultNotify(String subscribeName, int itemCount){
-// gelöscht wegen maven support dependency
+		NotificationCompat.Builder mBuilder =new NotificationCompat.Builder(context)
+		.setSmallIcon(R.drawable.ic_rss_feeds)
+		.setContentTitle(r.getString(R.string.newSubscriptionResult))
+		.setContentText(subscribeName)
+		.setAutoCancel(true)
+		.setTicker(r.getString(R.string.newIncomingResult))
+		.setLights(0, 2000, 1000)
+		.setContentInfo(itemCount +" "+ r.getString(R.string.result_items));
+
+
+		Intent resultIntent = new Intent(context, ListResponsesActivity.class);
+		resultIntent.setAction(r.getString(R.string.ACTION_SAVED_SUBSCRIPTIONS));
+		resultIntent.putExtra(ListHierarchyActivity.EXTRA_ID_KEY, getSavedResultId(subscribeName));
+
+
+		PendingIntent contentIntent = PendingIntent.getActivity(
+				context, 0,
+				resultIntent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
+
+		mBuilder.setContentIntent(contentIntent);
+
+		mNotificationManager.notify(notifyId, mBuilder.getNotification());
 
 	}
 
