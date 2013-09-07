@@ -1,0 +1,262 @@
+<resources>
+
+   	<string name="on">on</string>
+    <string name="off">off</string>
+    <string name="app_name">Ironcontrol</string>
+    <string name="logTag">de.hshannover.inform.trust.ifmapj.ironcontrol</string>
+    <string name="empty_list_view">Empty ListView!</string>
+    <string name="add">Add</string>
+    <!--  <string name="tools">Tools</string> -->
+    <string name="remove">Remove</string>
+    <!--  <string name="del">del</string> -->
+    <string name="edit">Edit</string>
+    <string name="REQUESTS">REQUESTS</string>
+    <string name="SAVED_REQUESTS">SAVED REQUESTS</string>
+    <string name="SETTINGS">SETTINGS</string>
+    <string name="TOOLS">TOOLS</string>
+    <string name="publishs">Publish list</string>
+    <string name="searches">Search list</string>
+    <string name="subscriptions">Subscription list</string>
+    <string name="application">Application</string>
+    <string name="connections">Connections</string>
+    <string name="title_activity_main">Ironcontrol</string>
+    <string name="overview">Overview</string>
+    <string name="string_search">Search</string>
+    <!--  <string name="string_server_settings">Server Settings</string> -->
+    <!--  <string name="string_test">Test</string>  -->
+    <string name="string_publish">Publish</string>
+    <string name="string_settings">Settings</string>
+    <string name="string_exit">Exit App</string>
+    <!--  <string name="string_access_request">Access Request</string> -->
+    <!--  <string name="string_ip_address">IP-Address</string>  -->
+    <!--  <string name="string_mac_address">MAC-Address</string> -->
+    <!--  <string name="string_device">Device</string> -->
+    <!--  <string name="string_user">User</string> -->
+    <!--  <string name="string_user_role">User Role</string> -->
+    <string name="string_delete">Delete</string>
+    <string name="string_update">Update</string>
+    <string name="string_notify">Notify</string>
+    <string name="string_metadata">Metadata:</string>
+    <!--  <string name="string_identifier1">Identifier 1:</string> -->
+    <!--  <string name="string_identifier2">Identifier 2:</string> -->
+    <!--  <string name="string_customTest">Custom Test</string> -->
+    <!--  <string name="string_fullTest">Full Test</string> -->
+    <!--  <string name="string_typeOfTest">Type of Test:</string> -->
+    <!--  <string name="string_progressBar">Progress Bar:</string> -->
+    <string name="string_abort">Abort</string>
+    <!-- <string name="menu_settings">Settings</string> -->
+    <!-- <string name="title_activity_search_result">Search Result</string> -->
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <!-- <string name="yes">Yes</string> -->
+    <!-- <string name="no">No</string> -->
+    <string name="cancel">Cancel</string>
+    <string name="string_subscribe">Subscribe</string>
+    <string name="server_name">Server Name:</string>
+    <string name="user">User:</string>
+    <string name="server">Server:</string>
+    <string name="address">address</string>
+    <string name="name">name</string>
+    <string name="name2">Name:</string>
+    <string name="pw">password</string>
+    <string name="port">Port:</string>
+    <!-- Metadata element Strings -->
+    <string name="meta_name">name</string>
+    <string name="meta_administrative_domain">administrative-domain</string>
+    <string name="meta_discovered_time">discovered-time</string>
+    <string name="meta_discoverer_id">discoverer-id</string>
+    <string name="meta_magnitude">magnitude</string>
+    <string name="meta_confidence">confidence</string>
+    <string name="meta_significance">significance</string>
+    <string name="meta_type">type</string>
+    <string name="meta_other_type_definition">other-type-definition</string>
+    <string name="meta_information">information</string>
+    <string name="meta_vulnerability_uri">vulnerability-uri</string>
+	<string name="meta_vlan">vlan</string>
+    <string name="meta_vlan_name">vlan-name</string>
+    <string name="meta_port">port</string>
+    <string name="meta_start_time">start-time</string>
+    <string name="meta_end_time">end-time</string>
+    <string name="meta_dhcp_server">dhcp-server</string>
+    <string name="meta_manufacturer">manufacturer</string>
+    <string name="meta_model">model"</string>
+    <string name="meta_os">os"</string>
+    <string name="meta_os_version">os-version</string>
+    <string name="meta_device_type">device-type</string>
+    <string name="meta_discovery_method">discovery-method</string>
+    <string name="meta_enforcement_action">enforcement-action</string>
+    <string name="meta_enforcement_reason">enforcement-reason</string>
+    <string name="meta_location_information">location-information</string>
+    <string name="meta_value">value</string>
+    <string name="meta_wlan_information">wlan-information</string>
+    <string name="meta_ssid">ssid</string>
+    <string name="meta_ssid_unicast_security">ssid-unicast-security</string>
+    <string name="meta_ssid_group_security">ssid-group-security</string>
+    <string name="meta_ssid_management_security">ssid-management-security</string>
+    <!-- Search -->
+    <string name="string_match_links">Match-Links:</string>
+    <string name="string_max_depth">Max-Depth:</string>
+    <string name="id1">ID1:</string>
+    <string name="id2">ID2:</string>
+    <string name="none">none</string>
+    <!-- <string name="cardinality">Cardinality:</string> -->
+    <string name="publisher_id">Publisher ID:</string>
+    <string name="timestamp">Timestamp:</string>
+    <string name="value">Value:</string>
+    <string name="string_max_size">Max-Size:</string>
+    <string name="string_result_filter">Result-Filter:</string>
+    <string name="string_terminal_identifier_type">Terminal-Identifier-Type:</string>
+    <string name="string_start_identifier">Start Identifier:</string>
+    <string name="title_activity_subscribe">Subscribe</string>
+    <string name="saved_searches">Saved Searches</string>
+    <string name="responses">Responses</string>
+    <string name="result_items">Result Items</string>
+    <string name="result_metadata">Result Metadata</string>
+    <string name="metadata_attributes">Metadata Attributes</string>
+    <!-- <string name="saving_search_title">Saving Search</string> -->
+    <!-- <string name="search_result">Search Result</string> -->
+    <string name="saving_search_message">You can save your Serach to use later and show all Results for this.</string>
+    <!-- Publish -->
+    <string name="not_valid_identifier_metadata">Is a not valid Identifier/Metadata combination</string>
+    <string name="standard">Standard</string>
+    <string name="vendor">Vendor</string>
+    <string name="publishReceived">MAP-S: publish received</string>
+    <string name="publish">Publish</string>
+    <string name="publish_delete">Publish Delete</string>
+    <string name="publish_update">Publish Update</string>
+    <string name="publish_notify">Publish Notify</string>
+    <string name="saved_publishs">Saved Publishs</string>
+    <!-- <string name="saving_publishs_title">Saving Publishs</string> -->
+    <string name="saving_publishs_message">You can add more publishs to use later and publish multiple together.</string>
+    <!-- <string name="title_activity_saved_publishs">Saved Publishs</string> -->
+    <string name="title_activity_saved_publish_fragment">Saved Publish</string>
+    <string name="vendor_specific_metadata">Vendor-specific Metadata</string>
+    <string name="title_activity_vendor_specific_metadata">Vendor-specific Metadata Builder</string>
+    <string name="single_value">Single Value</string>
+    <string name="multi_value">Multi Value</string>
+    <string name="no_connection_settings">No Connection Settings</string>
+    <string name="no_connection_settings_message">Want to go connection settings an add IF-MAP-Server address?</string>
+    <string name="lifetime">Lifetime:</string>
+    <string name="lifetime_session">session</string>
+    <string name="lifetime_forever">forever</string>
+    <!-- Subscribe -->
+    <string name="subscribe_name">Subscribe name</string>
+    <string name="saving_subscribe_message">You can save your Subscribtion to use later and show all incoming Polls for this.</string>
+    <!-- <string name="subscribtion_result">Subscribtion Result</string> -->
+    <!-- <string name="new_poll_result">New Poll Result</string> -->
+    <!-- <string name="new_poll_massage">Would you show it?</string> -->
+    <!-- <string name="stop">Stop</string> -->
+    <string name="saved_subscribtions">Saved Subscribtions</string>
+    <!-- Vendor Specific Metadata Builder -->
+    <string name="element_value_fields">Element value fields:</string>
+    <string name="field_name">field name</string>
+    <!-- Logger -->
+    <string name="logger">Logger</string>
+    <string name="clear">Clear</string>
+    <!-- Settings -->
+    <string name="connect_at_startup">Connect at startup</string>
+    <string name="connection">Connection</string>
+    <string name="url">URL:</string>
+    <string name="load_cert">Load certificates again</string>
+    <!-- <string name="logging">Logging</string -->
+    <!-- <string name="show_the_logtime">Show the logtime</string> -->
+    <!-- <string name="time_stamp">Time Stamp</string> -->
+    <!-- <string name="verbose">Verbose</string> -->
+    <string name="debug">Debug</string>
+    <string name="info">Info</string>
+    <string name="warn">Warn</string>
+    <string name="error">Error</string>
+    <!-- <string name="show_verbose_massage">Show the Verbose massage</string> -->
+    <!-- <string name="show_debug_massage">Show the Debug massage</string> -->
+    <!-- <string name="show_info_massage">Show the Info massage</string> -->
+    <!-- <string name="show_warn_massage">Show the Warn massage</string> -->
+    <!-- <string name="show_error_massage">Show the Error massage</string> -->
+    <!-- <string name="active">Active</string> -->
+    <!-- <string name="connections_delete_massage">Which connections should be deleted?</string> -->
+    <!-- <string name="was_deleted">was deleted</string> -->
+    <string name="is_saved">is saved</string>
+    <string name="was_update">was update</string>
+    <!-- Error Massages -->
+    <string name="searchresult_is_null">Searchresult is NULL!</string>
+    <string name="pollresult_is_null">Pollresult is NULL!</string>
+    <string name="wrongButtonID">Wrong button ID!</string>
+    <string name="wrongCursorCount">Wrong Cursor Count!</string>
+    <!-- Info Massage -->
+    <!-- <string name="requestcontroller_create_new_ssrc">[RequestsController][getInstanceOfSSRC] New SSRC Session created.</string> -->
+    <!-- ACTIONS -->
+    <!-- <string name="ACTION_CONNECTION_SETTINGS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_CONNECTION_SETTINGS</string> -->
+    <!-- <string name="ACTION_SAVED_PUBLISHS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_SAVED_PUBLISHS</string> -->
+    <string name="ACTION_SAVED_SEARCHS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_SAVED_SEARCHS</string>
+    <!-- <string name="ACTION_SAVED_SEARCH_RESULTS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_SAVED_SEARCH_RESULTS</string> -->
+    <string name="ACTION_SAVED_SUBSCRIPTIONS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_SAVED_SUBSCRIPTIONS</string>
+    <!-- <string name="ACTION_SAVED_SUBSCRIPTION_RESULTS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_SAVED_SUBSCRIPTION_RESULTS</string> -->
+    <string name="ACTION_APPLICATION_SETTINGS">de.hshannover.inform.trust.ifmapj.ironcontrol.ACTION_APPLICATION_SETTINGS</string>
+	<!-- LOGGER -->
+	<string name="fatal_error">Fatal Error</string>
+	<string name="level">Level:</string>
+	<string name="message">Message:</string>
+	<string name="throwable">Throwable:</string>
+	<string name="filter">Filter</string>
+	<string name="enter">Enter </string>
+	<string name="exit">Exit </string>
+	<!-- MultichoiceDialog -->
+	<string name="multiPublish">Multi Publish</string>
+	<string name="singlePublish">Single Publish</string>
+	<string name="multiSubscrib">Multi Subscrib</string>
+	<string name="singleSubscrib">Single Subscrib</string>
+	<!-- Connections -->
+	<string name="default_">(default)</string>
+	<string name="connecting">Connecting...</string>
+	<string name="disconnecting">Disconnecting...</string>
+	<string name="runConnectionTask">run ConnectionTask...</string>
+	<string name="newConnection">New connection</string>
+	<string name="disconnected">Disconnected</string>
+	<string name="connectingFail">Connecting fail</string>
+	<string name="disconnectedFail">Disconnected fail</string>
+	<string name="connectionsLogs">Connections Logs:</string>
+	<string name="connect">Connect</string>
+	<string name="disConnect">Disconnect</string>
+	<string name="setDefault">Default</string>
+	<string name="failFirstSelectAConnection.">Fail! First select a connection.</string>
+	<string name="noSelectionConnectionDefault">No selection! Connection with default.</string>
+	<string name="noSelection">No selection!</string>
+	<string name="waitingForInput">Waiting vor user input...</string>
+	<string name="logListIsNull">LogList is null</string>
+	<!-- Requestscontroller -->
+	<string name="reqControlBuildPublishElement_returnPublishEl">BuildPublishElement returns publish element</string>
+	<string name="reqControlBuildSubscribeElement_returnSuEl">BuildSubscribeElement returns subscribe element</string>
+	<string name="reqControlCreateSearchRet">Create Search returns search result element</string>
+	<string name="reqControlStartSearchRet">Start Search returns search result element</string>
+	<string name="reqControlBuildSearchReq_returnSeRe">BuildSearchRequest returns search request</string>
+	<string name="reqControlBuildIdentif_returnIden">BuildSearchRequest returns search request</string>
+	<string name="reqControlBuildMetadata_ret">Build Metadata returns metadata</string>
+	<string name="reqControlBuildFilter_ret">Build Filter returns filter</string>
+	
+	<!-- VendorMetadata CARDINALITY -->
+	<string name="vendorMetadataCardinality_singleValue">singleValue</string>
+	<string name="vendorMetadataCardinality_multiValue">multiValue</string>
+
+	<!-- NEUE STRINGS!! --> 
+	<!-- Settings -->
+	<string name="notifications">Notifications</string>
+	<string name="activeSubscriptions">Active subscriptions</string>
+	<string name="newSubscriptions">New Subscriptions</string>
+	<string name="vibration">Vibration</string>
+	<string name="sound">Sound</string>
+	<string name="sound2">Sound2</string>
+	<string name="aboutNewResults">About new results</string>
+	<!-- ResultNotificationManager -->
+	<string name="newSubscripaboutNewResultstionResult">New subscription result</string>
+	<string name="newIncomingResult">New incoming subscription result</string>
+	<string name="newSubscription">New subscription: </string>
+	<string name="subscription">Subscription...</string>
+	
+	<!-- Update other -->
+	<string name="subscribeDelete">Subscribe Delete</string>
+	<string name="subscribeUpdate">Subscribe Update</string>
+	<string name="wrongButtonSelected">Wrong button selected!</string>
+	<string name="new_">(NEW)</string>
+	<string name="purgePublisher">Purge Publisher</string>
+	<string name="purgePublisherMessage">A purgePublisher request is sent by a MAP Client to ask that the MAP Server remove all metadata associated with a particular publisher.</string>
+	<string name="multiDelete">Multi Delete</string>
+</resources>

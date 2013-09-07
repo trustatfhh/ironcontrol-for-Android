@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference 
+        android:key="application_setting"
+        android:title="Application Settings">
+        <intent 
+            android:targetPackage="de.hshannover.inform.trust.ifmapj.ironcontrol"
+            android:targetClass="de.hshannover.inform.trust.ifmapj.ironcontrol.view.SettingsActivity"
+            android:action="@string/ACTION_APPLICATION_SETTINGS">
+        </intent>
+    </Preference>
+    <Preference 
+        android:key="connection_settings"
+        android:title="Connection Settings">
+        <intent 
+            android:targetPackage="de.hshannover.inform.trust.ifmapj.ironcontrol"
+            android:targetClass="de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedConnectionsActivity" >
+        </intent>
+    </Preference>
+</PreferenceScreen>

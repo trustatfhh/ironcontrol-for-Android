@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/bPublishUpdate" 
+        android:title="@string/publish_update">
+    </item>
+    <item
+        android:id="@+id/bPublishNotify"
+        android:title="@string/publish_notify">
+    </item>
+    <item
+        android:id="@+id/bPublishDelete"
+        android:title="@string/publish_delete">
+    </item>
+    <item
+        android:id="@+id/bRemove"
+        android:title="@string/remove">
+    </item>
+</menu>

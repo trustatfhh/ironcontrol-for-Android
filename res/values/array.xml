@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="terminal_type">
+        <item>Terminal-Identifier-Type</item>
+    </string-array>
+    <string-array name="metadaten_list">
+        <item>access-request-device</item>
+        <item>access-request-ip</item>
+        <item>access-request-mac</item>
+        <item>authenticated-as</item>
+        <item>authenticated-by</item>
+        <item>capability</item>
+        <item>device-attribute</item>
+        <item>device-characteristic</item>
+        <item>device-ip</item>
+        <item>discovered-by</item>
+        <item>enforcement-report</item>
+        <item>event</item>
+        <item>ip-mac</item>
+        <item>layer2-information</item>
+        <item>location</item>
+        <item>request-for-investigation</item>
+        <item>role</item>
+        <item>unexpected-behavior</item>
+        <item>wlan-information</item>
+    </string-array>
+    <string-array name="identifier1_list">
+        <item>access-request</item>
+        <item>ip-address</item>
+        <item>mac-address</item>
+        <item>device</item>
+        <item>identity</item>
+    </string-array>
+    <string-array name="identifier2_list">
+        <item>ip-address</item>
+        <item>mac-address</item>
+        <item>device</item>
+        <item>identity</item>
+        <item>none</item>
+    </string-array>
+    <string-array name="wlan_security_enum">
+        <item>open</item>
+        <item>wep</item>
+        <item>tkip</item>
+        <item>ccmp</item>
+        <item>bip</item>
+        <item>other</item>
+    </string-array>
+    <string-array name="enforcement_action_enum">
+        <item>block</item>
+        <item>quarantine</item>
+        <item>other</item>
+    </string-array>
+    <string-array name="significance_enum">
+        <item>critical</item>
+        <item>important</item>
+        <item>informational</item>
+    </string-array>
+    <string-array name="event_type_enum">
+        <item>p2p</item>
+        <item>cve</item>
+        <item>botnet infection</item>
+        <item>worm infection</item>
+        <item>excessive flows</item>
+        <item>behavioral change</item>
+        <item>polocy violation</item>
+        <item>other</item>
+    </string-array>
+
+</resources>

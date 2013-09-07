@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/bSubscribeUpdate" 
+        android:title="@string/subscribeUpdate">
+    </item>
+        <item
+        android:id="@+id/bSubscribeDelete" 
+        android:title="@string/subscribeDelete">
+    </item>
+    <item
+        android:id="@+id/bRemove"
+        android:title="@string/remove">
+    </item>
+</menu>

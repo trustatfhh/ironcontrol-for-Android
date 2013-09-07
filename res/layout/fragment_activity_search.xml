@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical" >
+
+	<fragment
+	    android:id="@+id/tabs_fragment"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="1"
+	    class="de.hshannover.inform.trust.ifmapj.ironcontrol.view.TabFragment" />
+	
+	<fragment
+		android:id="@+id/buttons_fragment"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_weight="10"
+		class="de.hshannover.inform.trust.ifmapj.ironcontrol.view.SearchButtonFragment" />
+
+</LinearLayout>

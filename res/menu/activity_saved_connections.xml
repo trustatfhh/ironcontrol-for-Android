@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/buttonAdd" android:title="@string/add">
+    </item>
+    
+    <item
+        android:id="@+id/buttonKey" 
+        android:title="@string/load_cert">
+    </item><item android:id="@+id/buttonRemove" android:title="@string/remove">
+    </item>
+</menu>

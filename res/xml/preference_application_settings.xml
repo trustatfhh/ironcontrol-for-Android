@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:title="Application Settings">
+    
+    <PreferenceCategory 
+        android:title="@string/connection" >    
+    
+    <CheckBoxPreference
+        android:summaryOn="@string/on"
+        android:title="@string/connect_at_startup"
+        android:key="auto_connect"
+        android:summaryOff="@string/off"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/notifications">
+        <CheckBoxPreference android:title="@string/activeSubscriptions" android:key="@string/activeSubscriptions"/>
+        <CheckBoxPreference android:title="@string/aboutNewResults" android:key="@string/aboutNewResults"/>
+        <CheckBoxPreference android:title="@string/vibration" android:key="@string/vibration" android:dependency="@string/aboutNewResults"/>
+        <CheckBoxPreference android:title="@string/sound" android:key="@string/sound" android:dependency="@string/aboutNewResults"/>
+    </PreferenceCategory>
+    
+</PreferenceScreen>

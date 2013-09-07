@@ -1,0 +1,98 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.hshannover.inform.trust.ifmapj.ironcontrol"
+    android:versionCode="1"
+    android:versionName="0.01" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:icon="@drawable/ic_launcher_ironcontrol"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".view.MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.SearchFragmentActivity"
+            android:icon="@drawable/ic_search"
+            android:label="@string/string_search" >
+        </activity>
+        <activity
+            android:name=".view.PublishActivity"
+            android:icon="@drawable/ic_publish"
+            android:label="@string/string_publish" >
+        </activity>
+        <activity
+            android:name=".view.SettingsActivity"
+            android:icon="@drawable/ic_sliders"
+            android:label="@string/string_settings" >
+        </activity>
+        <activity
+            android:name=".view.ConnectionFragmentActivity"
+            android:icon="@drawable/ic_sliders"
+            android:label="Add IF-MAP Server" >
+        </activity>
+        <activity
+            android:name=".view.SubscribeFragmentActivity"
+            android:label="@string/title_activity_subscribe" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListSavedPublishsActivity"
+            android:label="@string/title_activity_saved_publish_fragment" >
+        </activity>
+        <activity
+            android:name=".view.MetadataBuilderActivity"
+            android:label="@string/title_activity_vendor_specific_metadata" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListSavedConnectionsActivity"
+            android:label="@string/connection" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListVendorMetadataActivity"
+            android:label="@string/vendor_specific_metadata" >
+        </activity>
+        <activity
+            android:name=".view.logger.LoggerListActivity"
+            android:label="@string/logger" >
+        </activity>
+        <activity android:name=".view.list_activities.ListOverviewActivity"
+            android:label="@string/overview" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListResponsesActivity"
+            android:label="@string/responses" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListResultItemsActivity"
+            android:label="@string/result_items" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListResultMetaActivity"
+            android:label="@string/string_metadata" >
+        </activity>
+        <activity
+            android:name=".view.list_activities.ListResultMetaAttributesActivity"
+            android:label="@string/metadata_attributes" >
+        </activity>
+
+        <provider
+            android:name=".database.DBContentProvider"
+            android:authorities="de.hshannover.inform.trust.ifmapj.ironcontrol.database" >
+        </provider>
+    </application>
+
+</manifest>

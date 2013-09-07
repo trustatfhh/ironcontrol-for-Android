@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/info" android:title="@string/info" android:checkable="true"></item>
+    <item android:id="@+id/warn" android:title="@string/warn" android:checkable="true"></item>
+    <item android:id="@+id/error" android:title="@string/error" android:checkable="true"></item>
+    <item android:id="@+id/fatal_error" android:title="@string/fatal_error" android:checkable="true"></item>
+    <item android:id="@+id/debug" android:title="@string/debug" android:checkable="true"></item>
+    <item android:id="@+id/filter" android:title="@string/filter"></item>
+    <item android:id="@+id/clear" android:title="@string/clear"></item>
+    
+
+</menu>
