@@ -24,18 +24,17 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-import com.google.code.microlog4android.appender.ListAppender;
-import com.google.code.microlog4android.appender.ListAppender.LogData;
-import com.google.code.microlog4android.appender.ListAppender.LogReceiver;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Connections;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Connection;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.KeystoreManager;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogData;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogReceiver;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.ConnectionFragmentActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialogEvent;
@@ -45,8 +44,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.ConnectionTask.Co
 public class ListSavedConnectionsActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>, MultichoiceDialogEvent, LogReceiver{
 
 	private static final Logger logger = LoggerFactory.getLogger(ListSavedConnectionsActivity.class);
-
-	private static final String CONNECTION = "Connection.java";
 
 	private static final String MASSAGE_PREFIX = "[msg] ";
 
@@ -80,10 +77,9 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 		getLoaderManager().initLoader(0, null, this);
 		registerForContextMenu(getListView());
 
-		for(int i=0; i<logger.getNumberOfAppenders(); i++){
-			if (logger.getAppender(i) instanceof ListAppender) {
-				((ListAppender) logger.getAppender(i)).addLogReceiver(this);
-			}
+		ListAppender la = (ListAppender) logger.getAppender(ListAppender.class);
+		if(la != null){
+			la.addLogReceiver(this);
 		}
 
 		addLogsToView();
@@ -105,9 +101,14 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 
 	private void addLogsToView() {
 		tvConnLogs.setText(getBaseContext().getResources().getString(R.string.waitingForInput)+ "\n");
-		for(LogData ld: getLogList()){
-			if(ld.getName().equals(CONNECTION) && ld.getLevel() == Level.INFO || ld.getLevel() == Level.ERROR){
-				tvConnLogs.append(MASSAGE_PREFIX +ld.getMessage().toString()+"\n");
+		for(LogData lData: getLogList()){
+
+			int index = Connection.class.getName().lastIndexOf(".");
+			String className = Connection.class.getName().substring(index+1);
+
+			if((lData.getName().equals(className) && lData.getLevel() == Level.INFO) ||
+					(lData.getName().equals(className) && lData.getLevel() == Level.ERROR)){
+				tvConnLogs.append(MASSAGE_PREFIX +lData.getMessage().toString()+"\n");
 			}
 		}
 	}
@@ -175,12 +176,13 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 	}
 
 	private List<LogData> getLogList(){
-		for(int i=0; i<logger.getNumberOfAppenders(); i++){
-			if (logger.getAppender(i) instanceof ListAppender) {
-				return ((ListAppender) logger.getAppender(i)).getLogs();
-			}
+		ListAppender la = (ListAppender) logger.getAppender(ListAppender.class);
+
+		if(la == null){
+			return null;
 		}
-		return null;
+
+		return la.getLogs();
 	}
 
 	private void showMultichoiceDialog(int button){
@@ -208,8 +210,8 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 	@Override
 	public void onClickeMultichoiceDialogButton(String[] selectedRowIds, int buttonType, boolean multi) {
 		switch(buttonType){
-			case R.id.buttonRemove: removeListItem(selectedRowIds);
-			break;
+		case R.id.buttonRemove: removeListItem(selectedRowIds);
+		break;
 		}
 	}
 
@@ -231,12 +233,16 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 	}
 
 	@Override
-	public void newLogData(final LogData data) {
+	public void newLogData(final LogData lData) {
+		int index = Connection.class.getName().lastIndexOf(".");
+		final String className = Connection.class.getName().substring(index+1);
+
 		tvConnLogs.post(new Runnable() {
 			@Override
 			public void run() {
-				if(data.getName().equals(CONNECTION) && data.getLevel() == Level.INFO || data.getLevel() == Level.ERROR){
-					tvConnLogs.append(MASSAGE_PREFIX + data.getMessage().toString()+"\n");
+				if((lData.getName().equals(className) && lData.getLevel() == Level.INFO) ||
+						(lData.getName().equals(className) && lData.getLevel() == Level.ERROR)){
+					tvConnLogs.append(MASSAGE_PREFIX + lData.getMessage().toString()+"\n");
 					scrollToBottom();
 				}
 			}
@@ -309,7 +315,7 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 		try{
 			getContentResolver().delete(uri, null, null);
 		} catch (IllegalArgumentException e){
-			logger.fatal(e.getMessage(), e);
+			logger.log(Level.FATAL, e.getMessage(), e);
 			Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -328,15 +334,15 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		String listItemId = Long.toString(info.id);
 		switch (item.getItemId()) {
-			case DEFAULT_ID : updateDefaultConnections(info.id);
+		case DEFAULT_ID : updateDefaultConnections(info.id);
+		break;
+		case REMOVE_ID : removeListItem(listItemId);
+		break;
+		case EDIT_ID :
+			Intent intent = new Intent(this, ConnectionFragmentActivity.class);
+			intent.putExtra("listItemId", listItemId);
+			startActivity(intent);
 			break;
-			case REMOVE_ID : removeListItem(listItemId);
-			break;
-			case EDIT_ID :
-				Intent intent = new Intent(this, ConnectionFragmentActivity.class);
-				intent.putExtra("listItemId", listItemId);
-				startActivity(intent);
-				break;
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -351,22 +357,22 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
-			case R.id.buttonRemove:
-				showMultichoiceDialog(R.id.buttonRemove);
-				break;
-			case R.id.buttonAdd:
-				Intent intent = new Intent(this, ConnectionFragmentActivity.class);
-				startActivity(intent);
-				break;
-			case R.id.buttonKey:
-				new Thread(){
-					@Override
-					public void run(){
-						KeystoreManager.addAllCerificateToBKS();
+		case R.id.buttonRemove:
+			showMultichoiceDialog(R.id.buttonRemove);
+			break;
+		case R.id.buttonAdd:
+			Intent intent = new Intent(this, ConnectionFragmentActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.buttonKey:
+			new Thread(){
+				@Override
+				public void run(){
+					KeystoreManager.addAllCerificateToBKS();
 
-					}
-				}.start();
-				break;
+				}
+			}.start();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

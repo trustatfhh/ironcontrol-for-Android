@@ -24,14 +24,13 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.MetaAttributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MetadataBuilderActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialogEvent;
@@ -70,26 +69,26 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (ACTIVE_VIEW) {
-			case OVERVIEW :
-				switch (item.getItemId()) {
-					case R.id.buttonRemove :
-						showMultichoiceDialog(DBContentProvider.VENDOR_METADATA_URI, R.id.bRemove);
-						break;
-					case R.id.buttonAdd :
-						Intent intent = new Intent(this, MetadataBuilderActivity.class);
-						startActivity(intent);
-						break;
-				}
+		case OVERVIEW :
+			switch (item.getItemId()) {
+			case R.id.buttonRemove :
+				showMultichoiceDialog(DBContentProvider.VENDOR_METADATA_URI, R.id.bRemove);
 				break;
-			case ATTRIBUTES_VIEW :
-				switch (item.getItemId()) {
-					case R.id.buttonRemove :
-						showMultichoiceDialog(Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + lastMetadataID + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES), R.id.bRemove);
-						break;
-					case R.id.buttonAdd :
-						addMetaAttribute().show();
-						break;
-				}
+			case R.id.buttonAdd :
+				Intent intent = new Intent(this, MetadataBuilderActivity.class);
+				startActivity(intent);
+				break;
+			}
+			break;
+		case ATTRIBUTES_VIEW :
+			switch (item.getItemId()) {
+			case R.id.buttonRemove :
+				showMultichoiceDialog(Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + lastMetadataID + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES), R.id.bRemove);
+				break;
+			case R.id.buttonAdd :
+				addMetaAttribute().show();
+				break;
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -132,14 +131,14 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 		int index = 0;
 		while(cursor.moveToNext()){
 			switch (ACTIVE_VIEW) {
-				case OVERVIEW :
-					ids[index] = cursor.getString(cursor.getColumnIndexOrThrow(VendorMetadata.COLUMN_ID));
-					labels[index] = cursor.getString(cursor.getColumnIndexOrThrow(VendorMetadata.COLUMN_NAME));
-					break;
-				case ATTRIBUTES_VIEW:
-					ids[index] = cursor.getString(cursor.getColumnIndexOrThrow(MetaAttributes.COLUMN_ID));
-					labels[index] = cursor.getString(cursor.getColumnIndexOrThrow(MetaAttributes.COLUMN_NAME));
-					break;
+			case OVERVIEW :
+				ids[index] = cursor.getString(cursor.getColumnIndexOrThrow(VendorMetadata.COLUMN_ID));
+				labels[index] = cursor.getString(cursor.getColumnIndexOrThrow(VendorMetadata.COLUMN_NAME));
+				break;
+			case ATTRIBUTES_VIEW:
+				ids[index] = cursor.getString(cursor.getColumnIndexOrThrow(MetaAttributes.COLUMN_ID));
+				labels[index] = cursor.getString(cursor.getColumnIndexOrThrow(MetaAttributes.COLUMN_NAME));
+				break;
 			}
 			index++;
 		}
@@ -155,10 +154,10 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.setHeaderTitle("Context Menu");
 		switch (ACTIVE_VIEW) {
-			case OVERVIEW : menu.add(0, EDIT_ID, 0, R.string.edit);
+		case OVERVIEW : menu.add(0, EDIT_ID, 0, R.string.edit);
+		break;
+		case ATTRIBUTES_VIEW:
 			break;
-			case ATTRIBUTES_VIEW:
-				break;
 		}
 		menu.add(0, REMOVE_ID, 0, R.string.remove);
 	}
@@ -168,10 +167,10 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		String listItemId = Long.toString(info.id);
 		switch (item.getItemId()) {
-			case REMOVE_ID : removeMetadata(listItemId);
-			break;
-			case EDIT_ID : startEditActivity(listItemId);
-			break;
+		case REMOVE_ID : removeMetadata(listItemId);
+		break;
+		case EDIT_ID : startEditActivity(listItemId);
+		break;
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -186,10 +185,10 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		switch(ACTIVE_VIEW){
-			case OVERVIEW: switchView(ATTRIBUTES_VIEW, R.string.metadata_attributes); lastMetadataID=(int) id; initCursorAdapter((int) id);
+		case OVERVIEW: switchView(ATTRIBUTES_VIEW, R.string.metadata_attributes); lastMetadataID=(int) id; initCursorAdapter((int) id);
+		break;
+		case ATTRIBUTES_VIEW:
 			break;
-			case ATTRIBUTES_VIEW:
-				break;
 		}
 	}
 
@@ -197,14 +196,14 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri uri = null;
 		switch(ACTIVE_VIEW){
-			case OVERVIEW:
-				uri = DBContentProvider.VENDOR_METADATA_URI;
-				System.out.println("onCreateLoader OVERVIEW");
-				break;
-			case ATTRIBUTES_VIEW:
-				uri = Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + id + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES);
-				System.out.println("onCreateLoader ATTRIBUTES_VIEW");
-				break;
+		case OVERVIEW:
+			uri = DBContentProvider.VENDOR_METADATA_URI;
+			System.out.println("onCreateLoader OVERVIEW");
+			break;
+		case ATTRIBUTES_VIEW:
+			uri = Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + id + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES);
+			System.out.println("onCreateLoader ATTRIBUTES_VIEW");
+			break;
 		}
 		CursorLoader cursorLoader = new CursorLoader(this, uri, null, null, null, null);
 		return cursorLoader;
@@ -223,8 +222,8 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 	@Override
 	public void onClickeMultichoiceDialogButton(String[] selectedRowIds, int buttonType, boolean multi) {
 		switch(buttonType){
-			case R.id.bRemove: removeMetadata(selectedRowIds);
-			break;
+		case R.id.bRemove: removeMetadata(selectedRowIds);
+		break;
 		}
 	}
 
@@ -237,15 +236,15 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 	private void removeMetadata(String selectedId){
 		Uri uri = null;
 		switch(ACTIVE_VIEW){
-			case OVERVIEW: uri = Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + selectedId);
-			break;
-			case ATTRIBUTES_VIEW: uri = Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + lastMetadataID + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES + "/" + selectedId);
-			break;
+		case OVERVIEW: uri = Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + selectedId);
+		break;
+		case ATTRIBUTES_VIEW: uri = Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + lastMetadataID + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES + "/" + selectedId);
+		break;
 		}
 		try{
 			getContentResolver().delete(uri, null, null);
 		} catch (IllegalArgumentException e){
-			logger.fatal(e.getMessage(), e);
+			logger.log(Level.FATAL, e.getMessage(), e);
 			Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -253,10 +252,10 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 	@Override
 	public void onBackPressed(){
 		switch(ACTIVE_VIEW){
-			case OVERVIEW: super.onBackPressed();
-			break;
-			case ATTRIBUTES_VIEW: switchView(OVERVIEW, R.string.vendor_specific_metadata); initCursorAdapter(-1);
-			break;
+		case OVERVIEW: super.onBackPressed();
+		break;
+		case ATTRIBUTES_VIEW: switchView(OVERVIEW, R.string.vendor_specific_metadata); initCursorAdapter(-1);
+		break;
 		}
 	}
 
@@ -276,10 +275,10 @@ public class ListVendorMetadataActivity extends ListActivity implements LoaderMa
 		String[] from = new String[]{VendorMetadata.COLUMN_NAME, VendorMetadata.COLUMN_CARDINALITY};
 		int[] to = new int[]{R.id.tvLabel, R.id.tvInfo1};
 		switch(ACTIVE_VIEW){
-			case OVERVIEW: adapter = new SimpleCursorAdapter(this, R.layout.responses_list_row, null, from, to, 0);
-			break;
-			case ATTRIBUTES_VIEW: adapter = new SimpleCursorAdapter(this, R.layout.responses_list_row, null, new String[]{MetaAttributes.COLUMN_NAME}, new int[]{R.id.tvLabel}, 0);
-			break;
+		case OVERVIEW: adapter = new SimpleCursorAdapter(this, R.layout.responses_list_row, null, from, to, 0);
+		break;
+		case ATTRIBUTES_VIEW: adapter = new SimpleCursorAdapter(this, R.layout.responses_list_row, null, new String[]{MetaAttributes.COLUMN_NAME}, new int[]{R.id.tvLabel}, 0);
+		break;
 		}
 		super.setListAdapter(adapter);
 	}

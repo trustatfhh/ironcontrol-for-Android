@@ -12,9 +12,6 @@ package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
 
 import java.util.ArrayList;
 
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.channel.ARC;
 import de.fhhannover.inform.trust.ifmapj.exception.EndSessionException;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
@@ -22,6 +19,9 @@ import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.exception.InitializationException;
 import de.fhhannover.inform.trust.ifmapj.messages.PollResult;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 public class SubscriptionPoller extends Thread implements PollSender {
@@ -53,7 +53,7 @@ public class SubscriptionPoller extends Thread implements PollSender {
 	 */
 	@Override
 	public void run() {
-		logger.debug(Util.getString(R.string.enter) + "run()...");
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
 		Thread.currentThread().setName(SubscriptionPoller.class.getSimpleName());
 
 		while (!Thread.currentThread().isInterrupted()) {
@@ -69,48 +69,48 @@ public class SubscriptionPoller extends Thread implements PollSender {
 				}
 			}
 
-			logger.debug("new poll...");
+			logger.log(Level.DEBUG, "new poll...");
 
 			try {
 				mPollResult = mArc.poll();
 			} catch (IfmapErrorResult e) {
-				logger.error(e.getErrorString(), e);
+				logger.log(Level.ERROR, e.getErrorString(), e);
 				break;
 			} catch (EndSessionException e) {
-				logger.debug("EndSessionException STOP Poll, wait for new subscribe...", e);
+				logger.log(Level.DEBUG, "EndSessionException STOP Poll, wait for new subscribe...", e);
 				mPollResult = null;
 
 				waitForNewSubscribesAfterConnectionLost();
 
 			} catch (IfmapException e) {
-				logger.error(e.getDescription(), e);
+				logger.log(Level.ERROR, e.getDescription(), e);
 				break;
 			}
 
 			if (mPollResult != null) {
-				logger.debug("...poll OK");
+				logger.log(Level.DEBUG, "...poll OK");
 				onNewPollResult(mPollResult);
 				mPollResult = null;
 			} else {
-				logger.debug(Util.getString(R.string.pollresult_is_null));
+				logger.log(Level.DEBUG, Util.getString(R.string.pollresult_is_null));
 			}
 		}
-		logger.debug(Util.getString(R.string.exit) + "...run()");
+		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...run()");
 	}
 
 	@Override
 	public void addPollReceiver(PollReceiver pr) {
-		logger.debug(Util.getString(R.string.enter) + "addPollReceiver()...");
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "addPollReceiver()...");
 		mPollReceiver.add(pr);
-		logger.debug(Util.getString(R.string.exit) + "...addPollReceiver()");
+		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...addPollReceiver()");
 	}
 
 	public void onNewPollResult(PollResult pr) {
-		logger.debug(Util.getString(R.string.enter) + "onNewPollResult()...");
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "onNewPollResult()...");
 		for(PollReceiver receiver: mPollReceiver){
 			receiver.submitNewPollResult(pr);
 		}
-		logger.debug(Util.getString(R.string.exit) + "...onNewPollResult()");
+		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...onNewPollResult()");
 	}
 
 	public boolean isWaiting() {
@@ -129,9 +129,9 @@ public class SubscriptionPoller extends Thread implements PollSender {
 
 			getARC();
 
-			logger.debug("... new subscribe");
+			logger.log(Level.DEBUG, "... new subscribe");
 		} catch (InterruptedException e) {
-			logger.debug(e.getMessage(), e);
+			logger.log(Level.DEBUG, e.getMessage(), e);
 		}
 	}
 
@@ -141,7 +141,7 @@ public class SubscriptionPoller extends Thread implements PollSender {
 			this.mArc = Connection.getARC();
 
 		} catch (InitializationException e) {
-			logger.error(e.getDescription(),e);
+			logger.log(Level.ERROR, e.getDescription(),e);
 		}
 	}
 }

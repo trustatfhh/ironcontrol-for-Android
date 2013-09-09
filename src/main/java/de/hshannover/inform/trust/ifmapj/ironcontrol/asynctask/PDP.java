@@ -4,10 +4,6 @@ import java.util.HashMap;
 
 import org.w3c.dom.Document;
 
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.IfmapJ;
 import de.fhhannover.inform.trust.ifmapj.binding.IfmapStrings;
 import de.fhhannover.inform.trust.ifmapj.channel.SSRC;
@@ -24,6 +20,9 @@ import de.fhhannover.inform.trust.ifmapj.messages.PublishUpdate;
 import de.fhhannover.inform.trust.ifmapj.messages.Requests;
 import de.fhhannover.inform.trust.ifmapj.metadata.Cardinality;
 import de.fhhannover.inform.trust.ifmapj.metadata.StandardIfmapMetadataFactory;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public class PDP {
 	private SSRC ssrc;
@@ -39,7 +38,7 @@ public class PDP {
 	private PublishRequest deletAuthBy;
 	private PublishRequest deletMac;
 	private PublishRequest deletIp;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(PDP.class);
 
 	public PDP(SSRC ssrc) throws InitializationException {
@@ -55,7 +54,7 @@ public class PDP {
 
 		Identifier pdp = Identifiers.createDev("pdp-99");
 		Identifier ar = Identifiers.createAr("dev");
-		
+
 		HashMap<String, String> attributes = new HashMap<String, String>();
 		attributes.put("TEST-Device", "Dev222");
 		attributes.put("TES-ID", "55");
@@ -82,8 +81,8 @@ public class PDP {
 		PublishDelete pdIp = Requests.createPublishDelete(ip, ar,"meta:access-request-ip");
 		PublishDelete pdId = Requests.createPublishDelete(id, ar,"meta:authenticated-as");
 
-		
-		
+
+
 		pdArDev.addNamespaceDeclaration(IfmapStrings.STD_METADATA_PREFIX,IfmapStrings.STD_METADATA_NS_URI);
 		pdArVendorMeta.addNamespaceDeclaration(IfmapStrings.STD_METADATA_PREFIX,IfmapStrings.STD_METADATA_NS_URI);
 		pdArVendorMeta2.addNamespaceDeclaration(IfmapStrings.STD_METADATA_PREFIX,IfmapStrings.STD_METADATA_NS_URI);

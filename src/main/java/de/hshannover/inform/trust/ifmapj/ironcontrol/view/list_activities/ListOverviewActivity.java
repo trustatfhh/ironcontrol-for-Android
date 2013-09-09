@@ -19,13 +19,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceListDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceListEvent;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceRemoveDialog;
@@ -61,10 +60,10 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 	protected SimpleCursorAdapter setListAdapter(ListHierarchyType type) {
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.search_list_row, null, FROM_REQUESTS, TO_LIST1_ROW, 0);
 		switch (type) {
-			case SEARCH:
-				break;
-			case SUBSCRIPTION: adapter.setViewBinder(buildViewBinder());
+		case SEARCH:
 			break;
+		case SUBSCRIPTION: adapter.setViewBinder(buildViewBinder());
+		break;
 		}
 		return adapter;
 	}
@@ -100,10 +99,10 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 	protected Loader<Cursor> onCreateLoader(int id, Bundle args, ListHierarchyType type) {
 		Uri uri = null;
 		switch(type){
-			case SEARCH: uri = DBContentProvider.SEARCH_URI;
-			break;
-			case SUBSCRIPTION: uri = DBContentProvider.SUBSCRIPTION_URI;
-			break;
+		case SEARCH: uri = DBContentProvider.SEARCH_URI;
+		break;
+		case SUBSCRIPTION: uri = DBContentProvider.SUBSCRIPTION_URI;
+		break;
 		}
 		CursorLoader cursorLoader = new CursorLoader(this, uri, null, null, null, null);
 		return cursorLoader;
@@ -112,12 +111,12 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 	@Override
 	protected boolean onCreateOptionsMenu(Menu menu, ListHierarchyType type) {
 		switch(type){
-			case SEARCH:
-				getMenuInflater().inflate(R.menu.activity_saved_searches, menu);
-				break;
-			case SUBSCRIPTION:
-				getMenuInflater().inflate(R.menu.activity_saved_subscription, menu);
-				break;
+		case SEARCH:
+			getMenuInflater().inflate(R.menu.activity_saved_searches, menu);
+			break;
+		case SUBSCRIPTION:
+			getMenuInflater().inflate(R.menu.activity_saved_subscription, menu);
+			break;
 		}
 		return true;
 	}
@@ -127,61 +126,61 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 		MultichoiceListDialog dialog = null;
 		switch(item.getItemId()){
 
-			case R.id.bSearch:
+		case R.id.bSearch:
 
-				dialog = new MultichoiceSearchDialog(
+			dialog = new MultichoiceSearchDialog(
+					this,
+					DBContentProvider.SEARCH_URI,
+					R.string.string_search,
+					item.getItemId());
+
+			break;
+
+		case R.id.bSubscribeUpdate:
+
+			System.out.println("onOptionsItemSelected ID=" + item.getItemId());
+
+			dialog = new MultichoiceSubscribeDialog(
+					this,
+					DBContentProvider.SUBSCRIPTION_URI,
+					R.string.subscribeUpdate,
+					item.getItemId());
+			break;
+
+		case R.id.bSubscribeDelete:
+
+			dialog = new MultichoiceSubscribeDialog(
+					this,
+					DBContentProvider.SUBSCRIPTION_URI,
+					R.string.subscribeDelete,
+					item.getItemId());
+
+			break;
+
+		case R.id.bRemove:
+			switch(type){
+
+			case SEARCH:
+
+				dialog = new MultichoiceRemoveDialog(
 						this,
 						DBContentProvider.SEARCH_URI,
-						R.string.string_search,
+						R.string.remove,
 						item.getItemId());
 
 				break;
 
-			case R.id.bSubscribeUpdate:
+			case SUBSCRIPTION:
 
-				System.out.println("onOptionsItemSelected ID=" + item.getItemId());
-
-				dialog = new MultichoiceSubscribeDialog(
+				dialog = new MultichoiceRemoveDialog(
 						this,
 						DBContentProvider.SUBSCRIPTION_URI,
-						R.string.subscribeUpdate,
-						item.getItemId());
-				break;
-
-			case R.id.bSubscribeDelete:
-
-				dialog = new MultichoiceSubscribeDialog(
-						this,
-						DBContentProvider.SUBSCRIPTION_URI,
-						R.string.subscribeDelete,
+						R.string.remove,
 						item.getItemId());
 
 				break;
-
-			case R.id.bRemove:
-				switch(type){
-
-					case SEARCH:
-
-						dialog = new MultichoiceRemoveDialog(
-								this,
-								DBContentProvider.SEARCH_URI,
-								R.string.remove,
-								item.getItemId());
-
-						break;
-
-					case SUBSCRIPTION:
-
-						dialog = new MultichoiceRemoveDialog(
-								this,
-								DBContentProvider.SUBSCRIPTION_URI,
-								R.string.remove,
-								item.getItemId());
-
-						break;
-				}
-				break;
+			}
+			break;
 		}
 
 		if(!dialog.isEmpty()){
@@ -194,13 +193,13 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 	@Override
 	protected void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo, ListHierarchyType type) {
 		switch(type){
-			case SEARCH:
-				menu.add(0, SEARCH_ID, 0, R.string.string_search);
-				break;
-			case SUBSCRIPTION:
-				menu.add(0, R.id.bSubscribeUpdate, 0, R.string.subscribeUpdate);
-				menu.add(0, R.id.bSubscribeDelete, 0, R.string.subscribeDelete);
-				break;
+		case SEARCH:
+			menu.add(0, SEARCH_ID, 0, R.string.string_search);
+			break;
+		case SUBSCRIPTION:
+			menu.add(0, R.id.bSubscribeUpdate, 0, R.string.subscribeUpdate);
+			menu.add(0, R.id.bSubscribeDelete, 0, R.string.subscribeDelete);
+			break;
 		}
 		menu.add(0, EDIT_ID, 0, R.string.edit);
 		menu.add(0, REMOVE_ID, 0, R.string.remove);
@@ -211,16 +210,16 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		String listItemId = Long.toString(info.id);
 		switch (item.getItemId()) {
-			case REMOVE_ID : remove(listItemId, type);
-			break;
-			case EDIT_ID : startEditActivity(listItemId);
-			break;
-			case SEARCH_ID : search(listItemId);
-			break;
-			case R.id.bSubscribeUpdate : subscribeUpdate(listItemId);
-			break;
-			case R.id.bSubscribeDelete: subscribeDelete(listItemId);
-			break;
+		case REMOVE_ID : remove(listItemId, type);
+		break;
+		case EDIT_ID : startEditActivity(listItemId);
+		break;
+		case SEARCH_ID : search(listItemId);
+		break;
+		case R.id.bSubscribeUpdate : subscribeUpdate(listItemId);
+		break;
+		case R.id.bSubscribeDelete: subscribeDelete(listItemId);
+		break;
 		}
 	}
 
@@ -228,15 +227,15 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 	protected void remove(String selectedId, ListHierarchyType type) {
 		Uri uri = null;
 		switch(type){
-			case SEARCH: uri = Uri.parse(DBContentProvider.SEARCH_URI + "/" + selectedId);
-			break;
-			case SUBSCRIPTION: uri = Uri.parse(DBContentProvider.SUBSCRIPTION_URI + "/" + selectedId);
-			break;
+		case SEARCH: uri = Uri.parse(DBContentProvider.SEARCH_URI + "/" + selectedId);
+		break;
+		case SUBSCRIPTION: uri = Uri.parse(DBContentProvider.SUBSCRIPTION_URI + "/" + selectedId);
+		break;
 		}
 		try{
 			getContentResolver().delete(uri, null, null);
 		} catch (IllegalArgumentException e){
-			logger.fatal(e.getMessage(), e);
+			logger.log(Level.FATAL, e.getMessage(), e);
 			Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -244,17 +243,17 @@ public class ListOverviewActivity extends ListHierarchyActivity implements Multi
 	@Override
 	public void onClickeMultichoiceDialogButton(List<String> selectedRowIds, int resIdButton, int clicked) {
 		switch(resIdButton){
-			case R.id.bRemove: remove(selectedRowIds);
-			break;
+		case R.id.bRemove: remove(selectedRowIds);
+		break;
 
-			case R.id.bSearch: search(selectedRowIds);
-			break;
+		case R.id.bSearch: search(selectedRowIds);
+		break;
 
-			case R.id.bSubscribeUpdate: subscribeUpdate(selectedRowIds);
-			break;
+		case R.id.bSubscribeUpdate: subscribeUpdate(selectedRowIds);
+		break;
 
-			case R.id.bSubscribeDelete: subscribeDelete(selectedRowIds);
-			break;
+		case R.id.bSubscribeDelete: subscribeDelete(selectedRowIds);
+		break;
 		}
 	}
 }

@@ -17,11 +17,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.messages.ResultItem;
@@ -35,6 +30,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMet
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetadata;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.RequestsController;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.SearchRequestData;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public class SearchTask extends AsyncTask<Void, Void, Void> {
 
@@ -204,7 +202,7 @@ public class SearchTask extends AsyncTask<Void, Void, Void> {
 		if(error != null){
 			Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
 		}else if(mSearchResult == null){
-			logger.warn(context.getResources().getString(R.string.searchresult_is_null));
+			logger.log(Level.WARN, context.getResources().getString(R.string.searchresult_is_null));
 			Toast.makeText(context, context.getResources().getString(R.string.searchresult_is_null), Toast.LENGTH_SHORT).show();
 		}else{
 			if(!name.equals("")){

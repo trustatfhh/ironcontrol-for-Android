@@ -14,11 +14,10 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 
 import android.os.Environment;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 
 public class KeystoreManager {
@@ -42,19 +41,19 @@ public class KeystoreManager {
 			dirCertificate = new File(PATH_CERT_DIR);
 			if(!dirKeystore.exists()&& !dirKeystore.isDirectory()){
 				dirKeystore.mkdirs();
-				logger.debug(PATH_KEYSTORE_DIR + " created!");
+				logger.log(Level.DEBUG, PATH_KEYSTORE_DIR + " created!");
 			}
 			if(!dirCertificate.exists()&& !dirCertificate.isDirectory()){
 				dirCertificate.mkdirs();
-				logger.debug(PATH_CERT_DIR + " created!");
+				logger.log(Level.DEBUG, PATH_CERT_DIR + " created!");
 			}
 			if(!keystore.exists() || !certificate.exists()){
 				copyDefaultToSD();
-				logger.debug(PATH_TO_DEF_KEYSTORE +" crated !");
-				logger.debug(PATH_TO_DEF_CERT +" crated !");
+				logger.log(Level.DEBUG, PATH_TO_DEF_KEYSTORE +" crated !");
+				logger.log(Level.DEBUG, PATH_TO_DEF_CERT +" crated !");
 			}
 		}else{
-			logger.warn(Environment.getExternalStorageDirectory().toString() +"State: "+ Environment.getExternalStorageState() );
+			logger.log(Level.WARN, Environment.getExternalStorageDirectory().toString() +"State: "+ Environment.getExternalStorageState() );
 		}
 	}
 
@@ -73,21 +72,21 @@ public class KeystoreManager {
 			FileInputStream in = new FileInputStream(bks);
 			ks.load(in, "ironcontrol".toCharArray());
 			in.close();
-			logger.debug("successful load tke keystore: " + pathToBKS);
+			logger.log(Level.DEBUG, "successful load tke keystore: " + pathToBKS);
 		} catch (KeyStoreException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new KeyStoreException(e.getMessage(), e);
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new FileNotFoundException(e.getMessage());
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new NoSuchAlgorithmException(e.getMessage(), e);
 		} catch (CertificateException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new CertificateException(e.getMessage(), e);
 		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new IOException(e.getMessage(), e);
 		}
 
@@ -110,15 +109,15 @@ public class KeystoreManager {
 			FileInputStream in = new FileInputStream(file);
 			cer = certf.generateCertificate(in);
 			in.close();
-			logger.debug("successful loaded " + pathToCertificate);
+			logger.log(Level.DEBUG, "successful loaded " + pathToCertificate);
 		} catch (CertificateException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new CertificateException(e);
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new FileNotFoundException();
 		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 			//throw new IOException(e);
 		}
 
@@ -132,7 +131,7 @@ public class KeystoreManager {
 	 * Load a certificate.
 	 * 
 	 * @param Sting (path to cerificate)
-	 *  
+	 * 
 	 */
 	private static Certificate readCertificatefromRAW(){
 		CertificateFactory certf = null;
@@ -143,11 +142,11 @@ public class KeystoreManager {
 			in = KeystoreManager.getCertificateFromRaw();
 			cer = certf.generateCertificate(in);
 			in.close();
-			logger.debug("successful load ironcontrol.pem from RAW");
+			logger.log(Level.DEBUG, "successful load ironcontrol.pem from RAW");
 		} catch (CertificateException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}  catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 
 
@@ -169,27 +168,27 @@ public class KeystoreManager {
 			try {
 				fileKS.createNewFile();
 			} catch (IOException e) {
-				logger.error(e.getMessage(), e);
+				logger.log(Level.ERROR, e.getMessage(), e);
 			}
 		}
 		FileOutputStream outKS = null;
 		try {
 			outKS = new FileOutputStream(fileKS);
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 		try {
 			ks.store(outKS, "ironcontrol".toCharArray());
-			outKS.close(); 
-			logger.debug("successful saved ironcontrol.bks on SD card");
+			outKS.close();
+			logger.log(Level.DEBUG, "successful saved ironcontrol.bks on SD card");
 		} catch (KeyStoreException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (CertificateException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 	}
 
@@ -209,14 +208,14 @@ public class KeystoreManager {
 			try {
 				fileKS.createNewFile();
 			} catch (IOException e) {
-				logger.error(e.getMessage(), e);;
+				logger.log(Level.ERROR, e.getMessage(), e);;
 			}
 		}
 		if (!fileCert.exists()){
 			try {
 				fileCert.createNewFile();
 			} catch (IOException e) {
-				logger.error(e.getMessage(), e);
+				logger.log(Level.ERROR, e.getMessage(), e);
 
 			}
 		}
@@ -228,22 +227,22 @@ public class KeystoreManager {
 			outKS = new FileOutputStream(fileKS);
 			outCert = new FileOutputStream(fileCert);
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 		try {
 			defKS.store(outKS, "ironcontrol".toCharArray());
 			outCert.write(defCert.getEncoded());
-			outKS.close(); 
+			outKS.close();
 			outCert.close();
-			logger.debug("successful saved ironcontrol.bks and ironcontrol.pem on SD card");
+			logger.log(Level.DEBUG, "successful saved ironcontrol.bks and ironcontrol.pem on SD card");
 		} catch (KeyStoreException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (CertificateException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 	}
 
@@ -261,25 +260,25 @@ public class KeystoreManager {
 			ks = KeyStore.getInstance("BKS");
 			in = KeystoreManager.getKeystoreFromRaw();
 			ks.load(in, "ironcontrol".toCharArray());
-			logger.debug("Load the default Keystore from RAW!");
+			logger.log(Level.DEBUG, "Load the default Keystore from RAW!");
 			in.close();
 		} catch (KeyStoreException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (FileNotFoundException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (CertificateException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 		return ks;
 
 	}
 
 	/**
-	 * Add a certificate to a keystore. 
+	 * Add a certificate to a keystore.
 	 * 
 	 */
 	public static KeyStore addCerificateToBKS(String pathToCerificate, KeyStore kstore) {
@@ -290,16 +289,16 @@ public class KeystoreManager {
 			if(!ks.isCertificateEntry(alias)){
 				try {
 					ks.setCertificateEntry(alias, cert);
-					logger.debug("The certificate <" + alias + "> was successful added!");
+					logger.log(Level.DEBUG, "The certificate <" + alias + "> was successful added!");
 				} catch (KeyStoreException e) {
-					logger.error(e.getMessage(), e);
+					logger.log(Level.ERROR, e.getMessage(), e);
 					//throw new KeyStoreException(e.getMessage());
 				}
 			}else{
-				logger.debug("The certificate <" + alias + "> already exists! ");
+				logger.log(Level.DEBUG, "The certificate <" + alias + "> already exists! ");
 			}
 		} catch (KeyStoreException e) {
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 		return ks;
 	}
@@ -318,11 +317,11 @@ public class KeystoreManager {
 				try {
 					if(!ks.isCertificateEntry(file)){
 						ks = KeystoreManager.addCerificateToBKS(PATH_CERT_DIR + "/" + file, ks);
-						logger.debug("<"+file + "> successfully added");
+						logger.log(Level.DEBUG, "<"+file + "> successfully added");
 					}
-					logger.debug("<"+file + "> already included");
+					logger.log(Level.DEBUG, "<"+file + "> already included");
 				} catch (KeyStoreException e) {
-					logger.error(e.getMessage(), e);
+					logger.log(Level.ERROR, e.getMessage(), e);
 				}
 
 			}

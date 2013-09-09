@@ -16,12 +16,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-import com.google.code.microlog4android.config.PropertyConfigurator;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.PurgePublisherTask;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
@@ -30,6 +24,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.exceptions.IronControlUncaughtExceptionHandler;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Connection;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.KeystoreManager;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedConnectionsActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedPublishsActivity;
@@ -62,7 +59,6 @@ public class MainActivity extends Activity implements PopUpEvent{
 		UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(new IronControlUncaughtExceptionHandler(getBaseContext(), handler));
 
-		PropertyConfigurator.getConfigurator(getApplicationContext()).configure();
 		logger.log(Level.DEBUG, "New ...");
 		logger.log(Level.DEBUG, "Log was configure.");
 
@@ -92,14 +88,14 @@ public class MainActivity extends Activity implements PopUpEvent{
 		try{
 			KeystoreManager.checkANDcreateSDCardFolder();
 		}catch(Exception e){
-			logger.error(e.getMessage(), e);
+			logger.log(Level.ERROR, e.getMessage(), e);
 		}
 		if(KeystoreManager.isSDMounted()){
 			try{
 				KeystoreManager.addAllCerificateToBKS();
 			}catch (Exception e)
 			{
-				logger.error(e.getMessage(), e);
+				logger.log(Level.ERROR, e.getMessage(), e);
 			}
 		}
 
@@ -133,12 +129,12 @@ public class MainActivity extends Activity implements PopUpEvent{
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				switch(event.getAction()){
-					case MotionEvent.ACTION_DOWN : v.setBackgroundColor(colorSteelBlue);
-					break;
-					case MotionEvent.ACTION_UP : v.setBackgroundColor(0);
-					break;
-					case MotionEvent.ACTION_CANCEL : v.setBackgroundColor(0);
-					break;
+				case MotionEvent.ACTION_DOWN : v.setBackgroundColor(colorSteelBlue);
+				break;
+				case MotionEvent.ACTION_UP : v.setBackgroundColor(0);
+				break;
+				case MotionEvent.ACTION_CANCEL : v.setBackgroundColor(0);
+				break;
 				}
 				return false;
 			}
@@ -169,17 +165,17 @@ public class MainActivity extends Activity implements PopUpEvent{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menu_settings:
-				startActivity(new Intent(getBaseContext(), SettingsActivity.class));
-				return true;
-			case R.id.menu_exit:
-				Intent home = new Intent(Intent.ACTION_MAIN);
-				home.addCategory(Intent.CATEGORY_HOME);
-				home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(home);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case R.id.menu_settings:
+			startActivity(new Intent(getBaseContext(), SettingsActivity.class));
+			return true;
+		case R.id.menu_exit:
+			Intent home = new Intent(Intent.ACTION_MAIN);
+			home.addCategory(Intent.CATEGORY_HOME);
+			home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(home);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 

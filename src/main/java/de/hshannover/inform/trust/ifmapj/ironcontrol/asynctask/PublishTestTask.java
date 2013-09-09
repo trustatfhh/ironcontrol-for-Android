@@ -3,17 +3,15 @@ package de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.exception.InitializationException;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Connection;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public class PublishTestTask extends AsyncTask<Void, Void, Void> {
 
@@ -39,12 +37,12 @@ public class PublishTestTask extends AsyncTask<Void, Void, Void> {
 		try {
 			PDP testPDP = new PDP(Connection.getSSRC());
 			switch(publishEnum){
-				case UPDATE: testPDP.update();
+			case UPDATE: testPDP.update();
+			break;
+			case DELETE: testPDP.delete();
+			break;
+			case NOTIFY:
 				break;
-				case DELETE: testPDP.delete();
-				break;
-				case NOTIFY:
-					break;
 			}
 		} catch (InitializationException e) {
 			logger.log(Level.ERROR, e.getMessage(), e);

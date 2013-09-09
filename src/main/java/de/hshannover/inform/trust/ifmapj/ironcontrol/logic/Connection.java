@@ -15,11 +15,6 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.os.Environment;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.IfmapJ;
 import de.fhhannover.inform.trust.ifmapj.IfmapJHelper;
 import de.fhhannover.inform.trust.ifmapj.channel.ARC;
@@ -30,6 +25,9 @@ import de.fhhannover.inform.trust.ifmapj.exception.InitializationException;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Connections;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 
 /**
@@ -80,7 +78,7 @@ public class Connection{
 			try {
 				mArc = mSsrc.getArc();
 			} catch (InitializationException e) {
-				logger.error(e.getMessage(), e);
+				logger.log(Level.ERROR, e.getMessage(), e);
 				throw new InitializationException(e.getMessage());
 			}
 		}
@@ -96,13 +94,13 @@ public class Connection{
 	 * @throws InitializationException
 	 */
 	public static void disconnect() throws IfmapException, IfmapErrorResult{
-		logger.debug("endSession()...");
+		logger.log(Level.DEBUG, "endSession()...");
 		Context context = MainActivity.getContext();
 		if(mSsrc != null){
 			mSsrc.endSession();
-			logger.debug("closeTcpConnection()...");
+			logger.log(Level.DEBUG, "closeTcpConnection()...");
 			mSsrc.closeTcpConnection();
-			logger.info("Disconnected");
+			logger.log(Level.INFO, "Disconnected");
 			mSsrc = null;
 			mArc = null;
 
@@ -117,7 +115,7 @@ public class Connection{
 			context.getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
 
 		}else {
-			logger.error("No connection, mSsrc is null!");
+			logger.log(Level.ERROR, "No connection, mSsrc is null!");
 			throw new IfmapException("mSsrc is null!!", "No connection!");
 		}
 
@@ -139,10 +137,10 @@ public class Connection{
 						try {
 							mSsrc.renewSession();
 						} catch (IfmapException e) {
-							logger.error(e.getMessage(), e);
+							logger.log(Level.ERROR, e.getMessage(), e);
 							//throw new IfmapException(e.getDescription(), e);
 						} catch (IfmapErrorResult e) {
-							logger.error(e.getMessage(), e);
+							logger.log(Level.ERROR, e.getMessage(), e);
 							//throw new IfmapErrorResult(e.getErrorCode(),e.getMessage());
 						}
 					} catch (InterruptedException e2) {
@@ -194,7 +192,7 @@ public class Connection{
 	}
 
 	private static void initSsrc(long id) throws InitializationException {
-		logger.debug("init SSRC...");
+		logger.log(Level.DEBUG, "init SSRC...");
 
 		// get connection data
 		Context context = MainActivity.getContext();
@@ -224,18 +222,18 @@ public class Connection{
 		try {
 			isTrustManager = getKeystoreAsInpustream();
 		} catch (FileNotFoundException e1) {
-			logger.error(e1.getMessage(), e1);
+			logger.log(Level.ERROR, e1.getMessage(), e1);
 		} catch (IOException e2) {
-			logger.error(e2.getMessage(), e2);
+			logger.log(Level.ERROR, e2.getMessage(), e2);
 		}
 		TrustManager[] tms = null;
 		tms = IfmapJHelper.getTrustManagers(isTrustManager, "ironcontrol");
 		try {
 
-			logger.info("Creating SSRC using basic authentication to http://"+address+":"+port);
+			logger.log(Level.INFO, "Creating SSRC using basic authentication to http://"+address+":"+port);
 			mSsrc = IfmapJ.createSSRC("http://"+address+":"+port, user, pass, tms);
 		} catch (InitializationException e) {
-			logger.error("Could not initialize ifmapj: " + e.getMessage() + ", " + e.getCause(), e);
+			logger.log(Level.ERROR, "Could not initialize ifmapj: " + e.getMessage() + ", " + e.getCause(), e);
 			mSsrc = null;
 			throw new InitializationException(e);
 		}
@@ -244,10 +242,10 @@ public class Connection{
 	private static void initSession(long id) throws IfmapErrorResult, IfmapException {
 		Context context = MainActivity.getContext();
 		try {
-			logger.info("New session...");
+			logger.log(Level.INFO, "New session...");
 			mSsrc.newSession();		// TODO ifmapMaxResultSize noch setzen ?
-			logger.info("...session established");
-			logger.debug("Session ID: " + mSsrc.getSessionId() + " - Publisher ID : " + mSsrc.getPublisherId()+ ")");
+			logger.log(Level.INFO, "...session established");
+			logger.log(Level.DEBUG, "Session ID: " + mSsrc.getSessionId() + " - Publisher ID : " + mSsrc.getPublisherId()+ ")");
 
 			// set connection active
 			ContentValues value = new ContentValues();
@@ -255,12 +253,12 @@ public class Connection{
 			context.getContentResolver().update(Uri.parse(DBContentProvider.CONNECTIONS_URI + "/" +id), value, null, null);
 
 		} catch (IfmapErrorResult e) {
-			logger.error("Got IfmapErrorResult: " + e.getMessage() + ", " + e.getCause(), e);
+			logger.log(Level.ERROR, "Got IfmapErrorResult: " + e.getMessage() + ", " + e.getCause(), e);
 			mSsrc = null;
 			throw new IfmapErrorResult(e.getErrorCode(),e.getErrorString());
 
 		} catch (IfmapException e) {
-			logger.error("Got IfmapException: " + e.getMessage() + ", " + e.getCause(), e);
+			logger.log(Level.ERROR, "Got IfmapException: " + e.getMessage() + ", " + e.getCause(), e);
 			mSsrc = null;
 			throw new IfmapException(e.getDescription(), e);
 		}
@@ -278,14 +276,14 @@ public class Connection{
 		InputStream isTrustManager = null;
 		if (!KeystoreManager.isSDMounted()){
 			isTrustManager = KeystoreManager.getKeystoreFromRaw();
-			logger.warn(Environment.getExternalStorageDirectory().toString() +"State: "+
+			logger.log(Level.WARN, Environment.getExternalStorageDirectory().toString() +"State: "+
 					Environment.getExternalStorageState()+" -> loaded internal keystore (connect just to irond possible)!" );
 		}else{
 			try {
 				isTrustManager = new FileInputStream(new File(KeystoreManager.getPATH_TO_KEYSTORE()));
-				logger.info("Load the keystore from SD card!");
+				logger.log(Level.INFO, "Load the keystore from SD card!");
 			} catch (FileNotFoundException e) {
-				logger.error(e.getMessage(), e);
+				logger.log(Level.ERROR, e.getMessage(), e);
 				throw new FileNotFoundException(e.getMessage());
 			}
 		}

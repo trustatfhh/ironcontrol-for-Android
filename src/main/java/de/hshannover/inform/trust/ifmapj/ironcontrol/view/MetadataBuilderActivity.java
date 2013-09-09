@@ -16,14 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.MetaAttributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.MetaDataEditText;
 
 public class MetadataBuilderActivity extends Activity {
@@ -96,10 +95,10 @@ public class MetadataBuilderActivity extends Activity {
 			metaValues.put(VendorMetadata.COLUMN_URI, "TODOURI");
 
 			switch (rgType.getCheckedRadioButtonId()) {
-				case R.id.rbSingleValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "singleValue");
-				break;
-				case R.id.rbMultiValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "multiValue");
-				break;
+			case R.id.rbSingleValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "singleValue");
+			break;
+			case R.id.rbMultiValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "multiValue");
+			break;
 			}
 
 			Uri metaId = getContentResolver().insert(DBContentProvider.VENDOR_METADATA_URI, metaValues);
@@ -121,10 +120,10 @@ public class MetadataBuilderActivity extends Activity {
 			metaValues.put(VendorMetadata.COLUMN_URI, "TODOURI");
 
 			switch (rgType.getCheckedRadioButtonId()) {
-				case R.id.rbSingleValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "singleValue");
-				break;
-				case R.id.rbMultiValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "multiValue");
-				break;
+			case R.id.rbSingleValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "singleValue");
+			break;
+			case R.id.rbMultiValue : metaValues.put(VendorMetadata.COLUMN_CARDINALITY, "multiValue");
+			break;
 			}
 
 			getContentResolver().update(Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + itemId), metaValues, null, null);
@@ -136,7 +135,7 @@ public class MetadataBuilderActivity extends Activity {
 					getContentResolver().update(Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + itemId + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES + "/" + et.getTag().toString()), metaAttributValues, null, null);
 				}catch (IllegalArgumentException e) {
 					// For new attributes
-					logger.debug("New attribute, try insert", e);
+					logger.log(Level.DEBUG, "New attribute, try insert", e);
 					getContentResolver().insert(Uri.parse(DBContentProvider.VENDOR_METADATA_URI + "/" + itemId + "/" + DBContentProvider.VENDOR_META_ATTRIBUTES), metaAttributValues);
 				}
 			}

@@ -16,10 +16,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.messages.PollResult;
 import de.fhhannover.inform.trust.ifmapj.messages.ResultItem;
@@ -31,6 +27,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Responses
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultItems;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetaAttributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetadata;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 public class StoredResponses extends Thread implements PollReceiver  {
@@ -52,17 +51,17 @@ public class StoredResponses extends Thread implements PollReceiver  {
 	private static final Logger logger = LoggerFactory.getLogger(StoredResponses.class);
 
 	public StoredResponses(Context context) {
-		logger.debug(Util.getString(R.string.enter));
+		logger.log(Level.DEBUG, Util.getString(R.string.enter));
 
 		this.context = context;
 		this.newEvents = new LinkedBlockingQueue<PollResult>();
 
-		logger.debug(Util.getString(R.string.exit));
+		logger.log(Level.DEBUG, Util.getString(R.string.exit));
 	}
 
 	@Override
 	public void run() {
-		logger.debug(Util.getString(R.string.enter) + "run()...");
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
 		Thread.currentThread().setName(StoredResponses.class.getSimpleName());
 		PollResult event;
 		try {
@@ -73,9 +72,9 @@ public class StoredResponses extends Thread implements PollReceiver  {
 				}
 			}
 		} catch (InterruptedException e) {
-			logger.debug(e.getMessage(), e);
+			logger.log(Level.DEBUG, e.getMessage(), e);
 		}
-		logger.debug(Util.getString(R.string.exit) + "...run()");
+		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...run()");
 	}
 
 	public void persistResult(PollResult pr) {
@@ -244,9 +243,9 @@ public class StoredResponses extends Thread implements PollReceiver  {
 							}
 						}
 					}
-					logger.debug("Subscription result is saved");
+					logger.log(Level.DEBUG, "Subscription result is saved");
 				} else {
-					logger.fatal("No uniquely Subscription found");
+					logger.log(Level.FATAL, "No uniquely Subscription found");
 				}
 			}
 		}
@@ -254,12 +253,12 @@ public class StoredResponses extends Thread implements PollReceiver  {
 
 	@Override
 	public void submitNewPollResult(PollResult pr) {
-		logger.debug(Util.getString(R.string.enter) + "submitNewPollResult()...");
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "submitNewPollResult()...");
 		try {
 			this.newEvents.put(pr);
 		} catch (InterruptedException e) {
-			logger.debug(e.getMessage());
+			logger.log(Level.DEBUG, e.getMessage());
 		}
-		logger.debug(Util.getString(R.string.exit) + "...submitNewPollResult()");
+		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...submitNewPollResult()");
 	}
 }

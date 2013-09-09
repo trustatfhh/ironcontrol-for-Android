@@ -10,12 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 /**
  * Class for connection management
@@ -111,24 +109,24 @@ public class ValidSpinnerAdapter extends PromptSpinnerAdapter {
 
 		// get the valid sets
 		switch(spinnerType){
-			case METADATA:
-				key1 = (String) sIdentifier1.getSelectedItem();
-				key2 = (String) sIdentifier2.getSelectedItem();
-				validSet1 = validNodeMap1.get(key1);
-				validSet2 = validNodeMap2.get(key2);
-				break;
-			case IDENTIEFIER1:
-				key1 = (String) sMetaDaten.getSelectedItem();
-				key2 = (String) sIdentifier2.getSelectedItem();
-				validSet1 = validNodeMap1.get(key1);
-				validSet2 = validNodeMap1.get(key2);
-				break;
-			case IDENTIEFIER2:
-				key1 = (String) sIdentifier1.getSelectedItem();
-				key2 = (String) sMetaDaten.getSelectedItem();
-				validSet1 = validNodeMap1.get(key1);
-				validSet2 = validNodeMap1.get(key2);
-				break;
+		case METADATA:
+			key1 = (String) sIdentifier1.getSelectedItem();
+			key2 = (String) sIdentifier2.getSelectedItem();
+			validSet1 = validNodeMap1.get(key1);
+			validSet2 = validNodeMap2.get(key2);
+			break;
+		case IDENTIEFIER1:
+			key1 = (String) sMetaDaten.getSelectedItem();
+			key2 = (String) sIdentifier2.getSelectedItem();
+			validSet1 = validNodeMap1.get(key1);
+			validSet2 = validNodeMap1.get(key2);
+			break;
+		case IDENTIEFIER2:
+			key1 = (String) sIdentifier1.getSelectedItem();
+			key2 = (String) sMetaDaten.getSelectedItem();
+			validSet1 = validNodeMap1.get(key1);
+			validSet2 = validNodeMap1.get(key2);
+			break;
 		}
 
 		if(validSet1 != null){					// get Set of Metadaten for valid identifier1
@@ -156,14 +154,14 @@ public class ValidSpinnerAdapter extends PromptSpinnerAdapter {
 
 	private void buildValidNodeMaps(Node spinnerType){
 		switch(spinnerType){
-			case METADATA:
-				validNodeMap1 = buildMetadataWithIdentifier1Map();
-				validNodeMap2 = buildMetadataWithIdentifier2Map();;
-				break;
-			case IDENTIEFIER1: validNodeMap1 = buildIdentifier1Map();
+		case METADATA:
+			validNodeMap1 = buildMetadataWithIdentifier1Map();
+			validNodeMap2 = buildMetadataWithIdentifier2Map();;
 			break;
-			case IDENTIEFIER2: validNodeMap1 = buildIdentifier2Map();
-			break;
+		case IDENTIEFIER1: validNodeMap1 = buildIdentifier1Map();
+		break;
+		case IDENTIEFIER2: validNodeMap1 = buildIdentifier2Map();
+		break;
 		}
 	}
 

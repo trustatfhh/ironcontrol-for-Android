@@ -14,16 +14,15 @@ import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.messages.PollResult;
 import de.fhhannover.inform.trust.ifmapj.messages.SearchResult;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.PollReceiver;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListHierarchyActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListResponsesActivity;
@@ -54,7 +53,7 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 
 	public ResultNotificationManager(Context context) {
-		logger.debug("New...");
+		logger.log(Level.DEBUG, "New...");
 
 		this.context = context;
 		this.r = context.getResources();
@@ -64,12 +63,12 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 		this.notifyId = 10;
 
-		logger.debug("...NEW");
+		logger.log(Level.DEBUG, "...NEW");
 	}
 
 	@Override
 	public void run() {
-		logger.debug("run()...");
+		logger.log(Level.DEBUG, "run()...");
 		Thread.currentThread().setName(ResultNotificationManager.class.getSimpleName());
 		PollResult event;
 		try {
@@ -89,13 +88,13 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 						}
 					}
 				}else{
-					logger.warn("event is null");
+					logger.log(Level.WARN, "event is null");
 				}
 			}
 		} catch (InterruptedException e) {
-			logger.debug(e.getMessage(), e);
+			logger.log(Level.DEBUG, e.getMessage(), e);
 		}
-		logger.debug("...run()");
+		logger.log(Level.DEBUG, "...run()");
 	}
 
 	private void ton(){
@@ -187,7 +186,7 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 		if(cData.moveToFirst()){
 			if(cData.getCount() > 1){
-				logger.warn("For " + subscribeName + " there are more IDs");
+				logger.log(Level.WARN, "For " + subscribeName + " there are more IDs");
 			}
 			return cData.getString(cData.getColumnIndexOrThrow(Requests.COLUMN_ID));
 		}
@@ -196,13 +195,13 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 	@Override
 	public void submitNewPollResult(PollResult pr) {
-		logger.debug("newPollResult()...");
+		logger.log(Level.DEBUG, "newPollResult()...");
 		try {
 			this.newEvents.put(pr);
 		} catch (InterruptedException e) {
-			logger.debug(e.getMessage());
+			logger.log(Level.DEBUG, e.getMessage());
 		}
-		logger.debug("...newPollResult()");
+		logger.log(Level.DEBUG, "...newPollResult()");
 	}
 
 }

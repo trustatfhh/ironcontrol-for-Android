@@ -21,14 +21,13 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.PublishTask;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.PublishActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceListDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceListEvent;
@@ -66,13 +65,13 @@ public class ListSavedPublishsActivity extends ListActivity implements LoaderMan
 	public boolean onOptionsItemSelected(MenuItem item) {
 		MultichoiceListDialog dialog = null;
 		switch(item.getItemId()){
-			case R.id.bPublishUpdate : dialog = new MultichoicePublishDialog(this, DBContentProvider.PUBLISH_URI, R.string.publish_update, item.getItemId());
-			break;
-			case R.id.bPublishNotify : dialog = new MultichoicePublishDialog(this, DBContentProvider.PUBLISH_URI, R.string.publish_notify, item.getItemId());
-			break;
-			case R.id.bPublishDelete : dialog = new MultichoicePublishDialog(this, DBContentProvider.PUBLISH_URI, R.string.publish_delete, item.getItemId());
-			break;
-			case R.id.bRemove: dialog = new MultichoiceRemoveDialog(this, DBContentProvider.PUBLISH_URI, R.string.remove, item.getItemId());
+		case R.id.bPublishUpdate : dialog = new MultichoicePublishDialog(this, DBContentProvider.PUBLISH_URI, R.string.publish_update, item.getItemId());
+		break;
+		case R.id.bPublishNotify : dialog = new MultichoicePublishDialog(this, DBContentProvider.PUBLISH_URI, R.string.publish_notify, item.getItemId());
+		break;
+		case R.id.bPublishDelete : dialog = new MultichoicePublishDialog(this, DBContentProvider.PUBLISH_URI, R.string.publish_delete, item.getItemId());
+		break;
+		case R.id.bRemove: dialog = new MultichoiceRemoveDialog(this, DBContentProvider.PUBLISH_URI, R.string.remove, item.getItemId());
 		}
 
 		if(!dialog.isEmpty()){
@@ -100,16 +99,16 @@ public class ListSavedPublishsActivity extends ListActivity implements LoaderMan
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		String listItemId = Long.toString(info.id);
 		switch (item.getItemId()) {
-			case REMOVE_ID : removePublish(listItemId);
-			break;
-			case EDIT_ID : startEditActivity(listItemId);
-			break;
-			case UPDATE_ID : createPublish(listItemId, R.id.bPublishUpdate);
-			break;
-			case NOTIFY_ID : createPublish(listItemId, R.id.bPublishNotify);
-			break;
-			case DELETE_ID : createPublish(listItemId, R.id.bPublishDelete);
-			break;
+		case REMOVE_ID : removePublish(listItemId);
+		break;
+		case EDIT_ID : startEditActivity(listItemId);
+		break;
+		case UPDATE_ID : createPublish(listItemId, R.id.bPublishUpdate);
+		break;
+		case NOTIFY_ID : createPublish(listItemId, R.id.bPublishNotify);
+		break;
+		case DELETE_ID : createPublish(listItemId, R.id.bPublishDelete);
+		break;
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -164,7 +163,7 @@ public class ListSavedPublishsActivity extends ListActivity implements LoaderMan
 		try{
 			getContentResolver().delete(uri, null, null);
 		} catch (IllegalArgumentException e){
-			logger.fatal(e.getMessage(), e);
+			logger.log(Level.FATAL, e.getMessage(), e);
 			Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -182,18 +181,18 @@ public class ListSavedPublishsActivity extends ListActivity implements LoaderMan
 	public void onClickeMultichoiceDialogButton(List<String> selectedRowIds, int resIdButton, int clicked) {
 		boolean multi = false;
 		switch( clicked ){
-			case DialogInterface.BUTTON_NEUTRAL: multi = true;
+		case DialogInterface.BUTTON_NEUTRAL: multi = true;
 		}
 
 		switch(resIdButton){
-			case R.id.bRemove: removePublish(selectedRowIds);
-			break;
-			case R.id.bPublishUpdate: createPublish(selectedRowIds.toArray(new String[selectedRowIds.size()]), resIdButton, multi);
-			break;
-			case R.id.bPublishNotify: createPublish(selectedRowIds.toArray(new String[selectedRowIds.size()]), resIdButton, multi);
-			break;
-			case R.id.bPublishDelete: createPublish(selectedRowIds.toArray(new String[selectedRowIds.size()]), resIdButton, multi);
-			break;
+		case R.id.bRemove: removePublish(selectedRowIds);
+		break;
+		case R.id.bPublishUpdate: createPublish(selectedRowIds.toArray(new String[selectedRowIds.size()]), resIdButton, multi);
+		break;
+		case R.id.bPublishNotify: createPublish(selectedRowIds.toArray(new String[selectedRowIds.size()]), resIdButton, multi);
+		break;
+		case R.id.bPublishDelete: createPublish(selectedRowIds.toArray(new String[selectedRowIds.size()]), resIdButton, multi);
+		break;
 		}
 	}
 }

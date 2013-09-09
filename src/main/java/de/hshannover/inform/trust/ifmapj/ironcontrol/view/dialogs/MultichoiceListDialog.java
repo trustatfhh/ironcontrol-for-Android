@@ -10,14 +10,12 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.database.Cursor;
 import android.net.Uri;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Responses;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public abstract class MultichoiceListDialog extends Builder{
 
@@ -132,7 +130,7 @@ public abstract class MultichoiceListDialog extends Builder{
 
 			event.onClickeMultichoiceDialogButton(getSelectedRowIds(), resIdButton, clicked);
 		}else {
-			logger.warn("context is not instance of MultichoiceListEvent");
+			logger.log(Level.WARN, "context is not instance of MultichoiceListEvent");
 		}
 	}
 

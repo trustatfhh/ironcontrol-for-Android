@@ -18,14 +18,12 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TabHost;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Connections;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public class SubscribeFragmentActivity extends FragmentActivity {
 
@@ -72,17 +70,17 @@ public class SubscribeFragmentActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menu_settings:
-				startActivity(new Intent(getBaseContext(), SettingsActivity.class));
-				return true;
-			case R.id.menu_exit:
-				Intent home = new Intent(Intent.ACTION_MAIN);
-				home.addCategory(Intent.CATEGORY_HOME);
-				home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(home);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case R.id.menu_settings:
+			startActivity(new Intent(getBaseContext(), SettingsActivity.class));
+			return true;
+		case R.id.menu_exit:
+			Intent home = new Intent(Intent.ACTION_MAIN);
+			home.addCategory(Intent.CATEGORY_HOME);
+			home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(home);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 

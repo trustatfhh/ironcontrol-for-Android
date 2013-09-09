@@ -24,11 +24,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.messages.MetadataLifetime;
@@ -42,6 +37,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.VendorMetadata;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.PublishRequestData;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.MetadataValueFieldsBuilder;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Node;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.PopUp;
@@ -78,10 +76,10 @@ public class PublishActivity extends Activity implements PopUpEvent{
 	//TODO [MR] vor final löschen
 	public void publishTest(View v) throws IfmapErrorResult, IfmapException{
 		switch(v.getId()){
-			case R.id.buttonTestUpdate: new PublishTestTask(this, Operation.UPDATE).execute();
-			break;
-			case R.id.buttonTestDelete: new PublishTestTask(this, Operation.DELETE).execute();
-			break;
+		case R.id.buttonTestUpdate: new PublishTestTask(this, Operation.UPDATE).execute();
+		break;
+		case R.id.buttonTestDelete: new PublishTestTask(this, Operation.DELETE).execute();
+		break;
 		}
 	}
 
@@ -143,10 +141,10 @@ public class PublishActivity extends Activity implements PopUpEvent{
 		MetadataLifetime lifeTime = null;
 
 		switch(rgLifeTime.getCheckedRadioButtonId()){
-			case R.id.rbForever: lifeTime = MetadataLifetime.forever;
-			break;
-			case R.id.rbSession: lifeTime = MetadataLifetime.session;
-			break;
+		case R.id.rbForever: lifeTime = MetadataLifetime.forever;
+		break;
+		case R.id.rbSession: lifeTime = MetadataLifetime.session;
+		break;
 		}
 
 		ContentValues publishValues = new ContentValues();
@@ -172,34 +170,34 @@ public class PublishActivity extends Activity implements PopUpEvent{
 
 		// For VendorMetadata
 		switch(rgMetaList.getCheckedRadioButtonId()){
-			case R.id.rbVendor:
-				String selection = VendorMetadata.COLUMN_NAME + "='" + sMetaDaten.getSelectedItem().toString()+"'";
+		case R.id.rbVendor:
+			String selection = VendorMetadata.COLUMN_NAME + "='" + sMetaDaten.getSelectedItem().toString()+"'";
 
-				Cursor vendorMetaCursor = getContentResolver().query(
-						DBContentProvider.VENDOR_METADATA_URI,
-						null, selection, null, null);
+			Cursor vendorMetaCursor = getContentResolver().query(
+					DBContentProvider.VENDOR_METADATA_URI,
+					null, selection, null, null);
 
-				vendorMetaCursor.moveToNext();
+			vendorMetaCursor.moveToNext();
 
-				attributesValues.put(Attributes.COLUMN_NAME, VendorMetadata.COLUMN_PREFIX);
-				attributesValues.put(Attributes.COLUMN_VALUE, vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_PREFIX)));
-				getContentResolver().insert(Uri.parse(DBContentProvider.PUBLISH_URI + "/" + id + "/" + DBContentProvider.METADATA_ATTRIBUTES) , attributesValues);
+			attributesValues.put(Attributes.COLUMN_NAME, VendorMetadata.COLUMN_PREFIX);
+			attributesValues.put(Attributes.COLUMN_VALUE, vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_PREFIX)));
+			getContentResolver().insert(Uri.parse(DBContentProvider.PUBLISH_URI + "/" + id + "/" + DBContentProvider.METADATA_ATTRIBUTES) , attributesValues);
 
-				attributesValues.put(Attributes.COLUMN_NAME, VendorMetadata.COLUMN_URI);
-				attributesValues.put(Attributes.COLUMN_VALUE, vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_URI)));
-				getContentResolver().insert(Uri.parse(DBContentProvider.PUBLISH_URI + "/" + id + "/" + DBContentProvider.METADATA_ATTRIBUTES) , attributesValues);
+			attributesValues.put(Attributes.COLUMN_NAME, VendorMetadata.COLUMN_URI);
+			attributesValues.put(Attributes.COLUMN_VALUE, vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_URI)));
+			getContentResolver().insert(Uri.parse(DBContentProvider.PUBLISH_URI + "/" + id + "/" + DBContentProvider.METADATA_ATTRIBUTES) , attributesValues);
 
-				attributesValues.put(Attributes.COLUMN_NAME, VendorMetadata.COLUMN_CARDINALITY);
-				attributesValues.put(Attributes.COLUMN_VALUE, vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_CARDINALITY)));
-				getContentResolver().insert(Uri.parse(DBContentProvider.PUBLISH_URI + "/" + id + "/" + DBContentProvider.METADATA_ATTRIBUTES) , attributesValues);
+			attributesValues.put(Attributes.COLUMN_NAME, VendorMetadata.COLUMN_CARDINALITY);
+			attributesValues.put(Attributes.COLUMN_VALUE, vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_CARDINALITY)));
+			getContentResolver().insert(Uri.parse(DBContentProvider.PUBLISH_URI + "/" + id + "/" + DBContentProvider.METADATA_ATTRIBUTES) , attributesValues);
 
-				vendorMetaCursor.close();
+			vendorMetaCursor.close();
 		}
 		return true;
 	}
 
 	private boolean isPublishNameValid(String savedName) {
-		logger.debug("Valid check for publish name...");
+		logger.log(Level.DEBUG, "Valid check for publish name...");
 		if(!savedName.equals("")){
 
 			String selectionArgs[] = {savedName};
@@ -209,7 +207,7 @@ public class PublishActivity extends Activity implements PopUpEvent{
 
 			if(cursor.getCount() < 1){
 				cursor.close();
-				logger.debug("... ok");
+				logger.log(Level.DEBUG, "... ok");
 				return true;
 			}else {
 				cursor.close();
@@ -219,7 +217,7 @@ public class PublishActivity extends Activity implements PopUpEvent{
 			Toast.makeText(getBaseContext(), "empty name", Toast.LENGTH_SHORT).show();
 		}
 
-		logger.debug("... fail");
+		logger.log(Level.DEBUG, "... fail");
 		return false;
 	}
 
@@ -236,8 +234,8 @@ public class PublishActivity extends Activity implements PopUpEvent{
 
 		switch(rgLifeTime.getCheckedRadioButtonId()){
 
-			case R.id.rbForever: lifeTime = MetadataLifetime.forever; break;
-			case R.id.rbSession: lifeTime = MetadataLifetime.session; break;
+		case R.id.rbForever: lifeTime = MetadataLifetime.forever; break;
+		case R.id.rbSession: lifeTime = MetadataLifetime.session; break;
 
 		}
 
@@ -253,19 +251,19 @@ public class PublishActivity extends Activity implements PopUpEvent{
 		data.setAttributes(metaAttributes);
 
 		switch(rgMetaList.getCheckedRadioButtonId()){
-			case R.id.rbVendor:
-				String selection = VendorMetadata.COLUMN_NAME + "='" + metadata+"'";
+		case R.id.rbVendor:
+			String selection = VendorMetadata.COLUMN_NAME + "='" + metadata+"'";
 
-				Cursor vendorMetaCursor = getContentResolver().query(
-						DBContentProvider.VENDOR_METADATA_URI,
-						null, selection, null, null);
+			Cursor vendorMetaCursor = getContentResolver().query(
+					DBContentProvider.VENDOR_METADATA_URI,
+					null, selection, null, null);
 
-				vendorMetaCursor.moveToNext();
-				data.setVendorMetaPrefix(vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_PREFIX)));
-				data.setVendorMetaUri(vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_URI)));
-				data.setVendorCardinality(Cardinality.valueOf(vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_CARDINALITY))));
+			vendorMetaCursor.moveToNext();
+			data.setVendorMetaPrefix(vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_PREFIX)));
+			data.setVendorMetaUri(vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_URI)));
+			data.setVendorCardinality(Cardinality.valueOf(vendorMetaCursor.getString(vendorMetaCursor.getColumnIndex(VendorMetadata.COLUMN_CARDINALITY))));
 
-				vendorMetaCursor.close();
+			vendorMetaCursor.close();
 		}
 
 		return data;
@@ -338,10 +336,10 @@ public class PublishActivity extends Activity implements PopUpEvent{
 
 				// Valid check when Metadata Standard
 				switch(rgMetaList.getCheckedRadioButtonId()){
-					case R.id.rbStandard:
-						if(!metadataAdapter.isValid(itemString)){
-							Toast.makeText(getApplication(), R.string.not_valid_identifier_metadata, Toast.LENGTH_SHORT).show();
-						}
+				case R.id.rbStandard:
+					if(!metadataAdapter.isValid(itemString)){
+						Toast.makeText(getApplication(), R.string.not_valid_identifier_metadata, Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 			@Override
@@ -399,41 +397,41 @@ public class PublishActivity extends Activity implements PopUpEvent{
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch(checkedId){
-					case R.id.rbNone:
-						// change spinner
-						sMetaDaten.setAdapter(new ArrayAdapter<CharSequence>(
-								getApplication(),
-								android.R.layout.simple_list_item_1,
-								new ArrayList<CharSequence>()));
+				case R.id.rbNone:
+					// change spinner
+					sMetaDaten.setAdapter(new ArrayAdapter<CharSequence>(
+							getApplication(),
+							android.R.layout.simple_list_item_1,
+							new ArrayList<CharSequence>()));
 
-						// disable buttons
-						bNotify.setEnabled(false);
-						bUpdate.setEnabled(false);
+					// disable buttons
+					bNotify.setEnabled(false);
+					bUpdate.setEnabled(false);
 
-						break;
+					break;
 
-					case R.id.rbStandard:
-						// change spinner
-						sMetaDaten.setAdapter(metadataAdapter);
+				case R.id.rbStandard:
+					// change spinner
+					sMetaDaten.setAdapter(metadataAdapter);
 
-						// enable buttons
-						bNotify.setEnabled(true);
-						bUpdate.setEnabled(true);
+					// enable buttons
+					bNotify.setEnabled(true);
+					bUpdate.setEnabled(true);
 
-						break;
+					break;
 
-					case R.id.rbVendor:
-						// change spinner
-						sMetaDaten.setAdapter(new PromptSpinnerAdapter(
-								getApplication(),
-								METADATA_SPINNER_PROMPT,
-								getVendorSpecificMetadata()));
+				case R.id.rbVendor:
+					// change spinner
+					sMetaDaten.setAdapter(new PromptSpinnerAdapter(
+							getApplication(),
+							METADATA_SPINNER_PROMPT,
+							getVendorSpecificMetadata()));
 
-						// enable buttons
-						bNotify.setEnabled(true);
-						bUpdate.setEnabled(true);
+					// enable buttons
+					bNotify.setEnabled(true);
+					bUpdate.setEnabled(true);
 
-						break;
+					break;
 				}
 			}
 		});
@@ -541,17 +539,17 @@ public class PublishActivity extends Activity implements PopUpEvent{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menu_settings:
-				startActivity(new Intent(getBaseContext(), SettingsActivity.class));
-				return true;
-			case R.id.menu_exit:
-				Intent home = new Intent(Intent.ACTION_MAIN);
-				home.addCategory(Intent.CATEGORY_HOME);
-				home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(home);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case R.id.menu_settings:
+			startActivity(new Intent(getBaseContext(), SettingsActivity.class));
+			return true;
+		case R.id.menu_exit:
+			Intent home = new Intent(Intent.ACTION_MAIN);
+			home.addCategory(Intent.CATEGORY_HOME);
+			home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(home);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 }

@@ -3,11 +3,9 @@ package de.hshannover.inform.trust.ifmapj.ironcontrol.exceptions;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.content.Context;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 
 public class IronControlUncaughtExceptionHandler implements UncaughtExceptionHandler{

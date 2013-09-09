@@ -6,11 +6,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
@@ -19,6 +14,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.RequestsController;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.SubscribeRequestData;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public class SubscriptionTask extends AsyncTask<Void, Void, Void> {
 
@@ -72,12 +70,12 @@ public class SubscriptionTask extends AsyncTask<Void, Void, Void> {
 			// set subscription active
 			ContentValues value = new ContentValues();
 			switch (type) {
-				case UPDATE : value.put(Requests.COLUMN_ACTIVE, 1);
-				break;
-				case DELETE : value.put(Requests.COLUMN_ACTIVE, 0);
-				break;
-				default : logger.fatal("Wrong Operation type for subscription");
-				break;
+			case UPDATE : value.put(Requests.COLUMN_ACTIVE, 1);
+			break;
+			case DELETE : value.put(Requests.COLUMN_ACTIVE, 0);
+			break;
+			default : logger.log(Level.FATAL, "Wrong Operation type for subscription");
+			break;
 			}
 			context.getContentResolver().update(Uri.parse(DBContentProvider.SUBSCRIPTION_URI + "/" +subscribeId), value, null, null);
 
@@ -115,7 +113,7 @@ public class SubscriptionTask extends AsyncTask<Void, Void, Void> {
 
 		if(error == null){
 			Toast.makeText(context, R.string.publishReceived, Toast.LENGTH_SHORT).show();
-			logger.info(context.getResources().getString(R.string.publishReceived));
+			logger.log(Level.INFO, context.getResources().getString(R.string.publishReceived));
 		}else {
 			Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
 		}

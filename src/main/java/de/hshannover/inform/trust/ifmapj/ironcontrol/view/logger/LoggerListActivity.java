@@ -16,14 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-import com.google.code.microlog4android.appender.ListAppender;
-import com.google.code.microlog4android.appender.ListAppender.LogData;
-
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogData;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialogEvent;
 
@@ -72,25 +70,25 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
-			case R.id.clear: clearLog();
+		case R.id.clear: clearLog();
+		break;
+
+		case R.id.filter:
+			String[] labels = buildFilterLabels();
+			new MultichoiceDialog(this, labels, labels, item.getItemId()).create().show();
 			break;
 
-			case R.id.filter:
-				String[] labels = buildFilterLabels();
-				new MultichoiceDialog(this, labels, labels, item.getItemId()).create().show();
-				break;
-
-			default:
-				Editor edit = getSharedPreferences("LogLevel", MODE_PRIVATE).edit();
-				if(item.isChecked()){
-					item.setChecked(false);
-				}else {
-					item.setChecked(true);
-				}
-				edit.putBoolean(item.getTitle().toString(), item.isChecked());
-				edit.commit();
-				onChangeList();
-				break;
+		default:
+			Editor edit = getSharedPreferences("LogLevel", MODE_PRIVATE).edit();
+			if(item.isChecked()){
+				item.setChecked(false);
+			}else {
+				item.setChecked(true);
+			}
+			edit.putBoolean(item.getTitle().toString(), item.isChecked());
+			edit.commit();
+			onChangeList();
+			break;
 		}
 		return false;
 	}
@@ -109,7 +107,7 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 	private List<LogData> buildLogList(){
 		readSharedPreferences();
 		List<LogData> logList = new ArrayList<LogData>();
-		List<LogData> appenderLogList = getLogsFromListAppender();
+		List<LogData> appenderLogList = getLogList();
 		if(appenderLogList != null){
 			for (LogData ld : appenderLogList) {
 				if(filterNames.isEmpty() || filterNames.contains(ld.getName())){
@@ -140,14 +138,14 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 		debug = data.getBoolean(getResources().getString(R.string.debug), false);
 	}
 
-	private List<LogData> getLogsFromListAppender(){
-		for(int i=0; i<logger.getNumberOfAppenders(); i++){
-			if (logger.getAppender(i) instanceof ListAppender) {
-				return ((ListAppender) logger.getAppender(i)).getLogs();
-			}
+	private List<LogData> getLogList(){
+		ListAppender la = (ListAppender) logger.getAppender(ListAppender.class);
+
+		if(la == null){
+			return null;
 		}
-		logger.log(Level.WARN, "No ListAppender was found!");
-		return null;
+
+		return la.getLogs();
 	}
 
 	private void onChangeList() {
@@ -159,7 +157,8 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 	}
 
 	private void clearLog(){
-		getLogsFromListAppender().clear();
+		logger.getAppender(ListAppender.class).clear();
+		getLogList().clear();
 		mAdapter.clear();
 		Toast.makeText(getApplicationContext(), "Log was clear", Toast.LENGTH_SHORT).show();
 	}

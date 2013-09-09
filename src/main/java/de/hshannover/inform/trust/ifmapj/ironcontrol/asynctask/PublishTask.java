@@ -8,11 +8,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Level;
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.messages.MetadataLifetime;
@@ -24,6 +19,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.VendorMet
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.PublishRequestData;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.RequestsController;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 public class PublishTask extends AsyncTask<Void, Void, Void> {
@@ -51,14 +49,14 @@ public class PublishTask extends AsyncTask<Void, Void, Void> {
 		this.data = data;
 
 		switch(data.getOperation()){
-			case UPDATE: pd.setMessage(MASSAGEUPDATE);
-			break;
-			case NOTIFY: pd.setMessage(MASSAGENOTIFY);
-			break;
-			case DELETE: pd.setMessage(MASSAGEDELETE);
-			break;
-			default: logger.log(Level.WARN, context.getResources().getString(R.string.wrongButtonID));
-			break;
+		case UPDATE: pd.setMessage(MASSAGEUPDATE);
+		break;
+		case NOTIFY: pd.setMessage(MASSAGENOTIFY);
+		break;
+		case DELETE: pd.setMessage(MASSAGEDELETE);
+		break;
+		default: logger.log(Level.WARN, context.getResources().getString(R.string.wrongButtonID));
+		break;
 		}
 		logger.log(Level.DEBUG, "...NEW");
 	}
@@ -73,14 +71,14 @@ public class PublishTask extends AsyncTask<Void, Void, Void> {
 		this.operation = Operation.valueOf(buttonType);
 
 		switch(buttonType){
-			case R.id.bPublishUpdate: pd.setMessage(MASSAGEUPDATE);
-			break;
-			case R.id.bPublishNotify: pd.setMessage(MASSAGENOTIFY);
-			break;
-			case R.id.bPublishDelete: pd.setMessage(MASSAGEDELETE);
-			break;
-			default: logger.log(Level.WARN, context.getResources().getString(R.string.wrongButtonID));
-			break;
+		case R.id.bPublishUpdate: pd.setMessage(MASSAGEUPDATE);
+		break;
+		case R.id.bPublishNotify: pd.setMessage(MASSAGENOTIFY);
+		break;
+		case R.id.bPublishDelete: pd.setMessage(MASSAGEDELETE);
+		break;
+		default: logger.log(Level.WARN, context.getResources().getString(R.string.wrongButtonID));
+		break;
 		}
 		logger.log(Level.DEBUG, "...NEW");
 	}
@@ -211,7 +209,7 @@ public class PublishTask extends AsyncTask<Void, Void, Void> {
 
 		if(error == null){
 			Toast.makeText(context, R.string.publishReceived, Toast.LENGTH_SHORT).show();
-			logger.info(context.getResources().getString(R.string.publishReceived));
+			logger.log(Level.INFO, context.getResources().getString(R.string.publishReceived));
 		}else {
 			Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
 		}

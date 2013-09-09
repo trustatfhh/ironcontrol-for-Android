@@ -14,9 +14,6 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapcli.common.IdentifierEnum;
 import de.fhhannover.inform.trust.ifmapj.IfmapJ;
 import de.fhhannover.inform.trust.ifmapj.binding.IfmapStrings;
@@ -40,6 +37,9 @@ import de.fhhannover.inform.trust.ifmapj.metadata.StandardIfmapMetadataFactory;
 import de.fhhannover.inform.trust.ifmapj.metadata.WlanSecurityEnum;
 import de.fhhannover.inform.trust.ifmapj.metadata.WlanSecurityType;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.ResultNotificationManager;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
@@ -59,10 +59,10 @@ public class RequestsController {
 		try {
 			Connection.getSSRC().purgePublisher(publisherId);
 		} catch (IfmapErrorResult e) {
-			logger.error(e.getErrorString(), e);
+			logger.log(Level.ERROR, e.getErrorString(), e);
 			throw new IfmapErrorResult(e.getErrorCode(), e.getErrorString());
 		} catch (IfmapException e) {
-			logger.error(e.getDescription(), e);
+			logger.log(Level.ERROR, e.getDescription(), e);
 			throw new IfmapException(e.getDescription(), e);
 		}
 	}
@@ -99,7 +99,7 @@ public class RequestsController {
 			}
 
 		}	catch (Exception e){
-			logger.error(e.toString(), e);
+			logger.log(Level.ERROR, e.toString(), e);
 			throw new Exception(e);
 		}
 
@@ -116,20 +116,20 @@ public class RequestsController {
 
 
 		switch (req.getOperation()){
-			case UPDATE: publishElement = Requests.createPublishUpdate(identifier1, identifier2, metadata, req.getLifeTime());
-			break;
-			case NOTIFY: publishElement = Requests.createPublishNotify(identifier1, identifier2, metadata);
-			break;
-			case DELETE: publishElement = Requests.createPublishDelete(identifier1, identifier2, buildFilter(req));
-			if(metaList.contains(req.getMetaName())){
-				((PublishDelete)publishElement).addNamespaceDeclaration(IfmapStrings.STD_METADATA_PREFIX,IfmapStrings.STD_METADATA_NS_URI);
-			}else{
-				((PublishDelete)publishElement).addNamespaceDeclaration(req.getVendorMetaPrefix(), req.getVendorMetaUri());
-			}
-
-			break;
+		case UPDATE: publishElement = Requests.createPublishUpdate(identifier1, identifier2, metadata, req.getLifeTime());
+		break;
+		case NOTIFY: publishElement = Requests.createPublishNotify(identifier1, identifier2, metadata);
+		break;
+		case DELETE: publishElement = Requests.createPublishDelete(identifier1, identifier2, buildFilter(req));
+		if(metaList.contains(req.getMetaName())){
+			((PublishDelete)publishElement).addNamespaceDeclaration(IfmapStrings.STD_METADATA_PREFIX,IfmapStrings.STD_METADATA_NS_URI);
+		}else{
+			((PublishDelete)publishElement).addNamespaceDeclaration(req.getVendorMetaPrefix(), req.getVendorMetaUri());
 		}
-		logger.debug(Util.getString(R.string.reqControlBuildPublishElement_returnPublishEl));
+
+		break;
+		}
+		logger.log(Level.DEBUG, Util.getString(R.string.reqControlBuildPublishElement_returnPublishEl));
 		return publishElement;
 	}
 
@@ -139,10 +139,10 @@ public class RequestsController {
 			Connection.getSSRC().publish(mPublishRequest);
 
 		} catch (IfmapErrorResult e) {
-			logger.error(e.getErrorString(), e);
+			logger.log(Level.ERROR, e.getErrorString(), e);
 			throw new IfmapErrorResult(e.getErrorCode(),e.getErrorString());
 		} catch (IfmapException e) {
-			logger.error(e.getDescription(), e);
+			logger.log(Level.ERROR, e.getDescription(), e);
 			throw new IfmapException(e.getDescription(), e);
 		}
 	}
@@ -158,10 +158,10 @@ public class RequestsController {
 
 		if(sPoller.isAlive()){
 			System.out.println("SPoller ist am laufen");
-			logger.debug("SPoller ist am laufen");
+			logger.log(Level.DEBUG, "SPoller ist am laufen");
 		}else{
 			System.out.println("SPoller ist NICHT!! am laufen");
-			logger.debug("SPoller ist NICHT!! am laufen");
+			logger.log(Level.DEBUG, "SPoller ist NICHT!! am laufen");
 		}
 
 		SubscribeRequest mSubscribeRequest = buildSubscriptionRequest(req);
@@ -170,10 +170,10 @@ public class RequestsController {
 
 		if(sPoller.isAlive()){
 			System.out.println("SPoller ist am laufen");
-			logger.debug("SPoller ist am laufen");
+			logger.log(Level.DEBUG, "SPoller ist am laufen");
 		}else{
 			System.out.println("SPoller ist NICHT!! am laufen");
-			logger.debug("SPoller ist NICHT!! am laufen");
+			logger.log(Level.DEBUG, "SPoller ist NICHT!! am laufen");
 		}
 
 		if(sPoller.isWaiting()){
@@ -196,18 +196,18 @@ public class RequestsController {
 		try{
 			for (SubscribeRequestData element : req) {
 				switch (element.getType()) {
-					case UPDATE : mSubscribeRequest.addSubscribeElement(buildSubscribeUpdate(element));
-					break;
-					case DELETE : mSubscribeRequest.addSubscribeElement(buildSubscribeDelete(element));
-					break;
-					default : logger.fatal("Wrong Operation type for subscription");
-					break;
+				case UPDATE : mSubscribeRequest.addSubscribeElement(buildSubscribeUpdate(element));
+				break;
+				case DELETE : mSubscribeRequest.addSubscribeElement(buildSubscribeDelete(element));
+				break;
+				default : logger.log(Level.FATAL, "Wrong Operation type for subscription");
+				break;
 				}
 
 			}
 
 		}	catch (Exception e){
-			logger.error(e.toString(), e);
+			logger.log(Level.ERROR, e.toString(), e);
 			throw new Exception(e);
 		}
 
@@ -264,7 +264,7 @@ public class RequestsController {
 					req.getNameSpacePrefix(),
 					req.getNameSpaceURI());
 		}
-		logger.debug(Util.getString(R.string.reqControlBuildSubscribeElement_returnSuEl));
+		logger.log(Level.DEBUG, Util.getString(R.string.reqControlBuildSubscribeElement_returnSuEl));
 		return su;
 	}
 
@@ -272,10 +272,10 @@ public class RequestsController {
 		try {
 			Connection.getSSRC().subscribe(mSubscribeRequest);
 		} catch (IfmapErrorResult e) {
-			logger.error(e.getErrorString(), e);
+			logger.log(Level.ERROR, e.getErrorString(), e);
 			throw new IfmapErrorResult(e.getErrorCode(),e.getErrorString());
 		} catch (IfmapException e) {
-			logger.error(e.getDescription(), e);
+			logger.log(Level.ERROR, e.getDescription(), e);
 			throw new IfmapException(e.getDescription(), e);
 		}
 	}
@@ -283,7 +283,7 @@ public class RequestsController {
 	// Search
 
 	public static SearchResult createSearch(SearchRequestData req) throws IfmapErrorResult, IfmapException, Exception{
-		logger.debug(Util.getString(R.string.reqControlCreateSearchRet));
+		logger.log(Level.DEBUG, Util.getString(R.string.reqControlCreateSearchRet));
 
 		SearchRequest mSearchRequest = buildSearchRequest(req);
 
@@ -293,17 +293,17 @@ public class RequestsController {
 	}
 
 	private static SearchResult startSearch(SearchRequest search) throws IfmapErrorResult, IfmapException{
-		logger.debug(Util.getString(R.string.reqControlStartSearchRet));
+		logger.log(Level.DEBUG, Util.getString(R.string.reqControlStartSearchRet));
 
 		SearchResult mSearchResult;
 
 		try{
 			mSearchResult = Connection.getSSRC().search(search);
 		} catch (IfmapErrorResult e) {
-			logger.error(e.getErrorString(), e);
+			logger.log(Level.ERROR, e.getErrorString(), e);
 			throw new IfmapErrorResult(e.getErrorCode(),e.getErrorString());
 		} catch (IfmapException e) {
-			logger.error(e.getDescription(), e);
+			logger.log(Level.ERROR, e.getDescription(), e);
 			throw new IfmapException(e.getDescription(), e);
 		}
 
@@ -355,10 +355,10 @@ public class RequestsController {
 						req.getNameSpacePrefix(),
 						req.getNameSpaceURI());
 			}
-			logger.debug(Util.getString(R.string.reqControlBuildSearchReq_returnSeRe));
+			logger.log(Level.DEBUG, Util.getString(R.string.reqControlBuildSearchReq_returnSeRe));
 
 		}	catch (Exception e){
-			logger.error(e.toString(), e);
+			logger.log(Level.ERROR, e.toString(), e);
 			throw new Exception(e);
 		}
 
@@ -380,7 +380,7 @@ public class RequestsController {
 		} else {
 			return null;
 		}
-		logger.debug("Build " + sType + " " + value);
+		logger.log(Level.DEBUG, "Build " + sType + " " + value);
 		return type.getIdentifier(value);
 	}
 
@@ -594,7 +594,7 @@ public class RequestsController {
 					req.getVendorCardinality(),
 					req.getAttributes());
 		}
-		logger.debug(Util.getString(R.string.reqControlBuildMetadata_ret));
+		logger.log(Level.DEBUG, Util.getString(R.string.reqControlBuildMetadata_ret));
 		return metadata;
 	}
 
@@ -648,7 +648,7 @@ public class RequestsController {
 		}else{//Vendor-Specific!!!//
 			sb.append(req.getVendorMetaPrefix()+":"+req.getMetaName());
 		}
-		logger.debug(Util.getString(R.string.reqControlBuildFilter_ret));
+		logger.log(Level.DEBUG, Util.getString(R.string.reqControlBuildFilter_ret));
 		return sb.toString();
 	}
 

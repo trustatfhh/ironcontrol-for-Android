@@ -6,14 +6,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
-import com.google.code.microlog4android.Logger;
-import com.google.code.microlog4android.LoggerFactory;
-
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Connection;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
@@ -41,10 +40,10 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
 		pd = new ProgressDialog(context);
 		switch(type){
-			case CONNECT: pd.setMessage(r.getString(R.string.connecting));
-			break;
-			case DISCONNECT: pd.setMessage(r.getString(R.string.disconnecting));
-			break;
+		case CONNECT: pd.setMessage(r.getString(R.string.connecting));
+		break;
+		case DISCONNECT: pd.setMessage(r.getString(R.string.disconnecting));
+		break;
 		}
 	}
 
@@ -56,14 +55,14 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Long... params) {
-		logger.debug(r.getString(R.string.runConnectionTask));
+		logger.log(Level.DEBUG, r.getString(R.string.runConnectionTask));
 		try {
 
 			switch(type){
-				case CONNECT: Connection.connect(params[0]);
-				break;
-				case DISCONNECT: Connection.disconnect();
-				break;
+			case CONNECT: Connection.connect(params[0]);
+			break;
+			case DISCONNECT: Connection.disconnect();
+			break;
 			}
 
 		} catch (IfmapErrorResult e) {
@@ -82,18 +81,18 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
 		if(result){
 			switch(type){
-				case CONNECT: Toast.makeText(context, r.getString(R.string.newConnection), Toast.LENGTH_SHORT).show();
-				break;
-				case DISCONNECT: Toast.makeText(context, r.getString(R.string.disconnected), Toast.LENGTH_SHORT).show();
-				break;
+			case CONNECT: Toast.makeText(context, r.getString(R.string.newConnection), Toast.LENGTH_SHORT).show();
+			break;
+			case DISCONNECT: Toast.makeText(context, r.getString(R.string.disconnected), Toast.LENGTH_SHORT).show();
+			break;
 			}
 
 		} else {
 			switch(type){
-				case CONNECT: Toast.makeText(context, r.getString(R.string.connectingFail), Toast.LENGTH_SHORT).show();
-				break;
-				case DISCONNECT: Toast.makeText(context, r.getString(R.string.disconnectedFail), Toast.LENGTH_SHORT).show();
-				break;
+			case CONNECT: Toast.makeText(context, r.getString(R.string.connectingFail), Toast.LENGTH_SHORT).show();
+			break;
+			case DISCONNECT: Toast.makeText(context, r.getString(R.string.disconnectedFail), Toast.LENGTH_SHORT).show();
+			break;
 			}
 		}
 	}
