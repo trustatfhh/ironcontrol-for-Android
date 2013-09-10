@@ -103,12 +103,5 @@
 			<artifactId>ifmapj</artifactId>
 			<version>0.1.5</version>
 		</dependency>
-
-		<dependency>
-			<groupId>de.fhhannover.inform.trust.ifmapcli</groupId>
-			<artifactId>common</artifactId>
-			<version>0.0.3</version>
-		</dependency>
-
 	</dependencies>
 </project>

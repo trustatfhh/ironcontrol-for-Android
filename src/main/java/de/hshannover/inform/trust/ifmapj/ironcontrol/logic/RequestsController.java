@@ -14,12 +14,13 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
-import de.fhhannover.inform.trust.ifmapcli.common.IdentifierEnum;
 import de.fhhannover.inform.trust.ifmapj.IfmapJ;
 import de.fhhannover.inform.trust.ifmapj.binding.IfmapStrings;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.identifier.Identifier;
+import de.fhhannover.inform.trust.ifmapj.identifier.Identifiers;
+import de.fhhannover.inform.trust.ifmapj.identifier.IdentityType;
 import de.fhhannover.inform.trust.ifmapj.messages.PublishDelete;
 import de.fhhannover.inform.trust.ifmapj.messages.PublishElement;
 import de.fhhannover.inform.trust.ifmapj.messages.PublishRequest;
@@ -366,22 +367,22 @@ public class RequestsController {
 	}
 
 	private static Identifier buildIdentifier(String sType, String value){
-		IdentifierEnum type;
+		Identifier type;
 		if (sType.equals(identifierList.get(0))) {
-			type = IdentifierEnum.ar;
+			type = Identifiers.createAr(value);
 		} else if (sType.equals(identifierList.get(1))) {
-			type = IdentifierEnum.ip;
+			type = Identifiers.createIp4(value);
 		} else if (sType.equals(identifierList.get(2))) {
-			type = IdentifierEnum.mac;
+			type = Identifiers.createMac(value);
 		} else if (sType.equals(identifierList.get(3))) {
-			type = IdentifierEnum.dev;
+			type = Identifiers.createDev(value);
 		} else if (sType.equals(identifierList.get(4))) {
-			type = IdentifierEnum.id;
+			type = Identifiers.createIdentity(IdentityType.userName, value);
 		} else {
 			return null;
 		}
 		logger.log(Level.DEBUG, "Build " + sType + " " + value);
-		return type.getIdentifier(value);
+		return type;
 	}
 
 	private static Document buildMetadata(PublishRequestData req) {
