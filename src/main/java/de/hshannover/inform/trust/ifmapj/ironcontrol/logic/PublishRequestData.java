@@ -1,3 +1,5 @@
+package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
+
 /**
  * Class for connection management
  * @author Daniel Wolf
@@ -5,14 +7,11 @@
  * @author Arne Loth
  * @since 0.5
  */
-package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
 
 import java.util.HashMap;
-import java.util.List;
 
 import de.fhhannover.inform.trust.ifmapj.messages.MetadataLifetime;
 import de.fhhannover.inform.trust.ifmapj.metadata.Cardinality;
-import de.fhhannover.inform.trust.ifmapj.metadata.LocationInformation;
 import de.fhhannover.inform.trust.ifmapj.metadata.WlanSecurityType;
 
 public class PublishRequestData extends RequestData{

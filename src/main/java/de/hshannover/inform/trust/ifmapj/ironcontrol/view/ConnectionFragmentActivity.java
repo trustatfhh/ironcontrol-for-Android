@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -83,8 +82,8 @@ public class ConnectionFragmentActivity extends FragmentActivity {
 
 	private void fillData(String listItemId) {
 		Uri connection_uri = Uri.parse(DBContentProvider.CONNECTIONS_URI + "/"+ listItemId);
-		String[] connection_projection = new String[]{Connections.COLUMN_NAME, Connections.COLUMN_ADDRESS, Connections.COLUMN_PORT, Connections.COLUMN_USER, Connections.COLUMN_PASS};
-		Cursor connection_cursor = getContentResolver().query(connection_uri, connection_projection, null, null, null);
+		Cursor connection_cursor = getContentResolver().query(connection_uri, null, null, null, null);
+
 		connection_cursor.moveToNext();
 
 		String name = connection_cursor.getString(connection_cursor.getColumnIndexOrThrow(Connections.COLUMN_NAME));
@@ -92,12 +91,16 @@ public class ConnectionFragmentActivity extends FragmentActivity {
 		String port = connection_cursor.getString(connection_cursor.getColumnIndexOrThrow(Connections.COLUMN_PORT));
 		String userName = connection_cursor.getString(connection_cursor.getColumnIndexOrThrow(Connections.COLUMN_USER));
 		String userPass = connection_cursor.getString(connection_cursor.getColumnIndexOrThrow(Connections.COLUMN_PASS));
+		String userUrl = connection_cursor.getString(connection_cursor.getColumnIndex(Connections.COLUMN_URL));
+
+		connection_cursor.close();
 
 		etServerName.setText(name);
 		etServerAddress.setText(address);
 		etServerPort.setText(port);
 		etUserName.setText(userName);
 		etUserPW.setText(userPass);
+		etUrl.setText(userUrl);
 	}
 
 	private void addButtonListener() {
@@ -117,13 +120,13 @@ public class ConnectionFragmentActivity extends FragmentActivity {
 						connectionValues.put(Connections.COLUMN_PORT, etServerPort.getText().toString());
 						connectionValues.put(Connections.COLUMN_USER, etUserName.getText().toString());
 						connectionValues.put(Connections.COLUMN_PASS, etUserPW.getText().toString());
+						connectionValues.put(Connections.COLUMN_URL, etUrl.getText().toString());
 						if(conn.getCount() == 0){
 							connectionValues.put(Connections.COLUMN_DEFAULT, 1);
 						}
 
 						getContentResolver().insert(DBContentProvider.CONNECTIONS_URI, connectionValues);
 						Toast.makeText(ConnectionFragmentActivity.this, etServerName.getText() + " "+getResources().getString(R.string.is_saved), Toast.LENGTH_SHORT).show();
-						Log.i(getResources().getString(R.string.logTag),getResources().getString(R.string.connection)+" "+etServerName.getText()+" "+getResources().getString(R.string.is_saved));
 					}else{
 						// Update
 						String id = getIntent().getExtras().getString("listItemId");
@@ -134,11 +137,11 @@ public class ConnectionFragmentActivity extends FragmentActivity {
 						connectionValues.put(Connections.COLUMN_PORT, etServerPort.getText().toString());
 						connectionValues.put(Connections.COLUMN_USER, etUserName.getText().toString());
 						connectionValues.put(Connections.COLUMN_PASS, etUserPW.getText().toString());
+						connectionValues.put(Connections.COLUMN_URL, etUrl.getText().toString());
 
 						getContentResolver().update(Uri.parse(DBContentProvider.CONNECTIONS_URI + "/" + id), connectionValues, null, null);
 
 						Toast.makeText(ConnectionFragmentActivity.this, etServerName.getText() + " "+getResources().getString(R.string.was_update), Toast.LENGTH_SHORT).show();
-						Log.i(getResources().getString(R.string.logTag),getResources().getString(R.string.connection)+" "+etServerName.getText()+" "+getResources().getString(R.string.was_update));
 					}
 					finish();
 				}else{

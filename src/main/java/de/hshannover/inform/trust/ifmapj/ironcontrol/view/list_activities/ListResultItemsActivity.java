@@ -16,13 +16,6 @@ import android.widget.ListView;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 
-/**
- * Class for connection management
- * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
- */
-
 public class ListResultItemsActivity extends ListHierarchyActivity {
 
 	@Override

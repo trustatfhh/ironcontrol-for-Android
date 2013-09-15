@@ -27,12 +27,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListHi
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListResponsesActivity;
 
-/**
- * Class for connection management
- * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
- */
 public class ResultNotificationManager extends Thread implements PollReceiver{
 
 	private static final Logger logger = LoggerFactory.getLogger(ResultNotificationManager.class);

@@ -287,8 +287,12 @@ public class PublishActivity extends Activity implements PopUpEvent{
 				}else if(ll.getChildAt(y) instanceof EditText){
 
 					EditText eT = (EditText)ll.getChildAt(y);
-					metadataMap.put(eT.getHint().toString(), eT.getText().toString());
 
+					if(!eT.getText().toString().equals("")){
+
+						metadataMap.put(eT.getHint().toString(), eT.getText().toString());
+
+					}
 				}
 			}
 		}

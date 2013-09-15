@@ -24,6 +24,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
+@Deprecated
 public class PDP {
 	private SSRC ssrc;
 	private PublishRequest updateArDev;

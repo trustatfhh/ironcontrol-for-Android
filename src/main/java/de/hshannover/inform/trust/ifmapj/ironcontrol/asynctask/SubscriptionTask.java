@@ -18,6 +18,12 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
+/**
+ * AsyncTask to subscribe in background and inform the user.
+ * @author Marcel Reichenbach
+ * @version 1.0
+ */
+
 public class SubscriptionTask extends AsyncTask<Void, Void, Void> {
 
 	private static final Logger logger = LoggerFactory.getLogger(SubscriptionTask.class);

@@ -29,13 +29,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.SearchFragmentActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.SubscribeFragmentActivity;
 
-/**
- * Class for connection management
- * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
- */
-
 public abstract class ListHierarchyActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 	protected static final String[] FROM_REQUESTS = {Requests.COLUMN_NAME, Requests.COLUMN_IDENTIFIER1, Requests.COLUMN_IDENTIFIER1_Value, Requests.COLUMN_MAX_DEPTH};
@@ -146,10 +139,10 @@ public abstract class ListHierarchyActivity extends ListActivity implements Load
 	protected void startEditActivity(String listItemId) {
 		Intent intent = null;
 		switch (mType) {
-			case SEARCH : intent = new Intent(getBaseContext(), SearchFragmentActivity.class);
-			break;
-			case SUBSCRIPTION: intent = new Intent(getBaseContext(), SubscribeFragmentActivity.class);
-			break;
+		case SEARCH : intent = new Intent(getBaseContext(), SearchFragmentActivity.class);
+		break;
+		case SUBSCRIPTION: intent = new Intent(getBaseContext(), SubscribeFragmentActivity.class);
+		break;
 		}
 		intent.putExtra("listItemId", listItemId);
 		startActivity(intent);
@@ -187,18 +180,6 @@ public abstract class ListHierarchyActivity extends ListActivity implements Load
 
 		search_cursor.close();
 
-		if(matchLinks.equals("")){
-			matchLinks = null;
-		}
-
-		if(resultFilter.equals("")){
-			resultFilter = null;
-		}
-
-		if(terminalIdentifiers.equals("")){
-			terminalIdentifiers = null;
-		}
-
 		if(maxSize == 0){
 			new SearchTask(name, identifier, identifierValue, maxDepth, this, SearchFragmentActivity.MESSAGESEARCH).execute();
 		} else{
@@ -229,18 +210,6 @@ public abstract class ListHierarchyActivity extends ListActivity implements Load
 		String terminalIdentifiers = subscription_cursor.getString(subscription_cursor.getColumnIndexOrThrow(Requests.COLUMN_TERMINAL_IDENTIFIER_TYPES));
 
 		subscription_cursor.close();
-
-		if(matchLinks.equals("")){
-			matchLinks = null;
-		}
-
-		if(resultFilter.equals("")){
-			resultFilter = null;
-		}
-
-		if(terminalIdentifiers.equals("")){
-			terminalIdentifiers = null;
-		}
 
 		if(maxSize == 0){
 			new SubscriptionTask(this, name, identifier, identifierValue, maxDepth, id, Operation.UPDATE).execute();

@@ -1,11 +1,3 @@
-/**
- * Class for connection management
- * @author Daniel Wolf
- * @author Anton Saenko
- * @author Arne Loth
- * @since 0.5
- */
-
 package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
 
 import java.util.Arrays;
@@ -44,6 +36,15 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.ResultNotificationManager;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
+
+/**
+ * Build IF-MAP requests.
+ * 
+ * @author Daniel Wolf
+ * @author Anton Saenko
+ * @author Arne Loth
+ * @since 0.5
+ */
 
 public class RequestsController {
 
@@ -152,29 +153,13 @@ public class RequestsController {
 
 	public static void createSubscription(SubscribeRequestData[] req) throws IfmapErrorResult, IfmapException, Exception{
 
-		if(!firstSubscribtion){
-			startWorker();
-			firstSubscribtion = true;
-		}
-
-		if(sPoller.isAlive()){
-			System.out.println("SPoller ist am laufen");
-			logger.log(Level.DEBUG, "SPoller ist am laufen");
-		}else{
-			System.out.println("SPoller ist NICHT!! am laufen");
-			logger.log(Level.DEBUG, "SPoller ist NICHT!! am laufen");
-		}
-
 		SubscribeRequest mSubscribeRequest = buildSubscriptionRequest(req);
 
 		sendSubscriptionRequest(mSubscribeRequest);
 
-		if(sPoller.isAlive()){
-			System.out.println("SPoller ist am laufen");
-			logger.log(Level.DEBUG, "SPoller ist am laufen");
-		}else{
-			System.out.println("SPoller ist NICHT!! am laufen");
-			logger.log(Level.DEBUG, "SPoller ist NICHT!! am laufen");
+		if(!firstSubscribtion){
+			startWorker();
+			firstSubscribtion = true;
 		}
 
 		if(sPoller.isWaiting()){
@@ -183,7 +168,6 @@ public class RequestsController {
 			}
 		}
 
-		// wenn keine mehr aktive sind loeschen
 		mNotifier.newSubscribeNotify(req[0].getName());
 	}
 
@@ -548,8 +532,8 @@ public class RequestsController {
 		}else if(req.getMetaName().equalsIgnoreCase(metaList.get(16))){
 			if(req.getAttributes().containsKey("administrative-domain")){
 				metadata=mF.createRole(//role
-						req.getAttributes().get("administrative-domain"),//opt
-						req.getAttributes().get("name"));//req
+						req.getAttributes().get("name"),//opt
+						req.getAttributes().get("administrative-domain"));//req
 			}else{
 				metadata=mF.createRole(req.getAttributes().get("name"));
 			}

@@ -14,12 +14,13 @@ import android.widget.TextView;
 /**
  * Class for PromptSpinnerAdapter
  * 
- * @author Marcel Reichenbach
- * 
  *         Decorator Adapter to allow a Spinner to show a 'Nothing Selected...'
  *         initially displayed instead of the first choice in the Adapter.
  * 
- *         Modified Class from http://de.softuses.com/108509
+ *         Modified Class from http://de.softuses.com/108509 *
+ * 
+ * @author Marcel Reichenbach
+ * @version 1.0
  */
 
 public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
@@ -31,30 +32,30 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 	private CharSequence prompt;
 
 	private Context context;
-	
+
 	private boolean emptyList;
-	
+
 	protected PromptSpinnerAdapter(Context context, CharSequence prompt, int textArrayResId, List<CharSequence> data) {
 		this.context = context;
 		this.prompt = prompt;
-		
+
 		if(data != null){
 			// List<CharSequence>
 			if(data.isEmpty()){		// For a empty list, no item can picked
-				
+
 				data.add("empty");
 				emptyList = true;
-				
+
 			}
-			
+
 			this.mAdapter = new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_item, data);
-			
+
 		} else {
 			// textArrayResId
 			this.mAdapter = ArrayAdapter.createFromResource(context, textArrayResId, android.R.layout.simple_spinner_item);
-			
+
 		}
-		
+
 		this.mAdapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	}
 
@@ -71,7 +72,7 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 	public PromptSpinnerAdapter(Context context, CharSequence prompt, int textArrayResId) {
 		this(context, prompt, textArrayResId, null);
 	}
-	
+
 	/**
 	 * Use this constructor to Define your 'Prompt' layout as the first
 	 * row in the returned choices. If you do this, you probably don't want a
@@ -81,7 +82,7 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 	 * @param prompt			The first TextView in your Spinner
 	 * @param data 				The list to use as the data source.
 	 */
-	
+
 	public PromptSpinnerAdapter(Context context, CharSequence prompt, List<CharSequence> data) {
 		this(context, prompt, -1, data);
 	}
@@ -117,7 +118,7 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 		if (position == 0) {
 			return new View(context);
 		}
-		return (TextView) mAdapter.getDropDownView(position - PROMPT_OFFSET, null, parent); // could re-use the convertView if possible, utilize setTag...
+		return mAdapter.getDropDownView(position - PROMPT_OFFSET, null, parent); // could re-use the convertView if possible, utilize setTag...
 	}
 
 	@Override
@@ -133,13 +134,13 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 
 	@Override
 	public int getItemViewType(int position) {
-		
+
 		// doesn't work!! Vote to Fix!
 		// http://code.google.com/p/android/issues/detail?id=17128 - Spinner
 		// does not support multiple view types
 		// This method determines what is the convertView, this should return 1
 		// for pos 0 or return 0 otherwise.
-		
+
 		return position == 0 ? getViewTypeCount() - PROMPT_OFFSET : mAdapter.getItemViewType(position - PROMPT_OFFSET);
 	}
 
@@ -173,10 +174,10 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 	public void unregisterDataSetObserver(DataSetObserver observer) {
 		mAdapter.unregisterDataSetObserver(observer);
 	}
-	
+
 	@Override
 	public boolean areAllItemsEnabled() {
-	    return false;
+		return false;
 	}
 
 	@Override
@@ -184,6 +185,6 @@ public class PromptSpinnerAdapter implements SpinnerAdapter, ListAdapter  {
 		if(position == 0 || emptyList){	// don't allow the PROMPT-Item to be picked or list is empty
 			return false;
 		}
-	    return true; 
+		return true;
 	}
 }

@@ -27,6 +27,8 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
 	private ConnectTaskEnum type;
 
+	private String error;
+
 	public enum ConnectTaskEnum {
 		CONNECT,
 		DISCONNECT;
@@ -59,15 +61,24 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 		try {
 
 			switch(type){
-			case CONNECT: Connection.connect(params[0]);
-			break;
+			case CONNECT:
+
+				if(params.length == 0){
+					Connection.connect();
+				}else{
+					Connection.connect(params[0]);
+				}
+
+				break;
 			case DISCONNECT: Connection.disconnect();
 			break;
 			}
 
 		} catch (IfmapErrorResult e) {
+			error = e.getErrorCode().toString();
 			return false;
 		} catch (IfmapException e) {
+			error = e.getDescription();
 			return false;
 		}
 		return true;
@@ -89,9 +100,9 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
 		} else {
 			switch(type){
-			case CONNECT: Toast.makeText(context, r.getString(R.string.connectingFail), Toast.LENGTH_SHORT).show();
+			case CONNECT: Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
 			break;
-			case DISCONNECT: Toast.makeText(context, r.getString(R.string.disconnectedFail), Toast.LENGTH_SHORT).show();
+			case DISCONNECT: Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
 			break;
 			}
 		}

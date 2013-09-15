@@ -3,14 +3,13 @@ package de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * Database table
+ * @author Marcel Reichenbach
+ * @version 1.0
+ */
+
 public class IdentifierAttributes {
-	/**
-	 * Class for Publications Database
-	 * 
-	 * @author Marcel Reichenbach
-	 * @version %I%, %G%
-	 * @since 0.1
-	 */
 
 	// Database table
 	public static final String TABLE = "identifier_attributes";
@@ -35,7 +34,7 @@ public class IdentifierAttributes {
 	public static void onUpgrade(SQLiteDatabase database, int oldVersion,
 			int newVersion) {
 		Log.i("de.hshannover.inform.trust.ifmapj.ironcontrol", "Upgrading database(Tabel:"+TABLE+") from version "
-			+ oldVersion + " to " + newVersion + ", which will destroy all old data");
+				+ oldVersion + " to " + newVersion + ", which will destroy all old data");
 		database.execSQL("DROP TABLE IF EXISTS " + TABLE);
 		onCreate(database);
 	}

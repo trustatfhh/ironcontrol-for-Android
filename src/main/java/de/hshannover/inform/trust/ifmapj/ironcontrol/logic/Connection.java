@@ -42,13 +42,13 @@ public class Connection{
 	private static SSRC mSsrc;
 	private static ARC mArc;
 
+	private Connection(){};
+
 	/**
 	 * Build a custom SSRC connection to a Server.
 	 * 
-	 * @param settings	Specified settings in a ConnectionSettings object.
 	 * @throws IfmapException
 	 * @throws IfmapErrorResult
-	 * @throws FileNotFoundException
 	 * @since 0.1
 	 */
 	public static SSRC getSSRC() throws IfmapErrorResult, IfmapException{
@@ -69,7 +69,6 @@ public class Connection{
 	/**
 	 * Build a custom ARC connection to a Server.
 	 * 
-	 * @param settings	Specified settings in a ConnectionSettings object.
 	 * @throws InitializationException
 	 * @since 0.1
 	 */
@@ -88,31 +87,42 @@ public class Connection{
 	/**
 	 * Closes a connection to a Server.
 	 * 
-	 * @param settings	Specified settings, such as Username, IP, Password for the Server to connect to
 	 * @throws IfmapException
 	 * @throws IfmapErrorResult
-	 * @throws InitializationException
 	 */
 	public static void disconnect() throws IfmapException, IfmapErrorResult{
 		logger.log(Level.DEBUG, "endSession()...");
 		Context context = MainActivity.getContext();
 		if(mSsrc != null){
-			mSsrc.endSession();
-			logger.log(Level.DEBUG, "closeTcpConnection()...");
-			mSsrc.closeTcpConnection();
-			logger.log(Level.INFO, "Disconnected");
-			mSsrc = null;
-			mArc = null;
 
-			// reset connections
-			ContentValues value = new ContentValues();
-			value.put(Connections.COLUMN_ACTIVE, 0);
-			context.getContentResolver().update(DBContentProvider.CONNECTIONS_URI, value, null, null);
+			try {
 
-			// reset subscriptions
-			ContentValues value2 = new ContentValues();
-			value2.put(Requests.COLUMN_ACTIVE, 0);
-			context.getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
+				mSsrc.endSession();
+				logger.log(Level.DEBUG,"closeTcpConnection()...");
+
+				mSsrc.closeTcpConnection();
+				logger.log(Level.INFO,"Disconnected");
+
+			} catch (IfmapErrorResult e) {
+				logger.log(Level.ERROR, e.getErrorCode(), e);
+				throw new IfmapErrorResult(e.getErrorCode(), e.getErrorString());
+			} catch (IfmapException e) {
+				logger.log(Level.ERROR, e.getDescription(), e);
+				throw new IfmapException(e.getDescription(), e);
+			} finally {
+				mSsrc = null;
+				mArc = null;
+
+				// reset connections
+				ContentValues value = new ContentValues();
+				value.put(Connections.COLUMN_ACTIVE, 0);
+				context.getContentResolver().update(DBContentProvider.CONNECTIONS_URI, value, null, null);
+
+				// reset subscriptions
+				ContentValues value2 = new ContentValues();
+				value2.put(Requests.COLUMN_ACTIVE, 0);
+				context.getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
+			}
 
 		}else {
 			logger.log(Level.ERROR, "No connection, mSsrc is null!");
@@ -202,11 +212,13 @@ public class Connection{
 		String port = "";
 		String user = "";
 		String pass = "";
+		String url = "";
 
 		if(conn.moveToFirst()){
 
 			address = conn.getString(conn.getColumnIndexOrThrow(Connections.COLUMN_ADDRESS));
 			port = conn.getString(conn.getColumnIndexOrThrow(Connections.COLUMN_PORT));
+			url = conn.getString(conn.getColumnIndexOrThrow(Connections.COLUMN_URL));
 			user = conn.getString(conn.getColumnIndexOrThrow(Connections.COLUMN_USER));
 			pass = conn.getString(conn.getColumnIndexOrThrow(Connections.COLUMN_PASS));
 
@@ -218,20 +230,28 @@ public class Connection{
 
 		// connect
 		InputStream isTrustManager = null;
+		//		InputStream isKeyManager = null;
 
 		try {
 			isTrustManager = getKeystoreAsInpustream();
+			//			isKeyManager = getKeystoreAsInpustream();
 		} catch (FileNotFoundException e1) {
 			logger.log(Level.ERROR, e1.getMessage(), e1);
 		} catch (IOException e2) {
 			logger.log(Level.ERROR, e2.getMessage(), e2);
 		}
 		TrustManager[] tms = null;
-		tms = IfmapJHelper.getTrustManagers(isTrustManager, "ironcontrol");
+		//				KeyManager[] km = null;
 		try {
+			tms = IfmapJHelper.getTrustManagers(isTrustManager, "ironcontrol");
+			//			km = IfmapJHelper.getKeyManagers(isKeyManager, "ironcontrol");
 
-			logger.log(Level.INFO, "Creating SSRC using basic authentication to http://"+address+":"+port);
-			mSsrc = IfmapJ.createSSRC("http://"+address+":"+port, user, pass, tms);
+
+			//			logger.info("Creating SSRC using basic authentication to " +address+":"+port);
+			//			mSsrc = IfmapJ.createSSRC("http://"+address+":"+port, user, pass, tms);
+			logger.log(Level.INFO, "Creating SSRC using basic authentication to " + url);
+			mSsrc = IfmapJ.createSSRC(url, user, pass, tms);
+			//			mSsrc = IfmapJ.createSSRC(url, km, tms);
 		} catch (InitializationException e) {
 			logger.log(Level.ERROR, "Could not initialize ifmapj: " + e.getMessage() + ", " + e.getCause(), e);
 			mSsrc = null;

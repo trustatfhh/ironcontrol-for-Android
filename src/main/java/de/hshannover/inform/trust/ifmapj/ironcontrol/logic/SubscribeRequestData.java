@@ -1,3 +1,5 @@
+package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
+
 /**
  * Class for connection management
  * @author Daniel Wolf
@@ -5,8 +7,6 @@
  * @author Arne Loth
  * @since 0.5
  */
-
-package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
 
 public class SubscribeRequestData extends SearchRequestData{
 

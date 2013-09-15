@@ -16,11 +16,13 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
 /**
- * Class for connection management
+ * Use this adapter to Define your 'Prompt' layout as the first
+ * row in the returned choices. If you do this, you probably don't want a
+ * prompt on your spinner or it'll have two 'Select' rows.
+ * Set a Spinner-Type for a valid identifier and metadata combination.
  * 
  * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
+ * @version 1.0
  */
 
 public class ValidSpinnerAdapter extends PromptSpinnerAdapter {

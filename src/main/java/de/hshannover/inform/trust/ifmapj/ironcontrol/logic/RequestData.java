@@ -1,20 +1,22 @@
-	/**
-	 * Class for connection management
-	 * @author Daniel Wolf
-	 * @author Anton Saenko
-	 * @author Arne Loth
-	 * @since 0.5
-	 */
 package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
 
+/**
+ * Request data class
+ * 
+ * @author Daniel Wolf
+ * @author Anton Saenko
+ * @author Arne Loth
+ * @since 0.5
+ */
+
 public class RequestData {
-	
+
 	private String identifier1, identifier1Value, name;
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

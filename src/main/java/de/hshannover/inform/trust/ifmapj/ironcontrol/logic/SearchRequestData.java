@@ -1,11 +1,13 @@
-	/**
-	 * Class for connection management
-	 * @author Daniel Wolf
-	 * @author Anton Saenko
-	 * @author Arne Loth
-	 * @since 0.5
-	 */
 package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
+
+/**
+ * Search-Request data class
+ * 
+ * @author Daniel Wolf
+ * @author Anton Saenko
+ * @author Arne Loth
+ * @since 0.5
+ */
 
 public class SearchRequestData extends RequestData{
 
@@ -17,7 +19,7 @@ public class SearchRequestData extends RequestData{
 	private String mNameSpacePrefix;
 	private String mNameSpaceURI;
 	private boolean advancedSearchRequested;
-	
+
 	public boolean isAdvancedSearchRequested() {
 		return advancedSearchRequested;
 	}
@@ -25,7 +27,7 @@ public class SearchRequestData extends RequestData{
 	public void setAdvancedSearchRequested(boolean advancedSearchRequested) {
 		this.advancedSearchRequested = advancedSearchRequested;
 	}
-	
+
 	public String getMatchLinks() {
 		return matchLinks;
 	}

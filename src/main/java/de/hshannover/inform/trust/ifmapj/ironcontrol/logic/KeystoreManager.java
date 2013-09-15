@@ -20,12 +20,14 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 
+/**
+ * Class for connection management
+ * @author Anton Saenko
+ * @since 1.0
+ */
+
 public class KeystoreManager {
-	/**
-	 * Class for connection management
-	 * @author Anton Saenko
-	 * @since 1.0
-	 */
+
 	private static final Logger logger = LoggerFactory.getLogger(KeystoreManager.class);
 	private static String PATH_KEYSTORE_DIR = Environment.getExternalStorageDirectory().getPath() +"/ironcontrol/keystore";
 	private static String PATH_CERT_DIR = Environment.getExternalStorageDirectory().getPath() +"/ironcontrol/certificates";
@@ -60,7 +62,7 @@ public class KeystoreManager {
 	/**
 	 * Read a Keystore.
 	 * 
-	 * @param Sting (path to keystore)
+	 * @param pathToBKS		Path to keystore
 	 * @return KeyStore
 	 * 
 	 */
@@ -97,7 +99,7 @@ public class KeystoreManager {
 	/**
 	 * Load a certificate.
 	 * 
-	 * @param Sting (path to cerificate)
+	 * @param pathToCertificate		Path to cerificate
 	 * @return Certificate
 	 */
 	public static Certificate readCertificate(String pathToCertificate){

@@ -32,17 +32,17 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
+/**
+ * Class for save search or subscription results.
+ * 
+ * @author Daniel Wolf
+ * @author Marcel Reichenbach
+ * @author Anton Saenko
+ * @author Arne Loth
+ * @version 1.0
+ */
+
 public class StoredResponses extends Thread implements PollReceiver  {
-	/**
-	 * Class for connection management
-	 * 
-	 * @author Daniel Wolf
-	 * @author Marcel Reichenbach
-	 * @author Anton Saenko
-	 * @author Arne Loth
-	 * @version %I%, %G%
-	 * @since 0.1
-	 */
 
 	private Context context;
 
@@ -203,6 +203,9 @@ public class StoredResponses extends Thread implements PollReceiver  {
 																+ DBContentProvider.RESULT_METADATA),
 																metaValues);
 
+										String resultMetadataId = resultIMetadataUri
+												.getLastPathSegment();
+
 										if (nl.item(i).hasAttributes()) {
 											for (int y = 1; y < attributes
 													.getLength(); y++) {
@@ -213,8 +216,7 @@ public class StoredResponses extends Thread implements PollReceiver  {
 														|| nodeName
 														.equals("ifmap-publisher-id") || nodeName
 														.equals("ifmap-timestamp"))) {
-													String resultMetadataId = resultIMetadataUri
-															.getLastPathSegment();
+
 													String nodeValue = attributes
 															.item(y).getNodeValue();
 
@@ -226,16 +228,33 @@ public class StoredResponses extends Thread implements PollReceiver  {
 													.put(ResultMetaAttributes.COLUMN_NODE_VALUE,
 															nodeValue);
 
-													Uri resultIMetaAttributesUri = context
-															.getContentResolver()
-															.insert(Uri
-																	.parse(DBContentProvider.RESULT_METADATA_URI
-																			+ "/"
-																			+ resultMetadataId
-																			+ "/"
-																			+ DBContentProvider.RESULT_META_ATTRIBUTES),
-																			metaAttributes);
+													context.getContentResolver()
+													.insert(Uri
+															.parse(DBContentProvider.RESULT_METADATA_URI
+																	+ "/"
+																	+ resultMetadataId
+																	+ "/"
+																	+ DBContentProvider.RESULT_META_ATTRIBUTES),
+																	metaAttributes);
 												}
+											}
+										}
+
+										if(nl.item(i).hasChildNodes()){
+											for(int xx=0; xx<nl.item(i).getChildNodes().getLength(); xx++){
+												Node n = nl.item(i).getChildNodes().item(xx);
+												if (n.getNodeType() == Node.ELEMENT_NODE) {
+													String nodeName = n.getNodeName();
+													String nodeValue = n.getTextContent();
+
+													ContentValues metaAttributes = new ContentValues();
+													metaAttributes.put(ResultMetaAttributes.COLUMN_NODE_NAME, nodeName);
+													metaAttributes.put(ResultMetaAttributes.COLUMN_NODE_VALUE, nodeValue);
+
+													context.getContentResolver().insert(Uri.parse(DBContentProvider.RESULT_METADATA_URI + "/" + resultMetadataId + "/" + DBContentProvider.RESULT_META_ATTRIBUTES) , metaAttributes);
+
+												}
+
 											}
 										}
 									}
@@ -245,7 +264,7 @@ public class StoredResponses extends Thread implements PollReceiver  {
 					}
 					logger.log(Level.DEBUG, "Subscription result is saved");
 				} else {
-					logger.log(Level.FATAL, "No uniquely Subscription found");
+					logger.log(Level.DEBUG, "No uniquely Subscription found");
 				}
 			}
 		}

@@ -28,13 +28,13 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
+/**
+ * Class for DB-Management
+ * @author Marcel Reichenbach
+ * @version 1.0
+ */
+
 public class DBContentProvider extends ContentProvider {
-	/**
-	 * Class for connection management
-	 * @author Marcel Reichenbach
-	 * @version %I%, %G%
-	 * @since 0.1
-	 */
 
 	private static final Logger logger = LoggerFactory.getLogger(DBContentProvider.class);
 

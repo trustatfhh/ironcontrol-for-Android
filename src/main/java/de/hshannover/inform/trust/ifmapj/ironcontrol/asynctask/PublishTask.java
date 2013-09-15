@@ -24,6 +24,12 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
+/**
+ * AsyncTask to publish in background and inform the user.
+ * @author Marcel Reichenbach
+ * @version 1.0
+ */
+
 public class PublishTask extends AsyncTask<Void, Void, Void> {
 
 	private static final Logger logger = LoggerFactory.getLogger(PublishTask.class);

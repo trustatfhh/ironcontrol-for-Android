@@ -12,7 +12,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
-
+@Deprecated
 public class PublishTestTask extends AsyncTask<Void, Void, Void> {
 
 	private static final Logger logger = LoggerFactory.getLogger(PublishTestTask.class);

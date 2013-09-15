@@ -246,7 +246,7 @@
 	<string name="sound2">Sound2</string>
 	<string name="aboutNewResults">About new results</string>
 	<!-- ResultNotificationManager -->
-	<string name="newSubscripaboutNewResultstionResult">New subscription result</string>
+	<string name="newSubscriptionResult">New subscription result</string>
 	<string name="newIncomingResult">New incoming subscription result</string>
 	<string name="newSubscription">New subscription: </string>
 	<string name="subscription">Subscription...</string>

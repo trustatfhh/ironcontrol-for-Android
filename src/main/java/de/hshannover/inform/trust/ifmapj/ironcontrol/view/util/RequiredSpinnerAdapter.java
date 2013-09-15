@@ -7,10 +7,10 @@ import android.widget.TextView;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 
 /**
- * Class for connection management
+ * Class for RequiredSpinnerAdapter. Change the Text Color for a required element.
+ * 
  * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
+ * @version 1.0
  */
 
 public class RequiredSpinnerAdapter extends PromptSpinnerAdapter {

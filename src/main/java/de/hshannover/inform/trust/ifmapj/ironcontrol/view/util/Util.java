@@ -7,18 +7,11 @@ import java.util.List;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Attributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
 
 public class Util {
-	/**
-	 * Class for connection management
-	 * @author Marcel Reichenbach
-	 * @version %I%, %G%
-	 * @since 0.1
-	 */
 
 	public static List<String> getMetaList(Context context, int textArrayResId){
 		String[] metaResouceList = context.getResources().getStringArray(textArrayResId);
@@ -48,7 +41,7 @@ public class Util {
 	private static Cursor getCursor(Context context, Uri uri){
 		return context.getContentResolver().query(uri, null, null, null, null);
 	}
-	
+
 	public static String getString(int resId){
 		return MainActivity.getContext().getResources().getString(resId);
 	}

@@ -12,9 +12,7 @@ public interface Appender {
 	/**
 	 * Do the logging.
 	 * 
-	 * @param clientID the id of the client.
 	 * @param name the name of the logger.
-	 * @param time the time since the first logging has done (in milliseconds).
 	 * @param level the logging level.
 	 * @param message the message to log.
 	 * @param t the exception to log.

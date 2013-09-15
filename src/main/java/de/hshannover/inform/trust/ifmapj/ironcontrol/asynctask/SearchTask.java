@@ -34,6 +34,12 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 
+/**
+ * AsyncTask to search and save the result in background and inform the user.
+ * @author Marcel Reichenbach
+ * @version 1.0
+ */
+
 public class SearchTask extends AsyncTask<Void, Void, Void> {
 
 	private static final Logger logger = LoggerFactory.getLogger(SearchTask.class);
@@ -89,6 +95,19 @@ public class SearchTask extends AsyncTask<Void, Void, Void> {
 			error = e.getDescription();
 		} catch (Exception e) {
 			error = e.getMessage();
+		}
+
+		String selectionArgs[] = {name};
+		String selection = Requests.COLUMN_NAME + "=?";
+		String[] projection = new String[]{Requests.COLUMN_ID};
+		Cursor cursor = context.getContentResolver().query(DBContentProvider.SEARCH_URI, projection, selection, selectionArgs, null);
+		if(cursor.getCount() == 1){
+			cursor.moveToNext();
+			int requestId = cursor.getInt(cursor.getColumnIndexOrThrow(Requests.COLUMN_ID));
+			Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol", "[SearchTask] Saved Seach was found, persist ...");
+			persistSearchResult(requestId);
+		}else{
+			Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol", "[SearchTask] Too much Search was found");
 		}
 
 		logger.log(Level.DEBUG, "...doInBackground()");
@@ -171,12 +190,13 @@ public class SearchTask extends AsyncTask<Void, Void, Void> {
 							metaValues.put(ResultMetadata.COLUMN_TIMESTAMP, timestamp);
 
 							Uri resultIMetadataUri = context.getContentResolver().insert(Uri.parse(DBContentProvider.RESULT_ITEMS_URI + "/" + resultItemId +"/" + DBContentProvider.RESULT_METADATA), metaValues);
+							String resultMetadataId = resultIMetadataUri.getLastPathSegment();
 
 							if(nl.item(i).hasAttributes()){
 								for(int y=1; y<attributes.getLength(); y++){
 									String nodeName = attributes.item(y).getNodeName();
-									if(!(nodeName.equals("ifmap-cardinality") || nodeName.equals("ifmap-publisher-id") || nodeName.equals("ifmap-timestamp"))){
-										String resultMetadataId = resultIMetadataUri.getLastPathSegment();
+									if(!((nodeName.equals("ifmap-cardinality") || nodeName.equals("ifmap-publisher-id") || nodeName.equals("ifmap-timestamp")))){
+
 										String nodeValue = attributes.item(y).getNodeValue();
 
 										ContentValues metaAttributes = new ContentValues();
@@ -187,6 +207,25 @@ public class SearchTask extends AsyncTask<Void, Void, Void> {
 									}
 								}
 							}
+
+							if(nl.item(i).hasChildNodes()){
+								for(int xx=0; xx<nl.item(i).getChildNodes().getLength(); xx++){
+									Node n = nl.item(i).getChildNodes().item(xx);
+									if (n.getNodeType() == Node.ELEMENT_NODE) {
+										String nodeName = n.getNodeName();
+										String nodeValue = n.getTextContent();
+
+										ContentValues metaAttributes = new ContentValues();
+										metaAttributes.put(ResultMetaAttributes.COLUMN_NODE_NAME, nodeName);
+										metaAttributes.put(ResultMetaAttributes.COLUMN_NODE_VALUE, nodeValue);
+
+										context.getContentResolver().insert(Uri.parse(DBContentProvider.RESULT_METADATA_URI + "/" + resultMetadataId + "/" + DBContentProvider.RESULT_META_ATTRIBUTES) , metaAttributes);
+
+									}
+
+								}
+							}
+
 						}
 					}
 				}
@@ -206,19 +245,7 @@ public class SearchTask extends AsyncTask<Void, Void, Void> {
 			Toast.makeText(context, context.getResources().getString(R.string.searchresult_is_null), Toast.LENGTH_SHORT).show();
 		}else{
 			if(!name.equals("")){
-				String selectionArgs[] = {name};
-				String selection = Requests.COLUMN_NAME + "=?";
-				String[] projection = new String[]{Requests.COLUMN_ID};
-				Cursor cursor = context.getContentResolver().query(DBContentProvider.SEARCH_URI, projection, selection, selectionArgs, null);
-				if(cursor.getCount() == 1){
-					cursor.moveToNext();
-					int requestId = cursor.getInt(cursor.getColumnIndexOrThrow(Requests.COLUMN_ID));
-					Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol", "[SearchTask] Saved Seach was found, persist ...");
-					persistSearchResult(requestId);
-					Toast.makeText(context, "NEW Search Results for "+ name + " was saved.", Toast.LENGTH_SHORT).show();
-				}else{
-					Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol", "[SearchTask] Too much Search was found");
-				}
+				Toast.makeText(context, "NEW Search Results for "+ name + " was saved.", Toast.LENGTH_SHORT).show();
 			}
 		}
 		logger.log(Level.DEBUG, "...onPostExecute()");

@@ -31,13 +31,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceRem
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceSearchDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceSubscribeDialog;
 
-/**
- * Class for connection management
- * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
- */
-
 public class ListOverviewActivity extends ListHierarchyActivity implements MultichoiceListEvent{
 
 	private static final Logger logger = LoggerFactory.getLogger(ListResponsesActivity.class);

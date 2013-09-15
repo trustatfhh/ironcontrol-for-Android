@@ -29,13 +29,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceListEvent;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceRemoveDialog;
 
-/**
- * Class for connection management
- * @author Marcel Reichenbach
- * @version %I%, %G%
- * @since 0.1
- */
-
 public class ListResponsesActivity extends ListHierarchyActivity implements MultichoiceListEvent{
 
 	private static final Logger logger = LoggerFactory.getLogger(ListResponsesActivity.class);

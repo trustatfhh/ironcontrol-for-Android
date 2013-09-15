@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,8 @@ import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.ConnectionTask;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.ConnectionTask.ConnectTaskEnum;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.PurgePublisherTask;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Connections;
@@ -39,8 +43,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.PopUpEvent;
  * MainActivity
  * 
  * @author Marcel Reichenbach
- * @version 0.9
- * @since 0.1
+ * @version 1.0
  */
 
 public class MainActivity extends Activity implements PopUpEvent{
@@ -65,25 +68,6 @@ public class MainActivity extends Activity implements PopUpEvent{
 		setContentView(R.layout.activity_main);
 		cont= this;
 
-
-		if(!firstRun){
-
-			// reset connections
-			ContentValues value = new ContentValues();
-			value.put(Connections.COLUMN_ACTIVE, 0);
-			getContentResolver().update(DBContentProvider.CONNECTIONS_URI, value, null, null);
-
-			// reset subscriptions
-			ContentValues value2 = new ContentValues();
-			value2.put(Requests.COLUMN_ACTIVE, 0);
-			getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
-
-
-			firstRun = true;
-		}
-
-		setTouchListenerOnLinearLayouts();
-		logger.log(Level.DEBUG, "...New");
 		//authentication
 		try{
 			KeystoreManager.checkANDcreateSDCardFolder();
@@ -99,7 +83,30 @@ public class MainActivity extends Activity implements PopUpEvent{
 			}
 		}
 
+		if(!firstRun){
 
+			// reset connections
+			ContentValues value = new ContentValues();
+			value.put(Connections.COLUMN_ACTIVE, 0);
+			getContentResolver().update(DBContentProvider.CONNECTIONS_URI, value, null, null);
+
+			// reset subscriptions
+			ContentValues value2 = new ContentValues();
+			value2.put(Requests.COLUMN_ACTIVE, 0);
+			getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
+
+			SharedPreferences prefData =  PreferenceManager.getDefaultSharedPreferences(this);
+
+			if(prefData.getBoolean("auto_connect", false)){
+				new ConnectionTask(this, ConnectTaskEnum.CONNECT).execute();
+			}
+
+			firstRun = true;
+		}
+
+		setTouchListenerOnLinearLayouts();
+
+		logger.log(Level.DEBUG, "...New");
 
 	}
 
