@@ -25,6 +25,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.ConnectionTask;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.ConnectionTask.ConnectTaskEnum;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Connections;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Connection;
@@ -38,8 +40,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListA
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.ConnectionFragmentActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialogEvent;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.ConnectionTask;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.ConnectionTask.ConnectTaskEnum;
 
 public class ListSavedConnectionsActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>, MultichoiceDialogEvent, LogReceiver{
 

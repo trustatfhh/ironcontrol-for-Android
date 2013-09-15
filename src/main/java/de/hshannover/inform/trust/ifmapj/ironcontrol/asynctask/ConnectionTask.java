@@ -1,4 +1,4 @@
-package de.hshannover.inform.trust.ifmapj.ironcontrol.view.util;
+package de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
