@@ -8,6 +8,8 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListA
 
 public class Logger {
 
+	private static final Logger logger = LoggerFactory.getLogger(Logger.class);
+
 	private static List<Appender> appenderList;
 
 	private String className;
@@ -18,6 +20,12 @@ public class Logger {
 		if(appenderList == null){
 			appenderList = new ArrayList<Appender>();
 			addAppender(new ListAppender());
+
+			//			try {
+			//				addAppender(new FileAppender());
+			//			} catch (IOException e) {
+			//				logger.log(Level.ERROR, "Failed to add the FileAppender");
+			//			}
 		}
 	}
 
@@ -40,9 +48,21 @@ public class Logger {
 			throw new IllegalArgumentException("Appender not allowed to be null");
 		}
 
-		if (!appenderList.contains(appender)) {
-			appenderList.add(appender);
+		boolean contains = false;
+
+		for(Appender a: appenderList){
+			if(a.getClass() == appender.getClass()){
+				contains = true;
+				break;
+			}
 		}
+
+		if(!contains){
+			appenderList.add(appender);
+		}else{
+			logger.log(Level.WARN, "Only one " + appender.getClass().toString() + " is allowed!");
+		}
+
 	}
 
 	public String getClassName() {
