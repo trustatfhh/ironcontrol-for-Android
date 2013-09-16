@@ -54,6 +54,7 @@ public class PurgePublisherTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected Void doInBackground(Void... params) {
+		Thread.currentThread().setName(PurgePublisherTask.class.getSimpleName());
 		logger.log(Level.DEBUG, "doInBackground()...");
 
 		try {

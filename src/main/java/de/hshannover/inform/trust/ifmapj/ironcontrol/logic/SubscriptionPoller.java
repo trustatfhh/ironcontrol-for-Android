@@ -52,8 +52,8 @@ public class SubscriptionPoller extends Thread implements PollSender {
 	 */
 	@Override
 	public void run() {
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
 		Thread.currentThread().setName(SubscriptionPoller.class.getSimpleName());
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
 
 		while (!Thread.currentThread().isInterrupted()) {
 

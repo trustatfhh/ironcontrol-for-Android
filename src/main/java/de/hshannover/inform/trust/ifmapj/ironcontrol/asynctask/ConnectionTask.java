@@ -57,6 +57,7 @@ public class ConnectionTask extends AsyncTask<Long, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Long... params) {
+		Thread.currentThread().setName(ConnectionTask.class.getSimpleName());
 		logger.log(Level.DEBUG, r.getString(R.string.runConnectionTask));
 		try {
 

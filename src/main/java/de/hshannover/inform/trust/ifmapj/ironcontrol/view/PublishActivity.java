@@ -114,8 +114,8 @@ public class PublishActivity extends Activity implements PopUpEvent{
 
 		int a = Build.VERSION_CODES.FROYO;
 		int aa = Build.VERSION.SDK_INT;
-		System.out.println("FROYO : "+a);
-		System.out.println("Installed : "+aa);
+		//		System.out.println("FROYO : "+a);
+		//		System.out.println("Installed : "+aa);
 	}
 
 	public void publish(View v){

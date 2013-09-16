@@ -1,10 +1,13 @@
 package de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.Appender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.FileAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogCatAppender;
 
 public class Logger {
 
@@ -14,18 +17,21 @@ public class Logger {
 
 	private String className;
 
+	private static boolean firstLog = true;
+
 	public Logger(String className){
 		this.className = className;
 
 		if(appenderList == null){
 			appenderList = new ArrayList<Appender>();
 			addAppender(new ListAppender());
+			addAppender(new LogCatAppender());
 
-			//			try {
-			//				addAppender(new FileAppender());
-			//			} catch (IOException e) {
-			//				logger.log(Level.ERROR, "Failed to add the FileAppender");
-			//			}
+			try {
+				addAppender(new FileAppender());
+			} catch (IOException e) {
+				logger.log(Level.ERROR, "Failed to add the FileAppender");
+			}
 		}
 	}
 
@@ -37,9 +43,21 @@ public class Logger {
 		if (level == null) {
 			throw new IllegalArgumentException("The level must not be null.");
 		}
+		long time = System.currentTimeMillis();
+
+		if (firstLog) {
+
+			for (Appender appender : appenderList) {
+				appender.log(className, time, Level.DEBUG, "===========================", null);
+				appender.log(className, time, Level.DEBUG, "=====START=IRONCONTROL=====", null);
+				appender.log(className, time, Level.DEBUG, "===========================", null);
+			}
+
+			firstLog = false;
+		}
 
 		for (Appender appender : appenderList) {
-			appender.log(className, level, message, t);
+			appender.log(className, time, level, message, t);
 		}
 	}
 

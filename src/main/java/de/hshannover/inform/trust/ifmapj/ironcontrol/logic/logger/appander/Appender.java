@@ -12,12 +12,13 @@ public interface Appender {
 	/**
 	 * Do the logging.
 	 * 
-	 * @param name the name of the logger.
-	 * @param level the logging level.
-	 * @param message the message to log.
-	 * @param t the exception to log.
+	 * @param name		The name of the logger.
+	 * @param time		The current system time.
+	 * @param level		The logging level.
+	 * @param message	The message to log.
+	 * @param throwable The exception to log.
 	 */
-	void log(String name, Level level, Object message, Throwable t);
+	void log(String name, long time, Level level, Object message, Throwable throwable);
 
 	/**
 	 * Clear the log.

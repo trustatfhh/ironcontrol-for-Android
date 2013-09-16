@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import android.os.Environment;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
@@ -20,23 +22,21 @@ public class FileAppender implements Appender {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileAppender.class);
 
-	public static final String DEFAULT_FILENAME = "microlog.txt";
+	private static final String IRONCONTROL_PATH = "/ironcontrol/";
 
-	private String fileName = DEFAULT_FILENAME;
+	private static final String fileName = "ironcontrol-log.txt";
 
 	private PrintWriter writer;
 
-	private boolean append = false;
+	private static final int INITIAL_BUFFER_SIZE = 64;
 
-	private File mSdCardLogFile = null;
+	public static final String DEFAULT_DELIMITER = "-";
+
+	private boolean append = true;
 
 	/**
-	 * Create a file appender without application context.  The logging file will
-	 * be placed in the root folder and will not be removed when your application is
-	 * removed.  Use FileAppender(Context) to create a log that is automatically removed
-	 * when your application is removed
-	 * Note: your application must hold android.permission.WRITE_EXTERNAL_STORAGE
-	 * to be able to access the SDCard.
+	 * The logging file will be placed in the root/IRONCONTROL_PATH folder.
+	 * 
 	 * @throws IOException
 	 */
 	public FileAppender() throws IOException {
@@ -68,20 +68,81 @@ public class FileAppender implements Appender {
 	}
 
 	@Override
-	public synchronized void log(String name, Level level, Object message, Throwable throwable) {
+	public synchronized void log(String name, long time, Level level, Object message, Throwable throwable) {
 		if (writer != null) {
-			writer.println(name + " " + level.toString() + " "  + message.toString() + throwable.toString());
+			writer.println(toString(name, time, level, message, throwable));
 			writer.flush();
 		}
-
-		//			if (throwable != null) {
-		//				throwable.printStackTrace();
-		//			}
-
 	}
+
+	/**
+	 * Return the message and the Throwable object as a String.
+	 * 
+	 * @param time		The log-time.
+	 * @param level		The logging level. If null, it is not appended to the String.
+	 * @param message	The message. If null, it is not appended to the String.
+	 * @param throwable	The exception. If null, it is not appended to the String.
+	 * @return 			The log-String, that is not null.
+	 */
+	public String toString(String name, long time, Level level, Object message, Throwable throwable) {
+		StringBuffer buffer = new StringBuffer(INITIAL_BUFFER_SIZE);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("d.MM", Locale.GERMANY);
+		buffer.append(dateFormat.format(time));
+
+		buffer.append(DEFAULT_DELIMITER);
+
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.GERMANY);
+		buffer.append(timeFormat.format(time));
+
+		buffer.append(" [");
+		buffer.append(Thread.currentThread().getName());
+		buffer.append("] [");
+
+		if(name != null){
+			int index = name.lastIndexOf(".");
+			buffer.append(name.substring(index+1));
+		}
+
+		buffer.append("] [");
+
+		if(level != null){
+			buffer.append(level.toString());
+		}
+
+		buffer.append("] ");
+
+		if(message != null){
+			buffer.append(message.toString());
+		}
+
+		buffer.append(' ');
+
+		if(throwable != null){
+			buffer.append(throwable.toString());
+			StackTraceElement[] stackTrace = throwable.getStackTrace();
+			for (int i = 0; i < stackTrace.length; i++) {
+				StackTraceElement element = stackTrace[i];
+				buffer.append(System.getProperty("line.separator"));
+				buffer.append("\tat ");
+				buffer.append(element.toString());
+			}
+		}
+
+		return buffer.toString();
+	}
+
 
 	@Override
 	public long getLogSize() {
+		File logFile = getLogFile();
+
+		if (logFile != null) {
+			if (!logFile.exists()) {
+				return logFile.length();
+			}
+		}
+
 		return 0;
 	}
 
@@ -102,7 +163,7 @@ public class FileAppender implements Appender {
 	 */
 	protected synchronized File getExternalStorageDirectory() {
 
-		File externalStorageDirectory = Environment.getExternalStorageDirectory();
+		File externalStorageDirectory = new File(Environment.getExternalStorageDirectory().getPath() + IRONCONTROL_PATH);
 
 		if( externalStorageDirectory != null) {
 			if(!externalStorageDirectory.exists()) {
@@ -119,6 +180,7 @@ public class FileAppender implements Appender {
 	 * @return the log file used to log to external storage
 	 */
 	public synchronized File getLogFile() {
+		File mSdCardLogFile = null;
 
 		if( mSdCardLogFile == null ) {
 			String externalStorageState = Environment.getExternalStorageState();

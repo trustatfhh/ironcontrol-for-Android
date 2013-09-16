@@ -1,6 +1,7 @@
 package de.hshannover.inform.trust.ifmapj.ironcontrol.view;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -58,12 +59,9 @@ public class MainActivity extends Activity implements PopUpEvent{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// For ironControl FATALexceptions
+
 		UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(new IronControlUncaughtExceptionHandler(getBaseContext(), handler));
-
-		logger.log(Level.DEBUG, "New ...");
-		logger.log(Level.DEBUG, "Log was configure.");
 
 		setContentView(R.layout.activity_main);
 		cont= this;
@@ -111,6 +109,16 @@ public class MainActivity extends Activity implements PopUpEvent{
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+	}
+
+	@Override
 	public void onPause() {
 		super.onPause();
 	}
@@ -118,6 +126,11 @@ public class MainActivity extends Activity implements PopUpEvent{
 	@Override
 	public void onStop() {
 		super.onStop();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
 	}
 
 	private void setTouchListenerOnLinearLayouts() {
@@ -146,16 +159,6 @@ public class MainActivity extends Activity implements PopUpEvent{
 				return false;
 			}
 		};
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
 	}
 
 	@Override
@@ -213,6 +216,8 @@ public class MainActivity extends Activity implements PopUpEvent{
 	}
 
 	public void startSavedSearchActivity(View v) {
+		ArrayList<String> test = null;
+		test.get(3);
 		Intent intent = new Intent(getBaseContext(), ListOverviewActivity.class);
 		intent.setAction(getResources().getString(R.string.ACTION_SAVED_SEARCHS));
 		startActivity(intent);

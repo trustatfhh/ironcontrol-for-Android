@@ -41,13 +41,15 @@ public class ValidSpinnerAdapter extends PromptSpinnerAdapter {
 
 	private ValidSpinnerAdapter(Activity context, CharSequence prompt, int textArrayResId, List<CharSequence> data, Node spinnerType) {
 		super(context, prompt, textArrayResId, data);
-		logger.log(Level.DEBUG, "NEW...");
+		logger.log(Level.DEBUG, "NEW " + spinnerType + " ...");
 
 		this.spinnerType = spinnerType;
 
-		identifier1List = Util.getMetaList(context, R.array.identifier1_list);
-		identifier2List = Util.getMetaList(context, R.array.identifier2_list);
-		metadataList = Util.getMetaList(context, R.array.metadaten_list);
+		if(identifier1List == null || identifier2List == null || metadataList == null){
+			identifier1List = Util.getMetaList(context, R.array.identifier1_list);
+			identifier2List = Util.getMetaList(context, R.array.identifier2_list);
+			metadataList = Util.getMetaList(context, R.array.metadaten_list);
+		}
 
 		buildValidNodeMaps(spinnerType);
 		readResources(context);

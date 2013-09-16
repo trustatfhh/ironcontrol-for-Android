@@ -61,8 +61,9 @@ public class StoredResponses extends Thread implements PollReceiver  {
 
 	@Override
 	public void run() {
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
 		Thread.currentThread().setName(StoredResponses.class.getSimpleName());
+		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
+
 		PollResult event;
 		try {
 			while (!Thread.currentThread().isInterrupted()) {

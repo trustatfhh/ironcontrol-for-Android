@@ -175,9 +175,9 @@ public class Connection{
 			defaultId = cConn.getLong(cConn.getColumnIndexOrThrow(Connections.COLUMN_ID));
 
 		} else {
-
-			throw new CursorIndexOutOfBoundsException("no default connection");
-
+			CursorIndexOutOfBoundsException e = new CursorIndexOutOfBoundsException("no default connection");
+			logger.log(Level.ERROR, "no default connection", e);
+			throw e;
 		}
 
 		cConn.close();

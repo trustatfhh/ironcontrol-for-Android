@@ -33,6 +33,7 @@ public class PublishTestTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected Void doInBackground(Void... params) {
+		Thread.currentThread().setName(PublishTestTask.class.getSimpleName());
 		logger.log(Level.DEBUG, "doInBackground()...");
 		try {
 			PDP testPDP = new PDP(Connection.getSSRC());

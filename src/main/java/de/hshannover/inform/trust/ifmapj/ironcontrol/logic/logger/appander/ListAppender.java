@@ -19,11 +19,15 @@ public class ListAppender implements Appender {
 	}
 
 	@Override
-	public void log(String name, Level level, Object message, Throwable t) {
+	public void log(String name, long time, Level level, Object message, Throwable t) {
 		LogData log = new LogData();
-		int index = name.lastIndexOf(".");
-		log.setName(name.substring(index+1));
-		log.setTime(System.currentTimeMillis());
+		if(name != null){
+			int index = name.lastIndexOf(".");
+			log.setName(name.substring(index+1));
+		}else{
+			log.setName("");
+		}
+		log.setTime(time);
 		log.setLevel(level);
 		log.setMessage(message);
 		log.setThrowable(t);

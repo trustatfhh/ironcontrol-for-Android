@@ -1,7 +1,5 @@
 package de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * Database table
@@ -9,7 +7,7 @@ import android.util.Log;
  * @version 1.0
  */
 
-public class ResultItems {
+public class ResultItems extends AbstractEntity{
 
 	// Database table
 	public static final String TABLE = "result_items";
@@ -28,15 +26,13 @@ public class ResultItems {
 			+ "FOREIGN KEY(" + COLUMN_RESPONSE_ID +") REFERENCES " + Responses.TABLE + "(" +Responses.COLUMN_ID + ") "
 			+ ");";
 
-	public static void onCreate(SQLiteDatabase database) {
-		database.execSQL(DATABASE_CREATE);
+	@Override
+	protected String getTable() {
+		return TABLE;
 	}
 
-	public static void onUpgrade(SQLiteDatabase database, int oldVersion,
-			int newVersion) {
-		Log.i("de.hshannover.inform.trust.ifmapj.ironcontrol", "Upgrading database(Tabel:"+TABLE+") from version "
-				+ oldVersion + " to " + newVersion + ", which will destroy all old data");
-		database.execSQL("DROP TABLE IF EXISTS " + TABLE);
-		onCreate(database);
+	@Override
+	protected String getDatabaseCreate() {
+		return DATABASE_CREATE;
 	}
 }

@@ -39,34 +39,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		logger.log(Level.DEBUG, "onCreate SQLiteDatabase .....");
-		Connections.onCreate(db);
-		VendorMetadata.onCreate(db);
-		MetaAttributes.onCreate(db);
-		Identifier.onCreate(db);
-		IdentifierAttributes.onCreate(db);
-		Requests.onCreate(db);
-		Attributes.onCreate(db);
-		Responses.onCreate(db);
-		ResultItems.onCreate(db);
-		ResultMetadata.onCreate(db);
-		ResultMetaAttributes.onCreate(db);
+		new Connections().onCreate(db);
+		new VendorMetadata().onCreate(db);
+		new MetaAttributes().onCreate(db);
+		new Identifier().onCreate(db);
+		new IdentifierAttributes().onCreate(db);
+		new Requests().onCreate(db);
+		new Attributes().onCreate(db);
+		new Responses().onCreate(db);
+		new ResultItems().onCreate(db);
+		new ResultMetadata().onCreate(db);
+		new ResultMetaAttributes().onCreate(db);
 		logger.log(Level.DEBUG, "..... OK");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		logger.log(Level.DEBUG, "onUpgrade SQLiteDatabase .....");
-		ResultMetaAttributes.onUpgrade(db, 1, DATABASE_VERSION);
-		ResultMetadata.onUpgrade(db, 1, DATABASE_VERSION);
-		ResultItems.onUpgrade(db, 1, DATABASE_VERSION);
-		Responses.onUpgrade(db, 1, DATABASE_VERSION);
-		Attributes.onUpgrade(db, 1, DATABASE_VERSION);
-		Requests.onUpgrade(db, 1, DATABASE_VERSION);
-		IdentifierAttributes.onUpgrade(db, 1, DATABASE_VERSION);
-		Identifier.onUpgrade(db, 1, DATABASE_VERSION);
-		MetaAttributes.onUpgrade(db, 1, DATABASE_VERSION);
-		VendorMetadata.onUpgrade(db, 1, DATABASE_VERSION);
-		Connections.onUpgrade(db, 1, DATABASE_VERSION);
+		new ResultMetaAttributes().onUpgrade(db, 1, DATABASE_VERSION);
+		new ResultMetadata().onUpgrade(db, 1, DATABASE_VERSION);
+		new ResultItems().onUpgrade(db, 1, DATABASE_VERSION);
+		new Responses().onUpgrade(db, 1, DATABASE_VERSION);
+		new Attributes().onUpgrade(db, 1, DATABASE_VERSION);
+		new Requests().onUpgrade(db, 1, DATABASE_VERSION);
+		new IdentifierAttributes().onUpgrade(db, 1, DATABASE_VERSION);
+		new Identifier().onUpgrade(db, 1, DATABASE_VERSION);
+		new MetaAttributes().onUpgrade(db, 1, DATABASE_VERSION);
+		new VendorMetadata().onUpgrade(db, 1, DATABASE_VERSION);
+		new Connections().onUpgrade(db, 1, DATABASE_VERSION);
 		logger.log(Level.DEBUG, "..... OK");
 	}
 
