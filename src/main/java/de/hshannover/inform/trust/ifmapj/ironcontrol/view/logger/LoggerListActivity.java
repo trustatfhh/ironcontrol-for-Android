@@ -21,7 +21,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogData;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogListAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialogEvent;
 
@@ -139,7 +139,7 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 	}
 
 	private List<LogData> getLogList(){
-		ListAppender la = (ListAppender) logger.getAppender(ListAppender.class);
+		LogListAppender la = (LogListAppender) logger.getAppender(LogListAppender.class);
 
 		if(la == null){
 			return null;
@@ -157,7 +157,7 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 	}
 
 	private void clearLog(){
-		logger.getAppender(ListAppender.class).clear();
+		logger.getAppender(LogListAppender.class).clear();
 		getLogList().clear();
 		mAdapter.clear();
 		Toast.makeText(getApplicationContext(), "Log was clear", Toast.LENGTH_SHORT).show();

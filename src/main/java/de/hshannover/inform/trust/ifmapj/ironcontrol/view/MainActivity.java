@@ -1,5 +1,6 @@
 package de.hshannover.inform.trust.ifmapj.ironcontrol.view;
 
+import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 
@@ -8,10 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -32,6 +31,9 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.KeystoreManager;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogCatAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogFileAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogListAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedConnectionsActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedPublishsActivity;
@@ -54,17 +56,79 @@ public class MainActivity extends Activity implements PopUpEvent{
 
 	private EditText popUpInput;
 
-	private static boolean firstRun = false;
+	private static boolean firstRun = true;
+
+	private void firstRun(){
+		if(firstRun){
+
+			UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+			Thread.setDefaultUncaughtExceptionHandler(new IronControlUncaughtExceptionHandler(getBaseContext(), handler));
+
+			SharedPreferences prefData = PreferenceManager.getDefaultSharedPreferences(this);
+
+			boolean bAutoConnect = prefData.getBoolean(getString(R.string.PREF_KEY_B_AUTO_CONNECT), false);
+			boolean bLogList = prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_LIST_APPANDER), true);
+			boolean bLogCat= prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_CAT_APPANDER), false);
+			boolean bLogFile = prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_FILE_APPANDER), true);
+
+			if(bAutoConnect){
+				new ConnectionTask(this, ConnectTaskEnum.CONNECT).execute();
+			}
+
+			if(bLogList){
+				Logger.addAppender(new LogListAppender());
+			}
+
+			if(bLogCat){
+				Logger.addAppender(new LogCatAppender());
+			}
+
+			if(bLogFile){
+				try {
+					Logger.addAppender(new LogFileAppender());
+				} catch (IOException e) {
+					logger.log(Level.ERROR, "Failed to add the FileAppender!");
+				}
+			}
+
+			// reset connections
+			ContentValues value = new ContentValues();
+			value.put(Connections.COLUMN_ACTIVE, 0);
+			getContentResolver().update(DBContentProvider.CONNECTIONS_URI, value, null, null);
+
+			// reset subscriptions
+			ContentValues value2 = new ContentValues();
+			value2.put(Requests.COLUMN_ACTIVE, 0);
+			getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
+
+			firstRun = false;
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		firstRun();
 
-		UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
-		Thread.setDefaultUncaughtExceptionHandler(new IronControlUncaughtExceptionHandler(getBaseContext(), handler));
+		logger.log(Level.DEBUG, "onCreate()...");
 
-		setContentView(R.layout.activity_main);
 		cont= this;
+		setContentView(R.layout.activity_main);
+
+		setTouchListenerOnLinearLayouts();
+		logger.log(Level.DEBUG, "...onCreate()");
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		logger.log(Level.DEBUG, "onResume()");
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		logger.log(Level.DEBUG, "onStart()...");
 
 		//authentication
 		try{
@@ -81,56 +145,25 @@ public class MainActivity extends Activity implements PopUpEvent{
 			}
 		}
 
-		if(!firstRun){
-
-			// reset connections
-			ContentValues value = new ContentValues();
-			value.put(Connections.COLUMN_ACTIVE, 0);
-			getContentResolver().update(DBContentProvider.CONNECTIONS_URI, value, null, null);
-
-			// reset subscriptions
-			ContentValues value2 = new ContentValues();
-			value2.put(Requests.COLUMN_ACTIVE, 0);
-			getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
-
-			SharedPreferences prefData =  PreferenceManager.getDefaultSharedPreferences(this);
-
-			if(prefData.getBoolean("auto_connect", false)){
-				new ConnectionTask(this, ConnectTaskEnum.CONNECT).execute();
-			}
-
-			firstRun = true;
-		}
-
-		setTouchListenerOnLinearLayouts();
-
-		logger.log(Level.DEBUG, "...New");
-
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
+		logger.log(Level.DEBUG, "...onStart()");
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
+		logger.log(Level.DEBUG, "onPause()");
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
+		logger.log(Level.DEBUG, "onStop()");
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		logger.log(Level.DEBUG, "onDestroy()");
 	}
 
 	private void setTouchListenerOnLinearLayouts() {
@@ -161,10 +194,10 @@ public class MainActivity extends Activity implements PopUpEvent{
 		};
 	}
 
-	@Override
-	public void onBackPressed(){
-		finish();
-	}
+	//	@Override
+	//	public void onBackPressed(){
+	//		finish();
+	//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -267,37 +300,6 @@ public class MainActivity extends Activity implements PopUpEvent{
 	public void startSettingsConnections(View v) {
 		Intent intent = new Intent(getBaseContext(), ListSavedConnectionsActivity.class);
 		startActivity(intent);
-	}
-
-	/**
-	 * Save a String to the SharedPreference with key
-	 * 
-	 * @param data
-	 * @param key
-	 */
-	public void storeSharedPreferencesa(String data, String key){
-		if(data != null && data.length() > 0){
-			Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol", "Settings wird gespeichert ... ");
-			Editor edit = getSharedPreferences("persist.iron", MODE_PRIVATE).edit();
-			edit.putString(key, data);
-			edit.commit();
-		}else{
-			Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol", "Settings m�ssen nicht gespeichert werden!");
-		}
-	}
-
-	/**
-	 * Return a String for load the key from a SharedPreference
-	 * 
-	 * @param key
-	 * @return data or null
-	 */
-	public String loadSharedPreferences(String key){
-		String data =  getSharedPreferences("persist.iron", MODE_PRIVATE).getString(key, "");
-		if(data.length() > 0){
-			return data;
-		}
-		return null;
 	}
 
 	@Override

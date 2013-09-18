@@ -36,7 +36,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogData;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogReceiver;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogListAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.ConnectionFragmentActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialog;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.dialogs.MultichoiceDialogEvent;
@@ -77,7 +77,7 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 		getLoaderManager().initLoader(0, null, this);
 		registerForContextMenu(getListView());
 
-		ListAppender la = (ListAppender) logger.getAppender(ListAppender.class);
+		LogListAppender la = (LogListAppender) logger.getAppender(LogListAppender.class);
 		if(la != null){
 			la.addLogReceiver(this);
 		}
@@ -176,7 +176,7 @@ public class ListSavedConnectionsActivity extends ListActivity implements Loader
 	}
 
 	private List<LogData> getLogList(){
-		ListAppender la = (ListAppender) logger.getAppender(ListAppender.class);
+		LogListAppender la = (LogListAppender) logger.getAppender(LogListAppender.class);
 
 		if(la == null){
 			return null;

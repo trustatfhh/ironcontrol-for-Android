@@ -7,7 +7,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogData;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LogReceiver;
 
-public class ListAppender implements Appender {
+public class LogListAppender implements Appender {
 
 	private List<LogData> logList = new ArrayList<LogData>();
 

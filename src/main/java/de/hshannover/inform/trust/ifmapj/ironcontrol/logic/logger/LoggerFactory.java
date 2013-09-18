@@ -15,6 +15,7 @@ public class LoggerFactory {
 
 	/**
 	 * Get a <code>Logger</code> object with the specified name.
+	 * Set the context or only the the ListAppender was add.
 	 * 
 	 * @param className the class name of the logger.
 	 * @return the <code>Logger</code> object.

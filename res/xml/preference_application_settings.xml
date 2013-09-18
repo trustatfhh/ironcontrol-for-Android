@@ -8,7 +8,7 @@
     <CheckBoxPreference
         android:summaryOn="@string/on"
         android:title="@string/connect_at_startup"
-        android:key="auto_connect"
+        android:key="@string/PREF_KEY_B_AUTO_CONNECT"
         android:summaryOff="@string/off"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/notifications">
@@ -16,6 +16,11 @@
         <CheckBoxPreference android:title="@string/aboutNewResults" android:key="@string/aboutNewResults"/>
         <CheckBoxPreference android:title="@string/vibration" android:key="@string/vibration" android:dependency="@string/aboutNewResults"/>
         <CheckBoxPreference android:title="@string/sound" android:key="@string/sound" android:dependency="@string/aboutNewResults"/>
+        
+    </PreferenceCategory><PreferenceCategory android:title="@string/logging">
+        <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_LIST_APPANDER" android:summary="@string/ListView_Logs_Summary" android:title="@string/ListView_Logs" android:defaultValue="true"/>
+        <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_CAT_APPANDER" android:summary="@string/LogCat_Summary" android:title="@string/LogCat"/>
+        <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_FILE_APPANDER" android:summary="@string/Logging_File_Summary" android:title="@string/Logging_File" android:defaultValue="true"/>
     </PreferenceCategory>
     
 </PreferenceScreen>

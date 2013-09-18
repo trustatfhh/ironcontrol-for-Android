@@ -158,7 +158,7 @@
     <string name="connection">Connection</string>
     <string name="url">URL:</string>
     <string name="load_cert">Load certificates again</string>
-    <!-- <string name="logging">Logging</string -->
+    <string name="logging">Logging</string>
     <!-- <string name="show_the_logtime">Show the logtime</string> -->
     <!-- <string name="time_stamp">Time Stamp</string> -->
     <!-- <string name="verbose">Verbose</string> -->
@@ -199,6 +199,12 @@
 	<string name="filter">Filter</string>
 	<string name="enter">Enter </string>
 	<string name="exit">Exit </string>
+	<string name="ListView_Logs">ListView Logs</string>
+	<string name="ListView_Logs_Summary">Show logs in ironcontrol</string>
+	<string name="LogCat">LogCat</string>
+	<string name="LogCat_Summary">Send logs to LogCat</string>
+	<string name="Logging_File">Logging File</string>
+	<string name="Logging_File_Summary">Save logs on SD-Card</string>
 	<!-- MultichoiceDialog -->
 	<string name="multiPublish">Multi Publish</string>
 	<string name="singlePublish">Single Publish</string>
@@ -259,4 +265,10 @@
 	<string name="purgePublisher">Purge Publisher</string>
 	<string name="purgePublisherMessage">A purgePublisher request is sent by a MAP Client to ask that the MAP Server remove all metadata associated with a particular publisher.</string>
 	<string name="multiDelete">Multi Delete</string>
-</resources>
+	
+	<!-- Preference Keys -->
+	<string name="PREF_KEY_B_AUTO_CONNECT">pref_key_boolean_auto_connect</string>
+	<string name="PREF_KEY_B_LOG_LIST_APPANDER">pref_key_boolean_log_list_appender</string>
+	<string name="PREF_KEY_B_LOG_CAT_APPANDER">pref_key_boolean_log_cat_appender</string>
+	<string name="PREF_KEY_B_LOG_FILE_APPANDER">pref_key_boolean_log_file_appender</string>
+	</resources>

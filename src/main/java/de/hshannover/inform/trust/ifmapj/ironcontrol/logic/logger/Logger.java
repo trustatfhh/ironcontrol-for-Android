@@ -1,19 +1,15 @@
 package de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.Appender;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.FileAppender;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.ListAppender;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogCatAppender;
 
 public class Logger {
 
 	private static final Logger logger = LoggerFactory.getLogger(Logger.class);
 
-	private static List<Appender> appenderList;
+	private static List<Appender> appenderList = new ArrayList<Appender>();
 
 	private String className;
 
@@ -21,18 +17,6 @@ public class Logger {
 
 	public Logger(String className){
 		this.className = className;
-
-		if(appenderList == null){
-			appenderList = new ArrayList<Appender>();
-			addAppender(new ListAppender());
-			addAppender(new LogCatAppender());
-
-			try {
-				addAppender(new FileAppender());
-			} catch (IOException e) {
-				logger.log(Level.ERROR, "Failed to add the FileAppender");
-			}
-		}
 	}
 
 	public void log(Level level, Object message) throws IllegalArgumentException {
@@ -61,7 +45,7 @@ public class Logger {
 		}
 	}
 
-	public void addAppender(Appender appender) throws IllegalArgumentException {
+	public static void addAppender(Appender appender) throws IllegalArgumentException {
 		if (appender == null) {
 			throw new IllegalArgumentException("Appender not allowed to be null");
 		}
@@ -80,19 +64,22 @@ public class Logger {
 		}else{
 			logger.log(Level.WARN, "Only one " + appender.getClass().toString() + " is allowed!");
 		}
-
 	}
 
 	public String getClassName() {
 		return className;
 	}
 
-	public Appender getAppender(Class<?> clazz) {
+	public static Appender getAppender(Class<?> clazz) {
 		for(Appender a: appenderList){
 			if(a.getClass() == clazz){
 				return a;
 			}
 		}
 		return null;
+	}
+
+	public static void removeAppender(Class<?> clazz) {
+		appenderList.remove(getAppender(clazz));
 	}
 }

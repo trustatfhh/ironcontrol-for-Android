@@ -18,13 +18,13 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
  * @author Marcel Reichenbach
  * 
  */
-public class FileAppender implements Appender {
+public class LogFileAppender implements Appender {
 
-	private static final Logger logger = LoggerFactory.getLogger(FileAppender.class);
+	private static final Logger logger = LoggerFactory.getLogger(LogFileAppender.class);
 
-	private static final String IRONCONTROL_PATH = "/ironcontrol/";
+	private static final String IRONCONTROL_PATH = "/ironcontrol/logs/";
 
-	private static final String fileName = "ironcontrol-log.txt";
+	private static String fileName = "ironcontrol-log_";
 
 	private PrintWriter writer;
 
@@ -39,7 +39,7 @@ public class FileAppender implements Appender {
 	 * 
 	 * @throws IOException
 	 */
-	public FileAppender() throws IOException {
+	public LogFileAppender() throws IOException {
 		File logFile = getLogFile();
 
 		if (logFile != null) {
@@ -87,7 +87,7 @@ public class FileAppender implements Appender {
 	public String toString(String name, long time, Level level, Object message, Throwable throwable) {
 		StringBuffer buffer = new StringBuffer(INITIAL_BUFFER_SIZE);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("d.MM", Locale.GERMANY);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM", Locale.GERMANY);
 		buffer.append(dateFormat.format(time));
 
 		buffer.append(DEFAULT_DELIMITER);
@@ -181,6 +181,8 @@ public class FileAppender implements Appender {
 	 */
 	public synchronized File getLogFile() {
 		File mSdCardLogFile = null;
+		long time = System.currentTimeMillis();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM", Locale.GERMANY);
 
 		if( mSdCardLogFile == null ) {
 			String externalStorageState = Environment.getExternalStorageState();
@@ -188,7 +190,7 @@ public class FileAppender implements Appender {
 				File externalStorageDirectory = getExternalStorageDirectory();
 
 				if (externalStorageDirectory != null) {
-					mSdCardLogFile = new File(externalStorageDirectory, fileName);
+					mSdCardLogFile = new File(externalStorageDirectory, fileName + dateFormat.format(time) + ".txt");
 				}
 			}
 
