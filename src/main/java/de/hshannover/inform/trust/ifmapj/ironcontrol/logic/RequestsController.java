@@ -37,7 +37,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.MainActivity;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.ResultNotificationManager;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 /**
@@ -54,11 +53,17 @@ public class RequestsController {
 	private static final Logger logger = LoggerFactory.getLogger(RequestsController.class);
 
 	private static StandardIfmapMetadataFactory mF = IfmapJ.createStandardMetadataFactory();
+
 	private static ResultNotificationManager mNotifier;
+
 	private static SubscriptionPoller sPoller;
+
 	private static List<String> metaList = getMetaList(R.array.metadaten_list);
+
 	private static List<String> identifierList = getMetaList(R.array.identifier1_list);
+
 	private static boolean firstSubscribtion = false;
+
 
 	public static void purgePublisher(String publisherId) throws IfmapErrorResult, IfmapException{
 		try {
@@ -155,20 +160,17 @@ public class RequestsController {
 	// Subscription
 
 	public static void createSubscription(SubscribeRequestData[] req) throws IfmapErrorResult, IfmapException, Exception{
-
-		SubscribeRequest mSubscribeRequest = buildSubscriptionRequest(req);
-
-		sendSubscriptionRequest(mSubscribeRequest);
-
 		if(!firstSubscribtion){
 			startWorker();
 			firstSubscribtion = true;
 		}
 
-		if(sPoller.isWaiting()){
-			synchronized (sPoller){
-				sPoller.notify();
-			}
+		SubscribeRequest mSubscribeRequest = buildSubscriptionRequest(req);
+
+		sendSubscriptionRequest(mSubscribeRequest);
+
+		synchronized (sPoller){
+			sPoller.notify();
 		}
 
 		mNotifier.newSubscribeNotify(req[0].getName());
@@ -641,6 +643,8 @@ public class RequestsController {
 	}
 
 	public static void startWorker(){
+		logger.log(Level.DEBUG, "startWorker()...");
+
 		sPoller = SubscriptionPoller.getInstance();
 
 		StoredResponses mStorer = new StoredResponses(MainActivity.getContext());
@@ -652,5 +656,7 @@ public class RequestsController {
 		mNotifier.start();
 
 		sPoller.start();
+
+		logger.log(Level.DEBUG, "...startWorker()");
 	}
 }

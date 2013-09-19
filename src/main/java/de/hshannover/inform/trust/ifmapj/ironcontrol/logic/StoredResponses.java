@@ -15,12 +15,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.messages.PollResult;
 import de.fhhannover.inform.trust.ifmapj.messages.ResultItem;
 import de.fhhannover.inform.trust.ifmapj.messages.SearchResult;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Responses;
@@ -31,7 +29,6 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollReceiver;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 /**
  * Class for save search or subscription results.
@@ -45,29 +42,28 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 public class StoredResponses extends Thread implements PollReceiver  {
 
+	private static final Logger logger = LoggerFactory.getLogger(StoredResponses.class);
+
 	private Context context;
 
 	private BlockingQueue<PollResult> newEvents;
 
-	private static final Logger logger = LoggerFactory.getLogger(StoredResponses.class);
 
 	public StoredResponses(Context context) {
-		logger.log(Level.DEBUG, Util.getString(R.string.enter));
+		logger.log(Level.DEBUG, "New StoredResponses()");
 
 		this.context = context;
 		this.newEvents = new LinkedBlockingQueue<PollResult>();
-
-		logger.log(Level.DEBUG, Util.getString(R.string.exit));
 	}
 
 	@Override
 	public void run() {
-		Thread.currentThread().setName(StoredResponses.class.getSimpleName());
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
+		setName(StoredResponses.class.getSimpleName());
+		logger.log(Level.DEBUG, "run()...");
 
 		PollResult event;
 		try {
-			while (!Thread.currentThread().isInterrupted()) {
+			while (!interrupted()) {
 				event = this.newEvents.take();
 				if (event != null) {
 					persistResult(event);
@@ -76,10 +72,11 @@ public class StoredResponses extends Thread implements PollReceiver  {
 		} catch (InterruptedException e) {
 			logger.log(Level.DEBUG, e.getMessage(), e);
 		}
-		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...run()");
+		logger.log(Level.DEBUG, "...run()");
 	}
 
 	public void persistResult(PollResult pr) {
+		logger.log(Level.DEBUG, "persistResult()...");
 		//TODO
 		Collection<IfmapErrorResult> errorRes = pr.getErrorResults();
 		Collection<SearchResult> allRes = pr.getResults();
@@ -97,9 +94,7 @@ public class StoredResponses extends Thread implements PollReceiver  {
 					cursor.moveToNext();
 					requestId = cursor.getInt(cursor
 							.getColumnIndexOrThrow(Requests.COLUMN_ID));
-					Log.d("de.hshannover.inform.trust.ifmapj.ironcontrol",
-							"[SubscripThred]  Saved Subscription was found, persist ...");
-
+					logger.log(Level.DEBUG, "Saved Subscription was found, persist ...");
 
 					Collection<ResultItem> resultItems = sr.getResultItems();
 					SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -270,16 +265,17 @@ public class StoredResponses extends Thread implements PollReceiver  {
 				}
 			}
 		}
+		logger.log(Level.DEBUG, "...persistResult()");
 	}
 
 	@Override
 	public void submitNewPollResult(PollResult pr) {
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "submitNewPollResult()...");
+		logger.log(Level.DEBUG, "submitNewPollResult()...");
 		try {
 			this.newEvents.put(pr);
 		} catch (InterruptedException e) {
 			logger.log(Level.DEBUG, e.getMessage());
 		}
-		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...submitNewPollResult()");
+		logger.log(Level.DEBUG, "...submitNewPollResult()");
 	}
 }

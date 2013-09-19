@@ -1,4 +1,4 @@
-package de.hshannover.inform.trust.ifmapj.ironcontrol.view.util;
+package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -47,26 +47,24 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 
 	public ResultNotificationManager(Context context) {
-		logger.log(Level.DEBUG, "New...");
+		logger.log(Level.DEBUG, "New ResultNotificationManager()");
 
 		this.context = context;
 		this.r = context.getResources();
 		this.mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		this.prefData =  PreferenceManager.getDefaultSharedPreferences(context);
 		this.newEvents = new LinkedBlockingQueue<PollResult>();
-
 		this.notifyId = 10;
-
-		logger.log(Level.DEBUG, "...NEW");
 	}
 
 	@Override
 	public void run() {
+		setName(ResultNotificationManager.class.getSimpleName());
 		logger.log(Level.DEBUG, "run()...");
-		Thread.currentThread().setName(ResultNotificationManager.class.getSimpleName());
+
 		PollResult event;
 		try {
-			while (!Thread.currentThread().isInterrupted()) {
+			while (!interrupted()) {
 				event = this.newEvents.take();
 				if (event != null) {
 					for(SearchResult sr: event.getResults()){
