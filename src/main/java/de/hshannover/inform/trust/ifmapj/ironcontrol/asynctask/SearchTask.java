@@ -29,7 +29,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultIte
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetaAttributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetadata;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.RequestsController;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.SearchRequestData;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.SearchRequestData;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;

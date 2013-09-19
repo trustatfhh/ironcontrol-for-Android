@@ -24,7 +24,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.SearchTask;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.asynctask.SubscriptionTask;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.PromptSpinnerAdapter;
 
 public class SimpleRequestFragment extends Fragment  {

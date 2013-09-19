@@ -27,6 +27,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Responses
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultItems;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetaAttributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetadata;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollReceiver;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;

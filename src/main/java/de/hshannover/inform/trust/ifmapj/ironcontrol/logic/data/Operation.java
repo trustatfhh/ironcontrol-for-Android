@@ -1,4 +1,4 @@
-package de.hshannover.inform.trust.ifmapj.ironcontrol.logic;
+package de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data;
 
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 

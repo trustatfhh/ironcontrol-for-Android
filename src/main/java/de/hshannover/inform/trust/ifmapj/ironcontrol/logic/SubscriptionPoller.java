@@ -9,6 +9,8 @@ import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.exception.InitializationException;
 import de.fhhannover.inform.trust.ifmapj.messages.PollResult;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollReceiver;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollSender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;

@@ -19,7 +19,7 @@ import de.fhhannover.inform.trust.ifmapj.messages.SearchResult;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.DBContentProvider;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.PollReceiver;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollReceiver;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
