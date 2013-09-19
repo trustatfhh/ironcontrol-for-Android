@@ -61,6 +61,7 @@ public class Logger {
 
 		if(!contains){
 			appenderList.add(appender);
+			logger.log(Level.TOAST, appender.getClass().getSimpleName() + " add!");
 		}else{
 			logger.log(Level.WARN, "Only one " + appender.getClass().toString() + " is allowed!");
 		}
@@ -80,6 +81,10 @@ public class Logger {
 	}
 
 	public static void removeAppender(Class<?> clazz) {
-		appenderList.remove(getAppender(clazz));
+		Appender a = getAppender(clazz);
+		if(a != null){
+			appenderList.remove(a);
+			logger.log(Level.TOAST, clazz.getSimpleName() + " removed!");
+		}
 	}
 }

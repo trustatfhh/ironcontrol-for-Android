@@ -21,6 +21,7 @@
         <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_LIST_APPANDER" android:summary="@string/ListView_Logs_Summary" android:title="@string/ListView_Logs" android:defaultValue="true"/>
         <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_CAT_APPANDER" android:summary="@string/LogCat_Summary" android:title="@string/LogCat"/>
         <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_FILE_APPANDER" android:summary="@string/Logging_File_Summary" android:title="@string/Logging_File" android:defaultValue="true"/>
+        <CheckBoxPreference android:title="@string/Toast_Message" android:defaultValue="true" android:summary="@string/Toast_Message_Summary" android:key="@string/PREF_KEY_B_LOG_TOAST_APPANDER"/>
     </PreferenceCategory>
     
 </PreferenceScreen>

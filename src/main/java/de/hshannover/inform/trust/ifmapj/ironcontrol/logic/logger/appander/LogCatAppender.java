@@ -29,6 +29,7 @@ public class LogCatAppender implements Appender {
 			Log.w(clientID, toString(name, message));
 			break;
 
+		case TOAST:
 		case INFO:
 			Log.i(clientID, toString(name, message));
 			break;

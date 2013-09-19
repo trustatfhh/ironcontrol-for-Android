@@ -60,6 +60,7 @@ public class LoggerPopUp extends Builder{
 		break;
 		case WARN :	setTextColor(tvMessage, R.color.Orange);
 		break;
+		case TOAST :
 		case INFO : setTextColor(tvMessage, R.color.Green);
 		break;
 		default :	setTextColor(tvMessage, R.color.White);

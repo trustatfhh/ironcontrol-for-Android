@@ -66,6 +66,7 @@ public class LoggerListArrayAdapter extends ArrayAdapter<LogData> {
 		break;
 		case WARN:	setTextColor(vh.tvMessage, R.color.Orange);
 		break;
+		case TOAST:
 		case INFO:	setTextColor(vh.tvMessage, R.color.Green);
 		break;
 		default:	setTextColor(vh.tvMessage, R.color.White);

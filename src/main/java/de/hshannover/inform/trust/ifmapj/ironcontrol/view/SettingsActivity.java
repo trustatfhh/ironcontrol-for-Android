@@ -13,6 +13,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogCatAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogFileAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogListAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogToastAppender;
 
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
@@ -35,32 +36,55 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sP, String key) {
 		if(key.equals(getString(R.string.PREF_KEY_B_LOG_LIST_APPANDER))){
+
 			if(sP.getBoolean(key, true)){
+
 				Logger.addAppender(new LogListAppender());
-				logger.log(Level.INFO, "LogListAppender add");
+
 			}else{
+
 				Logger.removeAppender(LogListAppender.class);
-				logger.log(Level.INFO, "LogListAppender remove");
+
 			}
+
 		}else if(key.equals(getString(R.string.PREF_KEY_B_LOG_CAT_APPANDER))){
+
 			if(sP.getBoolean(key, false)){
+
 				Logger.addAppender(new LogCatAppender());
-				logger.log(Level.INFO, "LogCatAppender add");
+
 			}else{
+
 				Logger.removeAppender(LogCatAppender.class);
-				logger.log(Level.INFO, "LogCatAppender remove");
+
 			}
+
 		}else if(key.equals(getString(R.string.PREF_KEY_B_LOG_FILE_APPANDER))){
+
 			if(sP.getBoolean(key, true)){
+
 				try {
 					Logger.addAppender(new LogFileAppender());
 				} catch (IOException e) {
 					logger.log(Level.ERROR, e.toString(), e);
 				}
-				logger.log(Level.INFO, "LogFileAppender add");
+
 			}else{
+
 				Logger.removeAppender(LogFileAppender.class);
-				logger.log(Level.INFO, "LogFileAppender remove");
+
+			}
+
+		}else if(key.equals(getString(R.string.PREF_KEY_B_LOG_TOAST_APPANDER))){
+
+			if(sP.getBoolean(key, false)){
+
+				Logger.addAppender(new LogToastAppender());
+
+			}else{
+
+				Logger.removeAppender(LogToastAppender.class);
+
 			}
 		}
 	}

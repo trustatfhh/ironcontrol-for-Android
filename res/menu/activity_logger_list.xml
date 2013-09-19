@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/toast" android:title="@string/toast" android:checkable="true"></item>
     <item android:id="@+id/info" android:title="@string/info" android:checkable="true"></item>
     <item android:id="@+id/warn" android:title="@string/warn" android:checkable="true"></item>
     <item android:id="@+id/error" android:title="@string/error" android:checkable="true"></item>

@@ -199,12 +199,15 @@
 	<string name="filter">Filter</string>
 	<string name="enter">Enter </string>
 	<string name="exit">Exit </string>
+	<string name="toast">Toast</string>
 	<string name="ListView_Logs">ListView Logs</string>
 	<string name="ListView_Logs_Summary">Show logs in ironcontrol</string>
 	<string name="LogCat">LogCat</string>
-	<string name="LogCat_Summary">Send logs to LogCat</string>
+	<string name="LogCat_Summary">Send logs to LogCat.</string>
 	<string name="Logging_File">Logging File</string>
-	<string name="Logging_File_Summary">Save logs on SD-Card</string>
+	<string name="Logging_File_Summary">Save logs on SD-Card.</string>
+	<string name="Toast_Message">Toast Message</string>
+	<string name="Toast_Message_Summary">Show logs with level Toast, in ironcontrol.</string>
 	<!-- MultichoiceDialog -->
 	<string name="multiPublish">Multi Publish</string>
 	<string name="singlePublish">Single Publish</string>
@@ -271,4 +274,5 @@
 	<string name="PREF_KEY_B_LOG_LIST_APPANDER">pref_key_boolean_log_list_appender</string>
 	<string name="PREF_KEY_B_LOG_CAT_APPANDER">pref_key_boolean_log_cat_appender</string>
 	<string name="PREF_KEY_B_LOG_FILE_APPANDER">pref_key_boolean_log_file_appender</string>
+	<string name="PREF_KEY_B_LOG_TOAST_APPANDER">pref_key_boolean_log_toast_appender</string>
 	</resources>

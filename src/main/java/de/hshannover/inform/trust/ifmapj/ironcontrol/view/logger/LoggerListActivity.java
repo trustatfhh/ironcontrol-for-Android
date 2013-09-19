@@ -33,7 +33,7 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 
 	private LoggerListArrayAdapter mAdapter;
 
-	boolean info, warn, error, fatal, debug;
+	boolean toast, info, warn, error, fatal, debug;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.activity_logger_list, menu);
 
+		menu.findItem(R.id.toast).setChecked(toast);
 		menu.findItem(R.id.info).setChecked(info);
 		menu.findItem(R.id.warn).setChecked(warn);
 		menu.findItem(R.id.error).setChecked(error);
@@ -111,7 +112,9 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 		if(appenderLogList != null){
 			for (LogData ld : appenderLogList) {
 				if(filterNames.isEmpty() || filterNames.contains(ld.getName())){
-					if (ld.getLevel() == Level.INFO && info) {
+					if (ld.getLevel() == Level.TOAST && toast) {
+						logList.add(ld);
+					}else if (ld.getLevel() == Level.INFO && info) {
 						logList.add(ld);
 					} else if (ld.getLevel() == Level.WARN && warn) {
 						logList.add(ld);
@@ -123,7 +126,6 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 						logList.add(ld);
 					}
 				}
-
 			}
 		}
 		return logList;
@@ -131,6 +133,7 @@ public class LoggerListActivity extends ListActivity implements MultichoiceDialo
 
 	private void readSharedPreferences(){
 		SharedPreferences data =  getSharedPreferences("LogLevel", MODE_PRIVATE);
+		toast = data.getBoolean(getResources().getString(R.string.toast), true);
 		info = data.getBoolean(getResources().getString(R.string.info), true);
 		warn = data.getBoolean(getResources().getString(R.string.warn), false);
 		error = data.getBoolean(getResources().getString(R.string.error), true);

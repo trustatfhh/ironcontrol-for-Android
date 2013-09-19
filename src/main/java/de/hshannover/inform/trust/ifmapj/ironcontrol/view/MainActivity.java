@@ -34,6 +34,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogCatAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogFileAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogListAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogToastAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedConnectionsActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedPublishsActivity;
@@ -70,17 +71,10 @@ public class MainActivity extends Activity implements PopUpEvent{
 			boolean bLogList = prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_LIST_APPANDER), true);
 			boolean bLogCat= prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_CAT_APPANDER), false);
 			boolean bLogFile = prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_FILE_APPANDER), true);
+			boolean bLogToast = prefData.getBoolean(getString(R.string.PREF_KEY_B_LOG_TOAST_APPANDER), true);
 
 			if(bAutoConnect){
 				new ConnectionTask(this, ConnectTaskEnum.CONNECT).execute();
-			}
-
-			if(bLogList){
-				Logger.addAppender(new LogListAppender());
-			}
-
-			if(bLogCat){
-				Logger.addAppender(new LogCatAppender());
 			}
 
 			if(bLogFile){
@@ -89,6 +83,18 @@ public class MainActivity extends Activity implements PopUpEvent{
 				} catch (IOException e) {
 					logger.log(Level.ERROR, "Failed to add the FileAppender!");
 				}
+			}
+
+			if(bLogCat){
+				Logger.addAppender(new LogCatAppender());
+			}
+
+			if(bLogList){
+				Logger.addAppender(new LogListAppender());
+			}
+
+			if(bLogToast){
+				Logger.addAppender(new LogToastAppender());
 			}
 
 			// reset connections
@@ -108,11 +114,13 @@ public class MainActivity extends Activity implements PopUpEvent{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		firstRun();
+
+		cont= this;
 
 		logger.log(Level.DEBUG, "onCreate()...");
 
-		cont= this;
 		setContentView(R.layout.activity_main);
 
 		setTouchListenerOnLinearLayouts();
