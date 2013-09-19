@@ -556,4 +556,8 @@ public class PublishActivity extends Activity implements PopUpEvent{
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+	@Override
+	public void onClickeSubscriptionPopUp(String subscribeName, String startIdentifier, String identifierValue) {
+	}
 }

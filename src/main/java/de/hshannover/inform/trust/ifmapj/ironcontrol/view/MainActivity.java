@@ -35,6 +35,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogCa
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogFileAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogListAppender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.appander.LogToastAppender;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.view.irondetect.IrondetectFragmentActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedConnectionsActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedPublishsActivity;
@@ -310,6 +311,11 @@ public class MainActivity extends Activity implements PopUpEvent{
 		startActivity(intent);
 	}
 
+	public void startIronDetectActivity(View v) {
+		Intent intent = new Intent(getBaseContext(), IrondetectFragmentActivity.class);
+		startActivity(intent);
+	}
+
 	@Override
 	public void onClickePopUp() {
 		new PurgePublisherTask(this, popUpInput.getText().toString()).execute();
@@ -317,5 +323,9 @@ public class MainActivity extends Activity implements PopUpEvent{
 
 	@Override
 	public boolean onClickeSavePopUp(String savedName) {return false;}
+
+	@Override
+	public void onClickeSubscriptionPopUp(String subscribeName, String startIdentifier, String identifierValue) {
+	}
 
 }

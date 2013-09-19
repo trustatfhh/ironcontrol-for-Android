@@ -62,11 +62,11 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 	@Override
 	public void run() {
+		setName(ResultNotificationManager.class.getSimpleName());
 		logger.log(Level.DEBUG, "run()...");
-		Thread.currentThread().setName(ResultNotificationManager.class.getSimpleName());
 		PollResult event;
 		try {
-			while (!Thread.currentThread().isInterrupted()) {
+			while (!interrupted()) {
 				event = this.newEvents.take();
 				if (event != null) {
 					for(SearchResult sr: event.getResults()){

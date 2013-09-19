@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:title="Application Settings">
-    
-    <PreferenceCategory 
-        android:title="@string/connection" >    
-    
-    <CheckBoxPreference
-        android:summaryOn="@string/on"
-        android:title="@string/connect_at_startup"
-        android:key="@string/PREF_KEY_B_AUTO_CONNECT"
-        android:summaryOff="@string/off"/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Application Settings" >
+
+    <PreferenceCategory android:title="@string/connection" >
+        <CheckBoxPreference
+            android:key="@string/PREF_KEY_B_AUTO_CONNECT"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/connect_at_startup" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/notifications">
-        <CheckBoxPreference android:title="@string/activeSubscriptions" android:key="@string/activeSubscriptions"/>
-        <CheckBoxPreference android:title="@string/aboutNewResults" android:key="@string/aboutNewResults"/>
-        <CheckBoxPreference android:title="@string/vibration" android:key="@string/vibration" android:dependency="@string/aboutNewResults"/>
-        <CheckBoxPreference android:title="@string/sound" android:key="@string/sound" android:dependency="@string/aboutNewResults"/>
-        
-    </PreferenceCategory><PreferenceCategory android:title="@string/logging">
-        <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_LIST_APPANDER" android:summary="@string/ListView_Logs_Summary" android:title="@string/ListView_Logs" android:defaultValue="true"/>
-        <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_CAT_APPANDER" android:summary="@string/LogCat_Summary" android:title="@string/LogCat"/>
-        <CheckBoxPreference android:key="@string/PREF_KEY_B_LOG_FILE_APPANDER" android:summary="@string/Logging_File_Summary" android:title="@string/Logging_File" android:defaultValue="true"/>
-        <CheckBoxPreference android:title="@string/Toast_Message" android:defaultValue="true" android:summary="@string/Toast_Message_Summary" android:key="@string/PREF_KEY_B_LOG_TOAST_APPANDER"/>
+    <PreferenceCategory android:title="@string/notifications" >
+        <CheckBoxPreference
+            android:key="@string/activeSubscriptions"
+            android:title="@string/activeSubscriptions" />
+        <CheckBoxPreference
+            android:key="@string/aboutNewResults"
+            android:title="@string/aboutNewResults" />
+        <CheckBoxPreference
+            android:dependency="@string/aboutNewResults"
+            android:key="@string/vibration"
+            android:title="@string/vibration" />
+        <CheckBoxPreference
+            android:dependency="@string/aboutNewResults"
+            android:key="@string/sound"
+            android:title="@string/sound" />
     </PreferenceCategory>
-    
+    <PreferenceCategory android:title="@string/irondetect" >
+        <CheckBoxPreference
+            android:key="@string/subscribeAtStartup"
+            android:summaryOff="@string/off"
+            android:summaryOn="@string/on"
+            android:title="@string/subscribeAtStartup" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/logging" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/PREF_KEY_B_LOG_LIST_APPANDER"
+            android:summary="@string/ListView_Logs_Summary"
+            android:title="@string/ListView_Logs" />
+        <CheckBoxPreference
+            android:key="@string/PREF_KEY_B_LOG_CAT_APPANDER"
+            android:summary="@string/LogCat_Summary"
+            android:title="@string/LogCat" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/PREF_KEY_B_LOG_FILE_APPANDER"
+            android:summary="@string/Logging_File_Summary"
+            android:title="@string/Logging_File" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/PREF_KEY_B_LOG_TOAST_APPANDER"
+            android:summary="@string/Toast_Message_Summary"
+            android:title="@string/Toast_Message" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

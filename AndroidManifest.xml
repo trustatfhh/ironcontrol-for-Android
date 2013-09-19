@@ -88,6 +88,10 @@
             android:name=".view.list_activities.ListResultMetaAttributesActivity"
             android:label="@string/metadata_attributes" >
         </activity>
+        <activity
+            android:name=".view.irondetect.IrondetectFragmentActivity"
+            android:label="@string/irondetectRemotegui" >
+        </activity>
 
         <provider
             android:name=".database.DBContentProvider"

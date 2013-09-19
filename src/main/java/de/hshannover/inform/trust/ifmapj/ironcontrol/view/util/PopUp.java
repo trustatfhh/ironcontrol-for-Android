@@ -11,6 +11,15 @@ public class PopUp extends Builder{
 
 	private Context context;
 
+	public PopUp(Activity context) {
+		super(context);
+		this.context = context;
+
+		// super
+		setPositiveButton();
+		setNegativeButton();
+	}
+
 	public PopUp(Activity context, int titleId, int messageId) {
 		super(context);
 		this.context = context;
