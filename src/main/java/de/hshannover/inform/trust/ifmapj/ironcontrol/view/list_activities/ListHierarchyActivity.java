@@ -25,7 +25,7 @@ import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.Responses
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultItems;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetaAttributes;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.database.entities.ResultMetadata;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.Operation;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.Operation;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.SearchFragmentActivity;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.view.SubscribeFragmentActivity;
 

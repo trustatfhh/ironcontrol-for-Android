@@ -98,10 +98,10 @@ public class Connection{
 			try {
 
 				mSsrc.endSession();
-				logger.log(Level.DEBUG,"closeTcpConnection()...");
+				logger.log(Level.DEBUG,"endSession()");
 
 				mSsrc.closeTcpConnection();
-				logger.log(Level.INFO,"Disconnected");
+				logger.log(Level.DEBUG,"closeTcpConnection()");
 
 			} catch (IfmapErrorResult e) {
 				logger.log(Level.ERROR, e.getErrorCode(), e);
@@ -122,6 +122,8 @@ public class Connection{
 				ContentValues value2 = new ContentValues();
 				value2.put(Requests.COLUMN_ACTIVE, 0);
 				context.getContentResolver().update(DBContentProvider.SUBSCRIPTION_URI, value, null, null);
+
+				logger.log(Level.INFO, "Disconnected!");
 			}
 
 		}else {

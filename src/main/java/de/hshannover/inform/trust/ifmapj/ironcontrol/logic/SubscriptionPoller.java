@@ -8,19 +8,19 @@ import de.fhhannover.inform.trust.ifmapj.exception.IfmapErrorResult;
 import de.fhhannover.inform.trust.ifmapj.exception.IfmapException;
 import de.fhhannover.inform.trust.ifmapj.exception.InitializationException;
 import de.fhhannover.inform.trust.ifmapj.messages.PollResult;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.R;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollReceiver;
+import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.data.PollSender;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Level;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.Logger;
 import de.hshannover.inform.trust.ifmapj.ironcontrol.logic.logger.LoggerFactory;
-import de.hshannover.inform.trust.ifmapj.ironcontrol.view.util.Util;
 
 /**
  * Class for connection management
  * @author Daniel Wolf
  * @author Anton Saenko
  * @author Arne Loth
- * @version %I%, %G%
- * @since 0.1
+ * @author Marcel Reichenbach
+ * @version 1.0
  */
 
 public class SubscriptionPoller extends Thread implements PollSender {
@@ -28,13 +28,14 @@ public class SubscriptionPoller extends Thread implements PollSender {
 	private static final Logger logger = LoggerFactory.getLogger(SubscriptionPoller.class);
 
 	private ArrayList<PollReceiver> mPollReceiver;
+
 	private PollResult mPollResult;
-	private ARC mArc;
+
 	private static SubscriptionPoller mInstance;
-	private static boolean wait;
 
 
 	private SubscriptionPoller() {
+		logger.log(Level.DEBUG, "New SubscriptionPoller()");
 		mPollReceiver = new ArrayList<PollReceiver>();
 	}
 
@@ -52,95 +53,80 @@ public class SubscriptionPoller extends Thread implements PollSender {
 	 */
 	@Override
 	public void run() {
-		Thread.currentThread().setName(SubscriptionPoller.class.getSimpleName());
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "run()...");
+		setName(SubscriptionPoller.class.getSimpleName());
+		logger.log(Level.DEBUG, "run()...");
 
-		while (!Thread.currentThread().isInterrupted()) {
-
-			while (mArc == null){
-
-				getARC();
-
+		while (!interrupted()) {
+			ARC mArc = getARC();
+			if(mArc != null){
 				try {
-					Thread.sleep(180);
-				} catch (InterruptedException e) {
+					logger.log(Level.DEBUG, "new poll...");
+					mPollResult = mArc.poll();
+					logger.log(Level.DEBUG, "...poll OK");
 
+					// submit the result
+					onNewPollResult(mPollResult);
+
+					// forget the result
+					mPollResult = null;
+
+				} catch (IfmapErrorResult e) {
+					logger.log(Level.ERROR, "IfmapErrorResult: STOP Poll" + e.getErrorString(), e);
+					waitForNewConnection();
+
+				} catch (EndSessionException e) {
+					logger.log(Level.ERROR, "EndSessionException: STOP Poll", e);
+					waitForNewConnection();
+
+				} catch (IfmapException e) {
+					logger.log(Level.ERROR, "IfmapException: STOP Poll " + e.getDescription(), e);
+					waitForNewConnection();
 				}
-			}
-
-			logger.log(Level.DEBUG, "new poll...");
-
-			try {
-				mPollResult = mArc.poll();
-			} catch (IfmapErrorResult e) {
-				logger.log(Level.ERROR, e.getErrorString(), e);
-				break;
-			} catch (EndSessionException e) {
-				logger.log(Level.DEBUG, "EndSessionException STOP Poll, wait for new subscribe...", e);
-				mPollResult = null;
-
-				waitForNewSubscribesAfterConnectionLost();
-
-			} catch (IfmapException e) {
-				logger.log(Level.ERROR, e.getDescription(), e);
-				break;
-			}
-
-			if (mPollResult != null) {
-				logger.log(Level.DEBUG, "...poll OK");
-				onNewPollResult(mPollResult);
-				mPollResult = null;
-			} else {
-				logger.log(Level.DEBUG, Util.getString(R.string.pollresult_is_null));
+			}else{
+				waitForNewConnection();
 			}
 		}
-		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...run()");
+		logger.log(Level.DEBUG, "...run()");
 	}
 
 	@Override
 	public void addPollReceiver(PollReceiver pr) {
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "addPollReceiver()...");
-		mPollReceiver.add(pr);
-		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...addPollReceiver()");
+		if(pr != null){
+			logger.log(Level.DEBUG, "add new PollReceiver()");
+			mPollReceiver.add(pr);
+		}else{
+			logger.log(Level.WARN, "PollReceiver is null, dosen't add");
+		}
 	}
 
 	public void onNewPollResult(PollResult pr) {
-		logger.log(Level.DEBUG, Util.getString(R.string.enter) + "onNewPollResult()...");
+		logger.log(Level.DEBUG, "onNewPollResult()...");
 		for(PollReceiver receiver: mPollReceiver){
 			receiver.submitNewPollResult(pr);
 		}
-		logger.log(Level.DEBUG, Util.getString(R.string.exit) + "...onNewPollResult()");
+		logger.log(Level.DEBUG, "...onNewPollResult()");
 	}
 
-	public boolean isWaiting() {
-		return wait;
-	}
-
-	private void waitForNewSubscribesAfterConnectionLost() {
+	private void waitForNewConnection() {
+		logger.log(Level.DEBUG, "waitForNewConnection()...");
 		try {
-			wait = true;
 
-			synchronized (Thread.currentThread()){
-				Thread.currentThread().wait();
+			synchronized (this){
+				wait();
 			}
 
-			wait = false;
-
-			getARC();
-
-			logger.log(Level.DEBUG, "... new subscribe");
 		} catch (InterruptedException e) {
 			logger.log(Level.DEBUG, e.getMessage(), e);
 		}
+		logger.log(Level.DEBUG, "...waitForNewConnection()");
 	}
 
-	private void getARC() {
+	private ARC getARC() {
 		try {
-
-			this.mArc = Connection.getARC();
-
+			return Connection.getARC();
 		} catch (InitializationException e) {
 			logger.log(Level.ERROR, e.getDescription(),e);
 		}
+		return null;
 	}
 }
