@@ -14,7 +14,7 @@
 
 	<!-- general project information -->
 	<groupId>de.hshannover.inform.trust.ifmapj</groupId>
-	<artifactId>ironcontrol</artifactId>
+	<artifactId>ironcontrol-for-android</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>apk</packaging>
 	<name>ironcontrol for android</name>

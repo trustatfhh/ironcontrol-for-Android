@@ -11,13 +11,13 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:layout_weight="1"
-	    class="de.hshannover.inform.trust.ifmapj.ironcontrol.view.TabFragment" />
+	    class="de.hshannover.inform.trust.ironcontrol.view.TabFragment" />
 	
 	<fragment
 	    android:id="@+id/buttons_fragment"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:layout_weight="10"
-	    class="de.hshannover.inform.trust.ifmapj.ironcontrol.view.SubscribeButtonFragment" />
+	    class="de.hshannover.inform.trust.ironcontrol.view.SubscribeButtonFragment" />
 
 </LinearLayout>
