@@ -52,7 +52,8 @@ public class IrondetectRemoteReceiver extends Thread implements PollReceiver  {
 
 	@Override
 	public void run() {
-		logger.log(Level.DEBUG, "Run()...");
+		setName(IrondetectRemoteReceiver.class.getSimpleName());
+		logger.log(Level.DEBUG, "run()...");
 
 		// sign up
 		SubscriptionPoller.getInstance().addPollReceiver(this);
@@ -71,7 +72,7 @@ public class IrondetectRemoteReceiver extends Thread implements PollReceiver  {
 			e.printStackTrace();
 		}
 
-		logger.log(Level.DEBUG, "...Run()");
+		logger.log(Level.DEBUG, "...run()");
 	}
 
 	@Override
