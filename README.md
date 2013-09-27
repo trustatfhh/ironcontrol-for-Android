@@ -4,6 +4,12 @@ ironcontrol-for-Android
 Ironcontrol is an IF-MAP client on a Android Smartphone device. It designed as a tool for administrative tasks in an IF-MAP environment. It allows the user to send requests such as publish, search and subscriptions to a MAP server and save these requests and also merge several requests into one via certain operations.
 
 
+RemoteGUI-for-irondetect
+========================
+
+It is an extension for ironcontrol. This was taken at a Bachelor work. The aim was to develop a GUI for irondetect on Android-Smartphones.
+
+
 Prerequisites
 =============
 Prior to build ironcontrol-for-Android, you must download and install the following software:
