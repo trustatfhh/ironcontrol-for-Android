@@ -74,17 +74,21 @@ public class SubscriptionTask extends AsyncTask<Void, Void, Void> {
 
 			RequestsController.createSubscription(buildSubscribeData());
 
-			// set subscription active
-			ContentValues value = new ContentValues();
-			switch (type) {
-			case UPDATE : value.put(Requests.COLUMN_ACTIVE, 1);
-			break;
-			case DELETE : value.put(Requests.COLUMN_ACTIVE, 0);
-			break;
-			default : logger.log(Level.FATAL, "Wrong Operation type for subscription");
-			break;
+			if(subscribeId != null){
+
+				// set subscription active
+				ContentValues value = new ContentValues();
+				switch (type) {
+				case UPDATE : value.put(Requests.COLUMN_ACTIVE, 1);
+				break;
+				case DELETE : value.put(Requests.COLUMN_ACTIVE, 0);
+				break;
+				default : logger.log(Level.FATAL, "Wrong Operation type for subscription");
+				break;
+				}
+				context.getContentResolver().update(Uri.parse(DBContentProvider.SUBSCRIPTION_URI + "/" +subscribeId), value, null, null);
+
 			}
-			context.getContentResolver().update(Uri.parse(DBContentProvider.SUBSCRIPTION_URI + "/" +subscribeId), value, null, null);
 
 		} catch (IfmapErrorResult e) {
 			error = e.getErrorCode().toString();
