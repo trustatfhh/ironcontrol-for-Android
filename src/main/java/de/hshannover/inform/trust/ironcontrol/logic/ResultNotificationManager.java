@@ -23,6 +23,7 @@ import de.hshannover.inform.trust.ironcontrol.logger.Level;
 import de.hshannover.inform.trust.ironcontrol.logger.Logger;
 import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
 import de.hshannover.inform.trust.ironcontrol.logic.data.PollReceiver;
+import de.hshannover.inform.trust.ironcontrol.view.irondetect.IrondetectFragmentActivity;
 import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListHierarchyActivity;
 import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListOverviewActivity;
 import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListResponsesActivity;
@@ -43,6 +44,8 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 
 	private BlockingQueue<PollResult> newEvents;
 
+	private SharedPreferences data;
+
 	private int notifyId;
 
 
@@ -55,6 +58,7 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 		this.prefData =  PreferenceManager.getDefaultSharedPreferences(context);
 		this.newEvents = new LinkedBlockingQueue<PollResult>();
 		this.notifyId = 10;
+		this.data =  PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
 	@Override
@@ -152,10 +156,22 @@ public class ResultNotificationManager extends Thread implements PollReceiver{
 		.setContentInfo(itemCount +" "+ r.getString(R.string.result_items));
 
 
-		Intent resultIntent = new Intent(context, ListResponsesActivity.class);
-		resultIntent.setAction(r.getString(R.string.ACTION_SAVED_SUBSCRIPTIONS));
-		resultIntent.putExtra(ListHierarchyActivity.EXTRA_ID_KEY, getSavedResultId(subscribeName));
+		Intent resultIntent;
 
+		if(subscribeName.equals(data.getString(
+				IrondetectFragmentActivity.PREFERENCE_KEY_NAME,
+				IrondetectFragmentActivity.PREFERENCE_DEF_NAME))){
+
+			// Notify for irondetect
+			resultIntent = new Intent(context, IrondetectFragmentActivity.class);
+
+		}else{
+
+			resultIntent = new Intent(context, ListResponsesActivity.class);
+			resultIntent.setAction(r.getString(R.string.ACTION_SAVED_SUBSCRIPTIONS));
+			resultIntent.putExtra(ListHierarchyActivity.EXTRA_ID_KEY, getSavedResultId(subscribeName));
+
+		}
 
 		PendingIntent contentIntent = PendingIntent.getActivity(
 				context, 0,
