@@ -13,11 +13,11 @@ Prior to build ironcontrol-for-Android, you must download and install the follow
 * [Android SDK][android_sdk]
 * [Maven 3][maven]
 
-Before you begin, make sure you set the JAVA_HOME and ANDROID_HOME environment variable.
+Before you begin, make sure you set the ANDROID_HOME environment variable to the appropriate value, e.g.:
 
-    JAVA_HOME = ...\Java\jdk
-    ANDROID_HOME = ...\Android\android-sdk
+    ANDROID_HOME =.../adt-bundle-linux-x86_64-20131030/sdk
 
+You should also add $ANDROID_HOME/tools and $ANDROID_HOME/platform-tools to you $PATH.
 
 Libraries
 =========

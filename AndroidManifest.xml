@@ -91,7 +91,7 @@
 
         <provider
             android:name=".database.DBContentProvider"
-            android:authorities="de.hshannover.inform.trust.ironcontrol.database" >
+            android:authorities="de.hshannover.f4.trust.ironcontrol.database" >
         </provider>
     </application>
 
