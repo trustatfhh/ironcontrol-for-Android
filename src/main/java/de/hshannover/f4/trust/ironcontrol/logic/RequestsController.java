@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic;
+package de.hshannover.f4.trust.ironcontrol.logic;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -66,15 +66,15 @@ import de.hshannover.f4.trust.ifmapj.metadata.Significance;
 import de.hshannover.f4.trust.ifmapj.metadata.StandardIfmapMetadataFactory;
 import de.hshannover.f4.trust.ifmapj.metadata.WlanSecurityEnum;
 import de.hshannover.f4.trust.ifmapj.metadata.WlanSecurityType;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logic.data.PublishRequestData;
-import de.hshannover.inform.trust.ironcontrol.logic.data.SearchRequestData;
-import de.hshannover.inform.trust.ironcontrol.logic.data.SubscribeRequestData;
-import de.hshannover.inform.trust.ironcontrol.view.MainActivity;
-import de.hshannover.inform.trust.ironcontrol.view.util.Util;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logic.data.PublishRequestData;
+import de.hshannover.f4.trust.ironcontrol.logic.data.SearchRequestData;
+import de.hshannover.f4.trust.ironcontrol.logic.data.SubscribeRequestData;
+import de.hshannover.f4.trust.ironcontrol.view.MainActivity;
+import de.hshannover.f4.trust.ironcontrol.view.util.Util;
 
 /**
  * Build IF-MAP requests.

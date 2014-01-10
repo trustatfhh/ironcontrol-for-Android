@@ -35,13 +35,13 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.util;
+package de.hshannover.f4.trust.ironcontrol.view.util;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 /**
  * Class for RequiredSpinnerAdapter. Change the Text Color for a required element.

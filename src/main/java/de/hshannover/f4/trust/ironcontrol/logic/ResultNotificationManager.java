@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic;
+package de.hshannover.f4.trust.ironcontrol.logic;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -53,16 +53,16 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import de.hshannover.f4.trust.ifmapj.messages.PollResult;
 import de.hshannover.f4.trust.ifmapj.messages.SearchResult;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logic.data.PollReceiver;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListHierarchyActivity;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListOverviewActivity;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListResponsesActivity;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logic.data.PollReceiver;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListHierarchyActivity;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListOverviewActivity;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListResponsesActivity;
 
 public class ResultNotificationManager extends Thread implements PollReceiver{
 

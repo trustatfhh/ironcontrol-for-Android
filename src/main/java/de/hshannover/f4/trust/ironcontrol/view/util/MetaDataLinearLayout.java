@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.util;
+package de.hshannover.f4.trust.ironcontrol.view.util;
 
 import android.content.Context;
 import android.widget.LinearLayout;

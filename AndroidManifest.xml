@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.hshannover.inform.trust.ironcontrol"
+    package="de.hshannover.f4.trust.ironcontrol"
     android:versionCode="1"
     android:versionName="1.0 - [beta]" >
 

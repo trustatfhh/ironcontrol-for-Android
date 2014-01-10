@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view;
+package de.hshannover.f4.trust.ironcontrol.view;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -47,7 +47,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 public class TabFragment extends Fragment implements OnTabChangeListener {
 
@@ -100,14 +100,16 @@ public class TabFragment extends Fragment implements OnTabChangeListener {
 		FragmentManager fm = getFragmentManager();
 
 		if (TAB_SIMPLE.equals(tabId)) {
-			if (fm.findFragmentByTag(tabId) == null)
+			if (fm.findFragmentByTag(tabId) == null) {
 				fm.beginTransaction().replace(R.id.tab1, new SimpleRequestFragment(), tabId).commit();
+			}
 			mCurrentTab = 0;
 			return;
 		}
 		if (TAB_ADVANCED.equals(tabId)) {
-			if (fm.findFragmentByTag(tabId) == null)
+			if (fm.findFragmentByTag(tabId) == null) {
 				fm.beginTransaction().replace(R.id.tab2, new AdvancedRequestFragment(), tabId).commit();
+			}
 			mCurrentTab = 1;
 			return;
 		}

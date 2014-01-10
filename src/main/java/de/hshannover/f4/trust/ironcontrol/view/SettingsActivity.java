@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view;
+package de.hshannover.f4.trust.ironcontrol.view;
 
 import java.io.IOException;
 
@@ -43,14 +43,14 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogCatAppender;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogFileAppender;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogListAppender;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogToastAppender;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogCatAppender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogFileAppender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogListAppender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogToastAppender;
 
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 

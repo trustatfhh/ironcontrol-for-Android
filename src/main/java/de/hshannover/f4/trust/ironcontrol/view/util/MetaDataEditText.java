@@ -35,14 +35,14 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.util;
+package de.hshannover.f4.trust.ironcontrol.view.util;
 
 import android.content.Context;
 import android.text.InputType;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 public class MetaDataEditText extends EditText {
 

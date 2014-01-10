@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.database;
+package de.hshannover.f4.trust.ironcontrol.database;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -52,18 +52,18 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Attributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Connections;
-import de.hshannover.inform.trust.ironcontrol.database.entities.MetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Responses;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultItems;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetadata;
-import de.hshannover.inform.trust.ironcontrol.database.entities.VendorMetadata;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Attributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Connections;
+import de.hshannover.f4.trust.ironcontrol.database.entities.MetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Responses;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultItems;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetadata;
+import de.hshannover.f4.trust.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
 
 /**
  * Class for DB-Management
@@ -101,7 +101,7 @@ public class DBContentProvider extends ContentProvider {
 	private static final int MATCH_VENDOR_METADATA_ID_META_ATTRIBUTES = 210;
 	private static final int MATCH_VENDOR_METADATA_ID_META_ATTRIBUTES_ID = 220;
 
-	private static final String AUTHORITY = "de.hshannover.inform.trust.ironcontrol.database";
+	private static final String AUTHORITY = "de.hshannover.f4.trust.ironcontrol.database";
 
 	private static final String PUBLISH = "publish";
 	public static final String METADATA_ATTRIBUTES = "metadata_attributes";

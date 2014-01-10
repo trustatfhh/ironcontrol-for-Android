@@ -35,25 +35,25 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.database;
+package de.hshannover.f4.trust.ironcontrol.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Attributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Connections;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Identifier;
-import de.hshannover.inform.trust.ironcontrol.database.entities.IdentifierAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.MetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Responses;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultItems;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetadata;
-import de.hshannover.inform.trust.ironcontrol.database.entities.VendorMetadata;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Attributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Connections;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Identifier;
+import de.hshannover.f4.trust.ironcontrol.database.entities.IdentifierAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.MetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Responses;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultItems;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetadata;
+import de.hshannover.f4.trust.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
 
 /**
  * Class for DB-Management

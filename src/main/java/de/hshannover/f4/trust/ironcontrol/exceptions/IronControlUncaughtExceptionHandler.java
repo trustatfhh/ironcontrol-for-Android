@@ -35,15 +35,15 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.exceptions;
+package de.hshannover.f4.trust.ironcontrol.exceptions;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.content.Context;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.view.MainActivity;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.view.MainActivity;
 
 /**
  * Log the error

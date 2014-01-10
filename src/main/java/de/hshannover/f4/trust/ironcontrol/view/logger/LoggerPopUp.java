@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.logger;
+package de.hshannover.f4.trust.ironcontrol.view.logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -48,8 +48,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.logger.LogData;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.logger.LogData;
 
 public class LoggerPopUp extends Builder{
 

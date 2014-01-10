@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logger;
+package de.hshannover.f4.trust.ironcontrol.logger;
 
 public class LogData {
 

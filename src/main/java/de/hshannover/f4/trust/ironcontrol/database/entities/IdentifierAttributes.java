@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.database.entities;
+package de.hshannover.f4.trust.ironcontrol.database.entities;
 
 
 /**

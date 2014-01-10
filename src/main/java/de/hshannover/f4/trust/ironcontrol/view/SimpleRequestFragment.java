@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view;
+package de.hshannover.f4.trust.ironcontrol.view;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -56,13 +56,13 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.asynctask.SearchTask;
-import de.hshannover.inform.trust.ironcontrol.asynctask.SubscriptionTask;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.logic.data.Operation;
-import de.hshannover.inform.trust.ironcontrol.view.util.PromptSpinnerAdapter;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.asynctask.SearchTask;
+import de.hshannover.f4.trust.ironcontrol.asynctask.SubscriptionTask;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.logic.data.Operation;
+import de.hshannover.f4.trust.ironcontrol.view.util.PromptSpinnerAdapter;
 
 public class SimpleRequestFragment extends Fragment  {
 

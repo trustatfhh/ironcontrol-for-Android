@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic;
+package de.hshannover.f4.trust.ironcontrol.logic;
 
 import java.util.ArrayList;
 
@@ -45,11 +45,11 @@ import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapException;
 import de.hshannover.f4.trust.ifmapj.exception.InitializationException;
 import de.hshannover.f4.trust.ifmapj.messages.PollResult;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logic.data.PollReceiver;
-import de.hshannover.inform.trust.ironcontrol.logic.data.PollSender;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logic.data.PollReceiver;
+import de.hshannover.f4.trust.ironcontrol.logic.data.PollSender;
 
 /**
  * Class for connection management

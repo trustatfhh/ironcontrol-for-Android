@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.list_activities;
+package de.hshannover.f4.trust.ironcontrol.view.list_activities;
 
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -49,8 +49,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
 
 public class ListResultMetaAttributesActivity extends ListHierarchyActivity {
 

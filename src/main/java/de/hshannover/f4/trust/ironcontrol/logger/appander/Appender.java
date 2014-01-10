@@ -35,9 +35,9 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logger.appander;
+package de.hshannover.f4.trust.ironcontrol.logger.appander;
 
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
 
 /**
  * Appender interface, all appenders must be implement this.

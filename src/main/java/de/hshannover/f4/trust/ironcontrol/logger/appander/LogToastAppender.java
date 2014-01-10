@@ -35,12 +35,12 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logger.appander;
+package de.hshannover.f4.trust.ironcontrol.logger.appander;
 
 import android.content.Context;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.view.MainActivity;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.view.MainActivity;
 
 public class LogToastAppender implements Appender {
 

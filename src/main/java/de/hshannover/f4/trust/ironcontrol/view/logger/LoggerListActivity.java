@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.logger;
+package de.hshannover.f4.trust.ironcontrol.view.logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,14 +53,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.LogData;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogListAppender;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceDialog;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceDialogEvent;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.LogData;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogListAppender;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceDialog;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceDialogEvent;
 
 public class LoggerListActivity extends ListActivity implements MultichoiceDialogEvent{
 

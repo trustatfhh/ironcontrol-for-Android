@@ -35,11 +35,11 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.dialogs;
+package de.hshannover.f4.trust.ironcontrol.view.dialogs;
 
 import android.content.Context;
 import android.net.Uri;
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 public class MultichoiceSubscribeDialog extends MultichoiceListDialog {
 

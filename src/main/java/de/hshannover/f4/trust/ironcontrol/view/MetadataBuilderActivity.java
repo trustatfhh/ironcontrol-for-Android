@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view;
+package de.hshannover.f4.trust.ironcontrol.view;
 
 import java.util.ArrayList;
 
@@ -53,14 +53,14 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.MetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.VendorMetadata;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.view.util.MetaDataEditText;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.MetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.view.util.MetaDataEditText;
 
 public class MetadataBuilderActivity extends Activity {
 

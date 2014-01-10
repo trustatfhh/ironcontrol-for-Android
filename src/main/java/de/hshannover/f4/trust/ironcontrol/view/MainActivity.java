@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view;
+package de.hshannover.f4.trust.ironcontrol.view;
 
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -54,30 +54,30 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.asynctask.ConnectionTask;
-import de.hshannover.inform.trust.ironcontrol.asynctask.ConnectionTask.ConnectTaskEnum;
-import de.hshannover.inform.trust.ironcontrol.asynctask.PurgePublisherTask;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Connections;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.exceptions.IronControlUncaughtExceptionHandler;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogCatAppender;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogFileAppender;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogListAppender;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogToastAppender;
-import de.hshannover.inform.trust.ironcontrol.logic.Connection;
-import de.hshannover.inform.trust.ironcontrol.logic.KeystoreManager;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListOverviewActivity;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListSavedConnectionsActivity;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListSavedPublishsActivity;
-import de.hshannover.inform.trust.ironcontrol.view.list_activities.ListVendorMetadataActivity;
-import de.hshannover.inform.trust.ironcontrol.view.logger.LoggerListActivity;
-import de.hshannover.inform.trust.ironcontrol.view.util.PopUp;
-import de.hshannover.inform.trust.ironcontrol.view.util.PopUpEvent;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.asynctask.ConnectionTask;
+import de.hshannover.f4.trust.ironcontrol.asynctask.ConnectionTask.ConnectTaskEnum;
+import de.hshannover.f4.trust.ironcontrol.asynctask.PurgePublisherTask;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Connections;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.exceptions.IronControlUncaughtExceptionHandler;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogCatAppender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogFileAppender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogListAppender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogToastAppender;
+import de.hshannover.f4.trust.ironcontrol.logic.Connection;
+import de.hshannover.f4.trust.ironcontrol.logic.KeystoreManager;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListOverviewActivity;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListSavedConnectionsActivity;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListSavedPublishsActivity;
+import de.hshannover.f4.trust.ironcontrol.view.list_activities.ListVendorMetadataActivity;
+import de.hshannover.f4.trust.ironcontrol.view.logger.LoggerListActivity;
+import de.hshannover.f4.trust.ironcontrol.view.util.PopUp;
+import de.hshannover.f4.trust.ironcontrol.view.util.PopUpEvent;
 
 /**
  * MainActivity

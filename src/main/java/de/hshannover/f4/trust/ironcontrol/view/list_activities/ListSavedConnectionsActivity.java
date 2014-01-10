@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.list_activities;
+package de.hshannover.f4.trust.ironcontrol.view.list_activities;
 
 import java.util.List;
 
@@ -61,22 +61,22 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.asynctask.ConnectionTask;
-import de.hshannover.inform.trust.ironcontrol.asynctask.ConnectionTask.ConnectTaskEnum;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Connections;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.LogData;
-import de.hshannover.inform.trust.ironcontrol.logger.LogReceiver;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logger.appander.LogListAppender;
-import de.hshannover.inform.trust.ironcontrol.logic.Connection;
-import de.hshannover.inform.trust.ironcontrol.logic.KeystoreManager;
-import de.hshannover.inform.trust.ironcontrol.view.ConnectionFragmentActivity;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceDialog;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceDialogEvent;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.asynctask.ConnectionTask;
+import de.hshannover.f4.trust.ironcontrol.asynctask.ConnectionTask.ConnectTaskEnum;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Connections;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.LogData;
+import de.hshannover.f4.trust.ironcontrol.logger.LogReceiver;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.LogListAppender;
+import de.hshannover.f4.trust.ironcontrol.logic.Connection;
+import de.hshannover.f4.trust.ironcontrol.logic.KeystoreManager;
+import de.hshannover.f4.trust.ironcontrol.view.ConnectionFragmentActivity;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceDialog;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceDialogEvent;
 
 public class ListSavedConnectionsActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>, MultichoiceDialogEvent, LogReceiver{
 

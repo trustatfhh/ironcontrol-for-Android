@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.asynctask;
+package de.hshannover.f4.trust.ironcontrol.asynctask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -43,11 +43,11 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
 import de.hshannover.f4.trust.ifmapj.exception.IfmapException;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logic.RequestsController;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logic.RequestsController;
 
 /**
  * AsyncTask to remove all publishes in background and inform the user.

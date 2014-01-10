@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.util;
+package de.hshannover.f4.trust.ironcontrol.view.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,10 +50,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.MetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.MetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.VendorMetadata;
 
 public class MetadataValueFieldsBuilder {
 

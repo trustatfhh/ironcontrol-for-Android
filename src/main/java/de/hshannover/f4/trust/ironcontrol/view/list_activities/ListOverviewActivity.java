@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.list_activities;
+package de.hshannover.f4.trust.ironcontrol.view.list_activities;
 
 import java.util.List;
 
@@ -56,17 +56,17 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceListDialog;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceListEvent;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceRemoveDialog;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceSearchDialog;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceSubscribeDialog;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceListDialog;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceListEvent;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceRemoveDialog;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceSearchDialog;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceSubscribeDialog;
 
 public class ListOverviewActivity extends ListHierarchyActivity implements MultichoiceListEvent{
 

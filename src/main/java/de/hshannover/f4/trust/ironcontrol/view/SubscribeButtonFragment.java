@@ -35,14 +35,14 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view;
+package de.hshannover.f4.trust.ironcontrol.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 public class SubscribeButtonFragment extends Fragment {
 

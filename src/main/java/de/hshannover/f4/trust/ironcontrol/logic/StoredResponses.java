@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic;
+package de.hshannover.f4.trust.ironcontrol.logic;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,16 +56,16 @@ import de.hshannover.f4.trust.ifmapj.exception.IfmapErrorResult;
 import de.hshannover.f4.trust.ifmapj.messages.PollResult;
 import de.hshannover.f4.trust.ifmapj.messages.ResultItem;
 import de.hshannover.f4.trust.ifmapj.messages.SearchResult;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Responses;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultItems;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetadata;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.logic.data.PollReceiver;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Responses;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultItems;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetadata;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logic.data.PollReceiver;
 
 /**
  * Class for save search or subscription results.

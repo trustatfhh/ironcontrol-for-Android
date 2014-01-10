@@ -35,7 +35,7 @@ To build ironcontrol, download it via
 
 and run maven
 
-    $ mvn clean install
+    $ mvn package
 	
 When finished you find the ironcontrol-for-android.apk is in the target directory.
 
@@ -51,7 +51,7 @@ AVD(Android emulator)
 ---------------------
 With Maven:
 
-    $ mvn android:deloy
+    $ mvn android:deploy
 	
 Direct over adb(Android Debug Bridge)
 

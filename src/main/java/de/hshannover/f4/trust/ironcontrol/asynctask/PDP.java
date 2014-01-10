@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.asynctask;
+package de.hshannover.f4.trust.ironcontrol.asynctask;
 
 import java.util.HashMap;
 
@@ -57,9 +57,9 @@ import de.hshannover.f4.trust.ifmapj.messages.PublishUpdate;
 import de.hshannover.f4.trust.ifmapj.messages.Requests;
 import de.hshannover.f4.trust.ifmapj.metadata.Cardinality;
 import de.hshannover.f4.trust.ifmapj.metadata.StandardIfmapMetadataFactory;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
 
 @Deprecated
 public class PDP {

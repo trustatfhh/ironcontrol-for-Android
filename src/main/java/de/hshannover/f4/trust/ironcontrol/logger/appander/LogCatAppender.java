@@ -35,10 +35,10 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logger.appander;
+package de.hshannover.f4.trust.ironcontrol.logger.appander;
 
 import android.util.Log;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
 
 public class LogCatAppender implements Appender {
 

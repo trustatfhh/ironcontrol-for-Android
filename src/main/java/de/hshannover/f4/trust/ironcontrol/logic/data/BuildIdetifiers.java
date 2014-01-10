@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic.data;
+package de.hshannover.f4.trust.ironcontrol.logic.data;
 
 import de.hshannover.f4.trust.ifmapj.identifier.Identifier;
 import de.hshannover.f4.trust.ifmapj.identifier.Identifiers;
@@ -49,7 +49,7 @@ import de.hshannover.f4.trust.ifmapj.identifier.IdentityType;
  * @since 0.1
  */
 public class BuildIdetifiers {
-	
+
 	/**
 	 * Returns an identifier.
 	 * 
@@ -67,8 +67,8 @@ public class BuildIdetifiers {
 			return Identifiers.createDev(name);
 		}else if (idType.equals("Identity")){
 			return Identifiers.createIdentity(IdentityType.userName, name);
-//		}else if (){
-//			//TODO Identifier build -- IF-Map 2.0 compatibility
+			//		}else if (){
+			//			//TODO Identifier build -- IF-Map 2.0 compatibility
 		}else{
 			//TODO Return a real exception
 			return null;

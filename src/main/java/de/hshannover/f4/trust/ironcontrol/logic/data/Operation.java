@@ -35,9 +35,9 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic.data;
+package de.hshannover.f4.trust.ironcontrol.logic.data;
 
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 /**
  * Enum operation types

@@ -35,12 +35,12 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.util;
+package de.hshannover.f4.trust.ironcontrol.view.util;
 
 import android.app.Activity;
 import android.content.Context;
 import android.widget.EditText;
-import de.hshannover.inform.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.R;
 
 public class SavePopUp extends PopUp{
 

@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.util;
+package de.hshannover.f4.trust.ironcontrol.view.util;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,9 +44,9 @@ import java.util.List;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Attributes;
-import de.hshannover.inform.trust.ironcontrol.view.MainActivity;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Attributes;
+import de.hshannover.f4.trust.ironcontrol.view.MainActivity;
 
 public class Util {
 

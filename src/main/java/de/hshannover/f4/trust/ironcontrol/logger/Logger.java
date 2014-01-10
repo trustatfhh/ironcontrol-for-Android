@@ -35,12 +35,12 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logger;
+package de.hshannover.f4.trust.ironcontrol.logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hshannover.inform.trust.ironcontrol.logger.appander.Appender;
+import de.hshannover.f4.trust.ironcontrol.logger.appander.Appender;
 
 public class Logger {
 

@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.logic.data;
+package de.hshannover.f4.trust.ironcontrol.logic.data;
 
 /**
  * Request data class

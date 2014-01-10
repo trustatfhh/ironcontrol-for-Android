@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.list_activities;
+package de.hshannover.f4.trust.ironcontrol.view.list_activities;
 
 import java.util.List;
 
@@ -53,18 +53,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.asynctask.SearchTask;
-import de.hshannover.inform.trust.ironcontrol.asynctask.SubscriptionTask;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Requests;
-import de.hshannover.inform.trust.ironcontrol.database.entities.Responses;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultItems;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.ResultMetadata;
-import de.hshannover.inform.trust.ironcontrol.logic.data.Operation;
-import de.hshannover.inform.trust.ironcontrol.view.SearchFragmentActivity;
-import de.hshannover.inform.trust.ironcontrol.view.SubscribeFragmentActivity;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.asynctask.SearchTask;
+import de.hshannover.f4.trust.ironcontrol.asynctask.SubscriptionTask;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Requests;
+import de.hshannover.f4.trust.ironcontrol.database.entities.Responses;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultItems;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.ResultMetadata;
+import de.hshannover.f4.trust.ironcontrol.logic.data.Operation;
+import de.hshannover.f4.trust.ironcontrol.view.SearchFragmentActivity;
+import de.hshannover.f4.trust.ironcontrol.view.SubscribeFragmentActivity;
 
 public abstract class ListHierarchyActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 

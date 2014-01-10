@@ -35,7 +35,7 @@
  * limitations under the License.
  * #L%
  */
-package de.hshannover.inform.trust.ironcontrol.view.list_activities;
+package de.hshannover.f4.trust.ironcontrol.view.list_activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -61,16 +61,16 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import de.hshannover.inform.trust.ironcontrol.R;
-import de.hshannover.inform.trust.ironcontrol.database.DBContentProvider;
-import de.hshannover.inform.trust.ironcontrol.database.entities.MetaAttributes;
-import de.hshannover.inform.trust.ironcontrol.database.entities.VendorMetadata;
-import de.hshannover.inform.trust.ironcontrol.logger.Level;
-import de.hshannover.inform.trust.ironcontrol.logger.Logger;
-import de.hshannover.inform.trust.ironcontrol.logger.LoggerFactory;
-import de.hshannover.inform.trust.ironcontrol.view.MetadataBuilderActivity;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceDialog;
-import de.hshannover.inform.trust.ironcontrol.view.dialogs.MultichoiceDialogEvent;
+import de.hshannover.f4.trust.ironcontrol.R;
+import de.hshannover.f4.trust.ironcontrol.database.DBContentProvider;
+import de.hshannover.f4.trust.ironcontrol.database.entities.MetaAttributes;
+import de.hshannover.f4.trust.ironcontrol.database.entities.VendorMetadata;
+import de.hshannover.f4.trust.ironcontrol.logger.Level;
+import de.hshannover.f4.trust.ironcontrol.logger.Logger;
+import de.hshannover.f4.trust.ironcontrol.logger.LoggerFactory;
+import de.hshannover.f4.trust.ironcontrol.view.MetadataBuilderActivity;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceDialog;
+import de.hshannover.f4.trust.ironcontrol.view.dialogs.MultichoiceDialogEvent;
 
 public class ListVendorMetadataActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>, MultichoiceDialogEvent {
 
