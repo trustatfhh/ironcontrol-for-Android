@@ -13,18 +13,18 @@
 	</properties>
 
 	<!-- general project information -->
-	<groupId>de.hshannover.inform.trust.ifmapj</groupId>
+	<groupId>de.hshannover.f4.trust</groupId>
 	<artifactId>ironcontrol-for-android</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>apk</packaging>
 	<name>ironcontrol for android</name>
-	<url>http://trust.inform.fh-hannover.de</url>
+	<url>http://trust.f4.hs-hannover.de</url>
 	<description>
 		Ironcontrol is an IF-MAP client on a Android Smartphone device. It designed as a tool for administrative tasks in an IF-MAP environment. It allows the user to send requests such as publish, search and subscriptions to a MAP server and save these requests and also merge several requests into one via certain operations.
 	</description>
 	<organization>
-		<name>Trust@FHH</name>
-		<url>http://trust.inform.fh-hannover.de</url>
+		<name>Trust@HsH</name>
+		<url>http://trust.f4.hs-hannover.de</url>
 	</organization>
 
 	<!-- the project license -->
@@ -40,29 +40,44 @@
 	<!-- the core developers of the project -->
 	<developers>
 		<developer>
-			<id>as</id>
-			<name>Anton Saenko</name>
-		</developer>
-		<developer>
-			<id>al</id>
-			<name>Arne Loth</name>
-		</developer>
-		<developer>
-			<id>dw</id>
-			<name>Daniel Wolf</name>
-		</developer>
-		<developer>
-			<id>mr</id>
-			<name>Marcel Reichenbach</name>
-			<email>marcel.reichenbach@stud.fh-hannover.de</email>
+			<name>Trust@HsH</name>
+			<email>trust@f4-i.inform.fh-hannover.de</email>
 		</developer>
 	</developers>
+	<contributors>
+		<contributor>
+			<name>Anton Saenko</name>
+		</contributor>
+		<contributor>
+			<name>Arne Loth</name>
+		</contributor>
+		<contributor>
+			<name>Daniel Wolf</name>
+		</contributor>
+		<contributor>
+			<name>Marcel Reichenbach</name>
+		</contributor>
+	</contributors>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.4</version>
+					<configuration>
+						<licenseName>apache_v2</licenseName>
+						<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+						<canUpdateDescription>true</canUpdateDescription>
+						<descriptionTemplate>${basedir}/src/license/description_template.ftl</descriptionTemplate>
+						<roots>
+							<root>src/main/java</root>
+						</roots>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
@@ -99,9 +114,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>de.fhhannover.inform.trust</groupId>
+			<groupId>de.hshannover.f4.trust</groupId>
 			<artifactId>ifmapj</artifactId>
-			<version>0.1.5</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

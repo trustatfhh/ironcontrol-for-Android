@@ -4,8 +4,8 @@
         android:key="application_setting"
         android:title="Application Settings">
         <intent 
-            android:targetPackage="de.hshannover.inform.trust.ifmapj.ironcontrol"
-            android:targetClass="de.hshannover.inform.trust.ifmapj.ironcontrol.view.SettingsActivity"
+            android:targetPackage="de.hshannover.f4.trust.ironcontrol"
+            android:targetClass="de.hshannover.f4.trust.ironcontrol.view.SettingsActivity"
             android:action="@string/ACTION_APPLICATION_SETTINGS">
         </intent>
     </Preference>
@@ -13,8 +13,8 @@
         android:key="connection_settings"
         android:title="Connection Settings">
         <intent 
-            android:targetPackage="de.hshannover.inform.trust.ifmapj.ironcontrol"
-            android:targetClass="de.hshannover.inform.trust.ifmapj.ironcontrol.view.list_activities.ListSavedConnectionsActivity" >
+            android:targetPackage="de.hshannover.f4.trust.ironcontrol"
+            android:targetClass="de.hshannover.f4.trust.ironcontrol.view.list_activities.ListSavedConnectionsActivity" >
         </intent>
     </Preference>
 </PreferenceScreen>
