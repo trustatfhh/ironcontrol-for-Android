@@ -15,7 +15,7 @@
 	<!-- general project information -->
 	<groupId>de.hshannover.f4.trust</groupId>
 	<artifactId>ironcontrol-for-android</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<packaging>apk</packaging>
 	<name>ironcontrol for android</name>
 	<url>http://trust.f4.hs-hannover.de</url>
